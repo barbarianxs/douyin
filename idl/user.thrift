@@ -41,5 +41,4 @@ service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req)
     LogoutUserResponse LogoutUser(1: LogoutUserRequest req)
 
-    CheckUserResponse CheckUser(1: CheckUserRequest req)
 }
