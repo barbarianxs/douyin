@@ -19,8 +19,9 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserService"
 	handlerType := (*user.UserService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"LoginUser":  kitex.NewMethodInfo(loginUserHandler, newUserServiceLoginUserArgs, newUserServiceLoginUserResult, false),
-		"LogoutUser": kitex.NewMethodInfo(logoutUserHandler, newUserServiceLogoutUserArgs, newUserServiceLogoutUserResult, false),
+		"LoginUser":    kitex.NewMethodInfo(loginUserHandler, newUserServiceLoginUserArgs, newUserServiceLoginUserResult, false),
+		"LogoutUser":   kitex.NewMethodInfo(logoutUserHandler, newUserServiceLogoutUserArgs, newUserServiceLogoutUserResult, false),
+		"RegisterUser": kitex.NewMethodInfo(registerUserHandler, newUserServiceRegisterUserArgs, newUserServiceRegisterUserResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -72,6 +73,24 @@ func newUserServiceLogoutUserResult() interface{} {
 	return user.NewUserServiceLogoutUserResult()
 }
 
+func registerUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceRegisterUserArgs)
+	realResult := result.(*user.UserServiceRegisterUserResult)
+	success, err := handler.(user.UserService).RegisterUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceRegisterUserArgs() interface{} {
+	return user.NewUserServiceRegisterUserArgs()
+}
+
+func newUserServiceRegisterUserResult() interface{} {
+	return user.NewUserServiceRegisterUserResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -97,6 +116,16 @@ func (p *kClient) LogoutUser(ctx context.Context, req *user.LogoutUserRequest) (
 	_args.Req = req
 	var _result user.UserServiceLogoutUserResult
 	if err = p.c.Call(ctx, "LogoutUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) RegisterUser(ctx context.Context, req *user.RegisterUserRequest) (r *user.RegisterUserResponse, err error) {
+	var _args user.UserServiceRegisterUserArgs
+	_args.Req = req
+	var _result user.UserServiceRegisterUserResult
+	if err = p.c.Call(ctx, "RegisterUser", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

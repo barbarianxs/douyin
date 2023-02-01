@@ -17,7 +17,7 @@ func main() {
 	}
 	svr := user.NewServer(new(UserServiceImpl), server.WithServiceAddr(addr))
 
-	err := svr.Run()
+	err = svr.Run()
 
 	if err != nil {
 		log.Println(err.Error())

@@ -37,8 +37,17 @@ struct LogoutUserRequest {
 struct LogoutUserResponse {
     1: BaseResp base_resp
 }
+
+struct RegisterUserRequest {
+    1: string username (vt.min_size = "1")
+    2: string password (vt.min_size = "1")
+}
+
+struct RegisterUserResponse {
+    1: BaseResp base_resp
+}
 service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req)
     LogoutUserResponse LogoutUser(1: LogoutUserRequest req)
-
+    RegisterUserResponse RegisterUser(1: RegisterUserRequest req)
 }
