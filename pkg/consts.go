@@ -2,15 +2,15 @@
 package consts
 
 const (
-	NoteTableName   = "note"
+	// NoteTableName   = "note"
 	UserTableName   = "user"
 	SecretKey       = "secret key"
 	IdentityKey     = "id"
 	Total           = "total"
 	Notes           = "notes"
-	ApiServiceName  = "demoapi"
-	NoteServiceName = "demonote"
-	UserServiceName = "demouser"
+	ApiServiceName  = "api"
+	// NoteServiceName = "note"
+	UserServiceName = "userservice"
 	MySQLDefaultDSN = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
 	TCP             = "tcp"
 	UserServiceAddr = ":9000"
