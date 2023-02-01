@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	user "douyin/kitex_gen/user"
+	user "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -13,6 +13,10 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequ
 	// TODO: Your code here...
 	resp = new(user.LoginUserResponse)
 	
+	err = req.IsValid()
+	if err != nil {
+		return resp, err
+	}
 	return
 }
 
