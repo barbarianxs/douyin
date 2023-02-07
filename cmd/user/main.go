@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	user "github.com/YANGJUNYAN0715/douyin/tree/guo/user/userservice"
+	user "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/rpcinfo"
-	server "github.com/YANGJUNYAN0715/douyin/tree/guo/user/server"
+	server "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
 
