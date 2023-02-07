@@ -6,13 +6,13 @@ import (
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
 
 func main() {
-	r, err := etcd.NewEtcdRegistry([]string{consts.EtcdAddress})
+	r, err := etcd.NewEtcdRegistry([]string{consts.ETCDAddress})
 	if err != nil {
 		panic(err)
 	}
