@@ -7,7 +7,7 @@ import (
 
 	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	// "github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
@@ -23,7 +23,7 @@ func LoginUser(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	err = rpc.LoginUserRequest(context.Background(), &user.LoginUserRequestRequest{
+	useriId, err := rpc.LoginUser(context.Background(), &user.LoginUserRequest{
 		Username: req.Username,
 		Password: req.Password,
 	})
@@ -31,7 +31,7 @@ func LoginUser(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	SendResponse(c, errno.Success, nil)
+	SendResponse(c, errno.Success, useriId)
 }
 
 // RegisterUser .
