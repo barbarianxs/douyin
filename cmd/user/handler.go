@@ -7,7 +7,6 @@ import (
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
-	
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -32,6 +31,7 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequ
 	resp.UserId = uid
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
 	return resp, nil
+	return
 }
 
 // LogoutUser implements the UserServiceImpl interface.

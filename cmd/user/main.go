@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	userservice "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
