@@ -8,7 +8,7 @@ import (
 	api "douyin/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 )
 
