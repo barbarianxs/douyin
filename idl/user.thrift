@@ -26,7 +26,8 @@ struct LoginUserRequest {
 }
 
 struct LoginUserResponse {
-    1: BaseResp base_resp
+    1: i64 user_id
+    2: BaseResp base_resp
 }
 
 struct LogoutUserRequest {
