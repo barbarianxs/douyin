@@ -19,17 +19,19 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequ
 	resp = new(user.LoginUserResponse)
 
 	if err = req.IsValid(); err != nil {
-		
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 	
-	err = service.NewLoginUserService(ctx).LoginUser(req)
+	uid, err := service.NewLoginUserService(ctx).LoginUser(req)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return resp, nil
 	}
 
-	return
+	resp.UserId = uid
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	return resp, nil
 }
 
 // LogoutUser implements the UserServiceImpl interface.
