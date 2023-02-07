@@ -2,8 +2,11 @@ package main
 
 import (
 	"context"
-	user "douyin/kitex_gen/user"
-	user "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
+	userservice "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
+	user "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
+	
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -14,10 +17,17 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequ
 	// TODO: Your code here...
 	resp = new(user.LoginUserResponse)
 
-	err = req.IsValid()
-	if err != nil {
-		return resp, err
+	if err = req.IsValid(); err != nil {
+		
+		return resp, nil
 	}
+	
+	err = service.NewCreateUserService(ctx).CreateUser(req)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return resp, nil
+	}
+
 	return
 }
 
@@ -30,5 +40,18 @@ func (s *UserServiceImpl) LogoutUser(ctx context.Context, req *user.LogoutUserRe
 // RegisterUser implements the UserServiceImpl interface.
 func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *user.RegisterUserRequest) (resp *user.RegisterUserResponse, err error) {
 	// TODO: Your code here...
+	resp = new(user.RegisterUserResponse)
+
+	if err = req.IsValid(); err != nil {
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		return resp, nil
+	}
+	err = service.NewCreateUserService(ctx).CreateUser(req)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return resp, nil
+	}
+
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
 	return
 }

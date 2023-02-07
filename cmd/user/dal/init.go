@@ -15,7 +15,7 @@
 
 package dal
 
-import "github.com/cloudwego/biz-demo/easy_note/cmd/user/dal/db"
+import "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 
 // Init init dal
 func Init() {

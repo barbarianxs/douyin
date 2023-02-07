@@ -1,7 +1,4 @@
-
-
 package service
-
 import (
 	"context"
 	"crypto/md5"
@@ -42,3 +39,5 @@ func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) error {
 		Password: password,
 	}})
 }
+
+
