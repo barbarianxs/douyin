@@ -33,9 +33,9 @@ func initUser() {
 		consts.UserServiceName,
 		client.WithResolver(r),
 		client.WithMuxConnection(1),
-		client.WithMiddleware(mw.CommonMiddleware),
-		client.WithInstanceMW(mw.ClientMiddleware),
-		client.WithSuite(tracing.NewClientSuite()),
+		// client.WithMiddleware(mw.CommonMiddleware),
+		// client.WithInstanceMW(mw.ClientMiddleware),
+		// client.WithSuite(tracing.NewClientSuite()),
 		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.ApiServiceName}),
 	)
 	if err != nil {
@@ -45,7 +45,7 @@ func initUser() {
 }
 
 // CreateUser create user info
-func CreateUser(ctx context.Context, req *demouser.CreateUserRequest) error {
+func CreateUser(ctx context.Context, req *user.CreateUserRequest) error {
 	resp, err := userClient.CreateUser(ctx, req)
 	if err != nil {
 		return err

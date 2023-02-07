@@ -13,21 +13,21 @@ struct User {
 }
 
 
-struct CreateUserRequest {
+struct LoginUserRequest {
     1: string username (api.form="username", api.vd="len($) > 0")
     2: string password (api.form="password", api.vd="len($) > 0")
 }
 
-struct CreateUserResponse {
+struct LoginUserResponse {
     1: BaseResp base_resp
 }
 
-struct CheckUserRequest {
+struct RegisterUserRequest {
     1: string username (api.form="username", api.vd="len($) > 0")
     2: string password (api.form="password", api.vd="len($) > 0")
 }
 
-struct CheckUserResponse {
+struct RegisterUserResponse {
     1: BaseResp base_resp
 }
 
@@ -35,7 +35,7 @@ struct CheckUserResponse {
 
 
 service ApiService {
-    CreateUserResponse CreateUser(1: CreateUserRequest req) (api.post="/v2/user/register")
-    CheckUserResponse CheckUser(1: CheckUserRequest req) (api.post="/v2/user/login")
+    LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/v2/user/register")
+    RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/v2/user/login")
 
 }
