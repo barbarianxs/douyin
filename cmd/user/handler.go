@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
-	
-	userservice "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
+
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	
 )
 
