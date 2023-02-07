@@ -10,17 +10,17 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 
-type CreateUserService struct {
+type RegisterUserService struct {
 	ctx context.Context
 }
 
-// NewCreateUserService new CreateUserService
-func NewCreateUserService(ctx context.Context) *CreateUserService {
-	return &CreateUserService{ctx: ctx}
+// NewRegisterUserService new RegisterUserService
+func NewRegisterUserService(ctx context.Context) *RegisterUserService {
+	return &RegisterUserService{ctx: ctx}
 }
 
 // CreateUser create user info.
-func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) error {
+func (s *RegisterUserService) RegisterUser(req *user.RegisterUserRequest) error {
 	users, err := db.QueryUser(s.ctx, req.Username)
 	if err != nil {
 		return err

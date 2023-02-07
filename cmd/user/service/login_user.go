@@ -13,32 +13,34 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 
-type CreateUserService struct {
+type LoginUserService struct {
 	ctx context.Context
 }
 
 // NewCreateUserService new CreateUserService
-func NewCreateUserService(ctx context.Context) *CreateUserService {
-	return &CreateUserService{ctx: ctx}
+func NewLoginUserService(ctx context.Context) *LoginUserService {
+	return &LoginUserService{ctx: ctx}
 }
 
-// CreateUser create user info.
-func (s *CreateUserService) CreateUser(req *user.CreateUserRequest) error {
-	users, err := db.QueryUser(s.ctx, req.Username)
-	if err != nil {
-		return err
-	}
-	if len(users) != 0 {
-		return errno.UserAlreadyExistErr
-	}
-
+/// LoginUser Login user info
+func (s *LoginUserService) LoginUser(req *user.LoginUserRequest) (int64, error) {
 	h := md5.New()
-	if _, err = io.WriteString(h, req.Password); err != nil {
-		return err
+	if _, err := io.WriteString(h, req.Password); err != nil {
+		return 0, err
 	}
-	password := fmt.Sprintf("%x", h.Sum(nil))
-	return db.CreateUser(s.ctx, []*db.User{{
-		Username: req.Username,
-		Password: password,
-	}})
+	passWord := fmt.Sprintf("%x", h.Sum(nil))
+
+	userName := req.Username
+	users, err := db.QueryUser(s.ctx, userName)
+	if err != nil {
+		return 0, err
+	}
+	if len(users) == 0 {
+		return 0, errno.AuthorizationFailedErr
+	}
+	u := users[0]
+	if u.Password != passWord {
+		return 0, errno.AuthorizationFailedErr
+	}
+	return int64(u.ID), nil
 }
