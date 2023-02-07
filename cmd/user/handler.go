@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
-	userservice "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
-	user "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	
+	userservice "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	
 )
 
