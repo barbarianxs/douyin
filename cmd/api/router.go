@@ -3,7 +3,7 @@
 package main
 
 import (
-	handler "douyin/biz/handler"
+	handler "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/handler"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
