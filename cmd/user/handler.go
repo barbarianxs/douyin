@@ -56,5 +56,5 @@ func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *user.RegisterUs
 	}
 
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
-	return
+	return resp, nil
 }

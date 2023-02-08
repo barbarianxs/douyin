@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net"
-
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/mw"
@@ -16,16 +16,22 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
-
+func Init() {
+	dal.Init()
+	// klog init
+	klog.SetLogger(kitexlogrus.NewLogger())
+	klog.SetLevel(klog.LevelInfo)
+}
 func main() {
 	r, err := etcd.NewEtcdRegistry([]string{consts.ETCDAddress})
 	if err != nil {
 		panic(err)
 	}
-	addr, _ := net.ResolveTCPAddr(consts.TCP, consts.UserServiceAddr)
+	addr, err := net.ResolveTCPAddr(consts.TCP, consts.UserServiceAddr)
 	if err != nil {
 		panic(err)
 	}
+	Init()
 	provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(consts.UserServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
