@@ -9,6 +9,8 @@ require (
 	github.com/cloudwego/biz-demo/easy_note v0.0.0-20230207032010-6063943f3585
 	github.com/cloudwego/hertz v0.5.2
 	github.com/cloudwego/kitex v0.4.4
+	github.com/hertz-contrib/obs-opentelemetry/tracing v0.1.1
+	github.com/hertz-contrib/pprof v0.1.0
 	github.com/kitex-contrib/obs-opentelemetry v0.1.0
 	github.com/kitex-contrib/registry-etcd v0.1.0
 	gorm.io/driver/mysql v1.4.4
@@ -49,6 +51,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nyaruka/phonenumbers v1.1.5 // indirect
 	github.com/oleiade/lane v1.0.1 // indirect
+	github.com/savsgio/gotils v0.0.0-20220530130905-52f3993e8d6d // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/tidwall/gjson v1.14.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect

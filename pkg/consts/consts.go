@@ -11,7 +11,7 @@ const (
 	ApiServiceName  = "api"
 	// NoteServiceName = "note"
 	UserServiceName = "userservice"
-	MySQLDefaultDSN = "gorm:user:19971023@tcp(localhost:3307)/user?charset=utf8&parseTime=True&loc=Local"
+	MySQLDefaultDSN = "gorm:user:19971023@tcp(localhost:3308)/user?charset=utf8&parseTime=True&loc=Local"
 	TCP             = "tcp"
 	UserServiceAddr = ":9000"
 	NoteServiceAddr = ":10000"

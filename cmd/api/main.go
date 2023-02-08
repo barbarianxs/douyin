@@ -5,9 +5,9 @@ package main
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
-	"github.com/cloudwego/hertz/pkg/common/hlog"
-	"github.com/hertz-contrib/obs-opentelemetry/tracing"
-	"github.com/hertz-contrib/pprof"
+	// "github.com/cloudwego/hertz/pkg/common/hlog"
+	// "github.com/hertz-contrib/obs-opentelemetry/tracing"
+	// "github.com/hertz-contrib/pprof"
 )
 func Init() {
 	rpc.Init()
