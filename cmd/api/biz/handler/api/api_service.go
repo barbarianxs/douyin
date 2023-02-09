@@ -9,7 +9,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	// "github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 )
 
