@@ -18,7 +18,7 @@ package db
 import (
 	"time"
 
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -39,7 +39,7 @@ func Init() {
 			LogLevel:      logger.Info,
 		},
 	)
-	DB, err = gorm.Open(mysql.Open("gorm:gorm@tcp(localhost:3308)/gorm?charset=utf8&parseTime=True&loc=Local"),
+	DB, err = gorm.Open(mysql.Open(consts.MySQLDefaultDSN),
 		&gorm.Config{
 			PrepareStmt: true,
 			Logger:      gormlogrus,

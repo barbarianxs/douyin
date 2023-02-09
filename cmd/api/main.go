@@ -17,6 +17,7 @@ func Init() {
 	// hlog.SetLevel(hlog.LevelInfo)
 }
 func main() {
+	Init()
 	h := server.New(
 		server.WithHostPorts(":8080"),
 		server.WithHandleMethodNotAllowed(true), // coordinate with NoMethod

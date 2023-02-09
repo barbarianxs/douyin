@@ -3,7 +3,7 @@ package db
 
 import (
 	"context"
-
+	"fmt"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"gorm.io/gorm"
 )
@@ -33,6 +33,7 @@ func MGetUsers(ctx context.Context, userIDs []int64) ([]*User, error) {
 
 // CreateUser create user info
 func CreateUser(ctx context.Context, users []*User) error {
+	fmt.Println("%s", users[0].Username)
 	return DB.WithContext(ctx).Create(users).Error
 }
 
