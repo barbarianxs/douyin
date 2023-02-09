@@ -50,6 +50,6 @@ func main() {
 	err = svr.Run()
 
 	if err != nil {
-		klog.Println(err.Error())
+		klog.Fatal(err.Error())
 	}
 }
