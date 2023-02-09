@@ -14,14 +14,14 @@ import (
 // @router /douyin/user/register/ [POST]
 func Register(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.douyin_user_register_request
+	var req api.DouyinUserRegisterRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(api.douyin_user_register_response)
+	resp := new(api.DouyinUserRegisterResponse)
 
 	c.JSON(consts.StatusOK, resp)
 }
@@ -30,14 +30,14 @@ func Register(ctx context.Context, c *app.RequestContext) {
 // @router /douyin/user/login/ [POST]
 func Login(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.douyin_user_register_request
+	var req api.DouyinUserRegisterRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(api.douyin_user_register_response)
+	resp := new(api.DouyinUserRegisterResponse)
 
 	c.JSON(consts.StatusOK, resp)
 }
@@ -46,14 +46,14 @@ func Login(ctx context.Context, c *app.RequestContext) {
 // @router /douyin/user/ [GET]
 func GetUserById(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.douyin_user_request
+	var req api.DouyinUserRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(api.douyin_user_response)
+	resp := new(api.DouyinUserResponse)
 
 	c.JSON(consts.StatusOK, resp)
 }
