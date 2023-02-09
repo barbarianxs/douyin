@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	// "log"
 	"net"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
@@ -50,6 +50,6 @@ func main() {
 	err = svr.Run()
 
 	if err != nil {
-		log.Println(err.Error())
+		klog.Println(err.Error())
 	}
 }

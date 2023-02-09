@@ -11,6 +11,9 @@ require (
 	github.com/cloudwego/kitex v0.4.4
 	github.com/hertz-contrib/gzip v0.0.1
 	github.com/hertz-contrib/jwt v1.0.2
+	github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1
+	github.com/hertz-contrib/obs-opentelemetry/tracing v0.1.1
+	github.com/hertz-contrib/pprof v0.1.0
 	github.com/hertz-contrib/requestid v1.1.0
 	github.com/kitex-contrib/obs-opentelemetry v0.1.0
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20221109071748-a433b0b57972
@@ -43,6 +46,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/pprof v0.0.0-20220608213341-c488b8fa1db3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
@@ -56,7 +60,8 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nyaruka/phonenumbers v1.1.5 // indirect
 	github.com/oleiade/lane v1.0.1 // indirect
-	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/savsgio/gotils v0.0.0-20220530130905-52f3993e8d6d // indirect
+	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/tidwall/gjson v1.14.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
@@ -81,9 +86,9 @@ require (
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.17.0 // indirect
 	golang.org/x/arch v0.2.0 // indirect
-	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
+	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1 // indirect
 	google.golang.org/grpc v1.46.2 // indirect

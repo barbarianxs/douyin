@@ -16,6 +16,8 @@ func customizedRegister(r *server.Hertz) {
 	r.GET("/ping", handler.Ping)
 
 	// your code ...
+	
+
 	r.NoRoute(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 404
 		api.SendResponse(c, errno.ServiceErr, nil)
 	})

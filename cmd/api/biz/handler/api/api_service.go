@@ -4,7 +4,7 @@ package api
 
 import (
 	"context"
-
+	"fmt"
 	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
 	// "github.com/cloudwego/hertz/pkg/protocol/consts"
@@ -40,6 +40,7 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.RegisterUserRequest
 	err = c.BindAndValidate(&req)
+	fmt.Println("asdddddddddddddddddddddd")
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
