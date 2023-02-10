@@ -6,7 +6,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/cloudwego/biz-demo/easy_note/pkg/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/mw"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
