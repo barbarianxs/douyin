@@ -7,6 +7,7 @@ import (
 	"fmt"
 	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	// "github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
@@ -16,22 +17,7 @@ import (
 // LoginUser .
 // @router /v2/user/login [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
-	var err error
-	var req api.LoginUserRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	useriId, err := rpc.LoginUser(context.Background(), &user.LoginUserRequest{
-		Username: req.Username,
-		Password: req.Password,
-	})
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	SendResponse(c, errno.Success, useriId)
+	mw.JwtMiddleware.LoginHandler(ctx, c)
 }
 
 // RegisterUser .
