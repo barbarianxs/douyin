@@ -5,9 +5,14 @@ package api
 import (
 	"context"
 
-	api "douyin/biz/model/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
+	// "github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	// "github.com/cloudwego/hertz/pkg/common/utils"
 )
 
 // Register .
@@ -17,43 +22,23 @@ func Register(ctx context.Context, c *app.RequestContext) {
 	var req api.DouyinUserRegisterRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	resp := new(api.DouyinUserRegisterResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	err = rpc.Register(context.Background(),&user.DouyinUserRegisterRequest{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err != nil{
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, nil)
 }
 
 // Login .
 // @router /douyin/user/login/ [POST]
 func Login(ctx context.Context, c *app.RequestContext) {
-	var err error
-	var req api.DouyinUserRegisterRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
-		return
-	}
-
-	resp := new(api.DouyinUserRegisterResponse)
-
-	c.JSON(consts.StatusOK, resp)
-}
-
-// GetUserById .
-// @router /douyin/user/ [GET]
-func GetUserById(ctx context.Context, c *app.RequestContext) {
-	var err error
-	var req api.DouyinUserRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
-		return
-	}
-
-	resp := new(api.DouyinUserResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	mw.JwtMiddleware.LoginHandler(ctx, c)
 }

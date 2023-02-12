@@ -3,7 +3,7 @@
 package Api
 
 import (
-	api "douyin/biz/handler/api"
+	api "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/handler/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -21,7 +21,6 @@ func Register(r *server.Hertz) {
 		_douyin := root.Group("/douyin", _douyinMw()...)
 		{
 			_user := _douyin.Group("/user", _userMw()...)
-			_user.GET("/", append(_getuserbyidMw(), api.GetUserById)...)
 			{
 				_login := _user.Group("/login", _loginMw()...)
 				_login.POST("/", append(_login0Mw(), api.Login)...)

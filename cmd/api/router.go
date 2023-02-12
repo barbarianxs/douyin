@@ -3,7 +3,11 @@
 package main
 
 import (
-	handler "douyin/biz/handler"
+	"context"
+	handler "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/handler"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/handler/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -12,4 +16,10 @@ func customizedRegister(r *server.Hertz) {
 	r.GET("/ping", handler.Ping)
 
 	// your code ...
+	r.NoRoute(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 404
+		api.SendResponse(c, errno.ServiceErr, nil)
+	})
+	r.NoMethod(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 405
+		api.SendResponse(c, errno.ServiceErr, nil)
+	})
 }
