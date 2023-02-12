@@ -3,7 +3,7 @@
 package userservice
 
 import (
-	user "douyin/kitex_gen/user"
+	user "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
 	server "github.com/cloudwego/kitex/server"
 )
 

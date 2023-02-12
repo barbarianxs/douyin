@@ -28,8 +28,8 @@ struct User {
     5: bool is_follow // true-已关注，false-未关注
 }
 
+// 由于login和register的request和response都一样，所以使用register代替
 service ApiService {
     douyin_user_register_response Register (1: douyin_user_register_request req)(api.post="/douyin/user/register/");
     douyin_user_register_response Login (1: douyin_user_register_request req)(api.post="/douyin/user/login/");
-    douyin_user_response GetUserById (1: douyin_user_request req)(api.get="/douyin/user/");
 }
