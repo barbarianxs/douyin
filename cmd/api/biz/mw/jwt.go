@@ -43,7 +43,7 @@ func InitJWT() {
 		IdentityKey:   consts.IdentityKey,
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {
 			claims := jwt.ExtractClaims(ctx, c)
-			return &demoapi.User{
+			return &api.User{
 				UserID: int64(claims[consts.IdentityKey].(float64)),
 			}
 		},
@@ -57,14 +57,14 @@ func InitJWT() {
 		},
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
 			var err error
-			var req demoapi.CheckUserRequest
+			var req api.LoginUserRequest
 			if err = c.BindAndValidate(&req); err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}
 			if len(req.Username) == 0 || len(req.Password) == 0 {
 				return "", jwt.ErrMissingLoginValues
 			}
-			return rpc.CheckUser(context.Background(), &demouser.CheckUserRequest{
+			return rpc.LoginUser(context.Background(), &user.LoginUserRequest{
 				Username: req.Username,
 				Password: req.Password,
 			})

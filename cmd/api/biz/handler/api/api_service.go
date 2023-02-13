@@ -11,10 +11,10 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
+	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/common/utils"
+	// "github.com/cloudwego/hertz/pkg/common/utils"
 )
 
 // LoginUser .

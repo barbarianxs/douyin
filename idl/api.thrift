@@ -35,7 +35,7 @@ struct RegisterUserResponse {
 
 
 service ApiService {
-    LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/user/login")
-    RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/user/register")
+    LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login")
+    RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register")
 
 }

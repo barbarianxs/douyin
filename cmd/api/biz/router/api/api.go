@@ -16,7 +16,7 @@ import (
 // Register register routes based on the IDL 'api.${HTTP Method}' annotation.
 func Register(r *server.Hertz) {
 
-	root := r.Group("/", rootMw()...)
+	root := r.Group("/douyin", rootMw()...)
 	{
 		_user := root.Group("/user", _userMw()...)
 		_user.POST("/login", append(_loginuserMw(), api.LoginUser)...)
