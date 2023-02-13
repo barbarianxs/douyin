@@ -102,8 +102,6 @@ github.com/chzyer/readline v1.5.0/go.mod h1:x22KAscuvRqlLoK9CsoYsmxoXZMMFVyOl86c
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
 github.com/chzyer/test v0.0.0-20210722231415-061457976a23/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
-github.com/cloudwego/biz-demo/easy_note v0.0.0-20230207032010-6063943f3585 h1:weH0yeKDHtfnbtbM1fdH6DIF/3n6VXgJQbLdcw7CmUc=
-github.com/cloudwego/biz-demo/easy_note v0.0.0-20230207032010-6063943f3585/go.mod h1:YKeiuuwNLSMlNDH6OlbDNPWnYbqVXW9Zr59yefQ2sLU=
 github.com/cloudwego/fastpb v0.0.3 h1:GZE0WzlnjQFE3+vkYFZd964PGT9AXOuvir+JGzuBSPM=
 github.com/cloudwego/fastpb v0.0.3/go.mod h1:/V13XFTq2TUkxj2qWReV8MwfPC4NnPcy6FsrojnsSG0=
 github.com/cloudwego/frugal v0.1.3 h1:tw3+hh4YMmtHFHRue3OGYjAnkxnZRHqeAyG18+7z5aI=

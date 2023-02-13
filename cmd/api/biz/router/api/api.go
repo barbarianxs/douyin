@@ -3,7 +3,7 @@
 package Api
 
 import (
-	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/api"
+	api "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/handler/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -18,11 +18,8 @@ func Register(r *server.Hertz) {
 
 	root := r.Group("/", rootMw()...)
 	{
-		_v2 := root.Group("/v2", _v2Mw()...)
-		{
-			_user := _v2.Group("/user", _userMw()...)
-			_user.POST("/login", append(_loginuserMw(), api.LoginUser)...)
-			_user.POST("/register", append(_registeruserMw(), api.RegisterUser)...)
-		}
+		_user := root.Group("/user", _userMw()...)
+		_user.POST("/login", append(_loginuserMw(), api.LoginUser)...)
+		_user.POST("/register", append(_registeruserMw(), api.RegisterUser)...)
 	}
 }

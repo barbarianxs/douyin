@@ -4,40 +4,40 @@ package api
 
 import (
 	"context"
-	// "fmt"
-	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
+
+	api "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
-	// "github.com/cloudwego/hertz/pkg/protocol/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // LoginUser .
-// @router /v2/user/login [POST]
+// @router /user/login [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
-	mw.JwtMiddleware.LoginHandler(ctx, c)
+	var err error
+	var req api.LoginUserRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(api.LoginUserResponse)
+
+	c.JSON(consts.StatusOK, resp)
 }
 
 // RegisterUser .
-// @router /v2/user/register [POST]
+// @router /user/register [POST]
 func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.RegisterUserRequest
 	err = c.BindAndValidate(&req)
-	
 	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
+		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	err = rpc.RegisterUser(context.Background(), &user.RegisterUserRequest{
-		Username: req.Username,
-		Password: req.Password,
-	})
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	SendResponse(c, errno.Success, nil)
+
+	resp := new(api.RegisterUserResponse)
+
+	c.JSON(consts.StatusOK, resp)
 }
