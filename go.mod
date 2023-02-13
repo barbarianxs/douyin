@@ -17,7 +17,6 @@ require (
 	github.com/kitex-contrib/obs-opentelemetry v0.1.0
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20221109071748-a433b0b57972
 	github.com/kitex-contrib/registry-etcd v0.1.0
-	go.opentelemetry.io/otel/trace v1.9.0
 	gorm.io/driver/mysql v1.4.4
 	gorm.io/gorm v1.24.2
 	gorm.io/plugin/opentelemetry v0.1.0
@@ -80,6 +79,7 @@ require (
 	go.opentelemetry.io/otel/metric v0.31.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.9.0 // indirect
 	go.opentelemetry.io/otel/sdk/metric v0.31.0 // indirect
+	go.opentelemetry.io/otel/trace v1.9.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.18.0 // indirect
 	go.uber.org/atomic v1.8.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
