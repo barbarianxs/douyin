@@ -1,11 +1,11 @@
 package main
 
 import (
-	messageservice "github.com/YANGJUNYAN0715/douyin/tree/guo/message/messageservice"
+
 	// "log"
 	"net"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/message/dal"
-	
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message/messageservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/mw"
 	"github.com/cloudwego/kitex/pkg/klog"
