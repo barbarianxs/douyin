@@ -3,7 +3,7 @@
 package Api
 
 import (
-	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/api"
+	api "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/handler/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -16,10 +16,30 @@ import (
 // Register register routes based on the IDL 'api.${HTTP Method}' annotation.
 func Register(r *server.Hertz) {
 
-	root := r.Group("/douyin", rootMw()...)
+	root := r.Group("/", rootMw()...)
 	{
-		_user := root.Group("/user", _userMw()...)
-		_user.POST("/login/", append(_loginuserMw(), api.LoginUser)...)
-		_user.POST("/register/", append(_registeruserMw(), api.RegisterUser)...)
+		_douyin := root.Group("/douyin", _douyinMw()...)
+		{
+			_message := _douyin.Group("/message", _messageMw()...)
+			{
+				_action := _message.Group("/action", _actionMw()...)
+				_action.POST("/", append(_message_ctionmessageMw(), api.MessageActionMessage)...)
+			}
+			{
+				_chat := _message.Group("/chat", _chatMw()...)
+				_chat.GET("/", append(_messagechatmessageMw(), api.MessageChatMessage)...)
+			}
+		}
+		{
+			_user := _douyin.Group("/user", _userMw()...)
+			{
+				_login := _user.Group("/login", _loginMw()...)
+				_login.POST("/", append(_loginuserMw(), api.LoginUser)...)
+			}
+			{
+				_register := _user.Group("/register", _registerMw()...)
+				_register.POST("/", append(_registeruserMw(), api.RegisterUser)...)
+			}
+		}
 	}
 }

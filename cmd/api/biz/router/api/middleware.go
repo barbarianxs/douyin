@@ -37,12 +37,52 @@ func rootMw() []app.HandlerFunc {
 	}
 }
 
+func _douyinMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _messageMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _actionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _message_ctionmessageMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _chatMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _messagechatmessageMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
 func _userMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
 
+func _loginMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
 func _loginuserMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _registerMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

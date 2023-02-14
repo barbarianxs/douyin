@@ -35,7 +35,7 @@ struct MessageChatResponse {
 
 
 struct MessageActionRequest { 
-    1:required string token                      // 用户鉴权token
+    1:required string token           // 用户鉴权token
     2:required i64 to_user_id         // 对方用户id
     3:required i32 action_type       // 1-发送消息
     4:required string content                // 消息内容

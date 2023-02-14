@@ -12,6 +12,7 @@ import (
 	"github.com/hertz-contrib/pprof"
 )
 
+
 func Init() {
 	rpc.Init()
 	mw.InitJWT()
