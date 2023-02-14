@@ -1,5 +1,13 @@
 namespace go api
 
+enum ErrCode {
+    SuccessCode                = 0
+    ServiceErrCode             = 10001
+    ParamErrCode               = 10002
+    UserAlreadyExistErrCode    = 10003
+    AuthorizationFailedErrCode = 10004
+}
+
 struct BaseResp {
     1: i64 status_code
     2: string status_message
@@ -35,7 +43,7 @@ struct RegisterUserResponse {
 
 
 service ApiService {
-    LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login")
-    RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register")
+    LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login/")
+    RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register/")
 
 }

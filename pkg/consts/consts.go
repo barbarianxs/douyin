@@ -2,7 +2,7 @@
 package consts
 
 const (
-	// NoteTableName   = "note"
+	MessageTableName   = "message"
 	UserTableName   = "user"
 	SecretKey       = "secret key"
 	IdentityKey     = "id"
@@ -11,10 +11,11 @@ const (
 	ApiServiceName  = "api"
 	// NoteServiceName = "note"
 	UserServiceName = "user"
+	MessageServiceName = "message"
 	MySQLDefaultDSN = "gorm:gorm@tcp(127.0.0.1:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
 	TCP             = "tcp"
 	UserServiceAddr = ":9000"
-	NoteServiceAddr = ":10000"
+	MessageServiceAddr = ":9001"
 	ExportEndpoint  = ":4317"
 	ETCDAddress     = "127.0.0.1:2379"
 	DefaultLimit    = 10
