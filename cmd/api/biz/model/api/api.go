@@ -2404,9 +2404,9 @@ type ApiService interface {
 
 	RegisterUser(ctx context.Context, req *RegisterUserRequest) (r *RegisterUserResponse, err error)
 
-	MessageChatMessage(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error)
+	MessageChat(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error)
 
-	MessageActionMessage(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error)
+	MessageAction(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error)
 }
 
 type ApiServiceClient struct {
@@ -2453,20 +2453,20 @@ func (p *ApiServiceClient) RegisterUser(ctx context.Context, req *RegisterUserRe
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) MessageChatMessage(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error) {
-	var _args ApiServiceMessageChatMessageArgs
+func (p *ApiServiceClient) MessageChat(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error) {
+	var _args ApiServiceMessageChatArgs
 	_args.Req = req
-	var _result ApiServiceMessageChatMessageResult
-	if err = p.Client_().Call(ctx, "MessageChatMessage", &_args, &_result); err != nil {
+	var _result ApiServiceMessageChatResult
+	if err = p.Client_().Call(ctx, "MessageChat", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) MessageActionMessage(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error) {
-	var _args ApiServiceMessageActionMessageArgs
+func (p *ApiServiceClient) MessageAction(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error) {
+	var _args ApiServiceMessageActionArgs
 	_args.Req = req
-	var _result ApiServiceMessageActionMessageResult
-	if err = p.Client_().Call(ctx, "MessageActionMessage", &_args, &_result); err != nil {
+	var _result ApiServiceMessageActionResult
+	if err = p.Client_().Call(ctx, "MessageAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2494,8 +2494,8 @@ func NewApiServiceProcessor(handler ApiService) *ApiServiceProcessor {
 	self := &ApiServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
 	self.AddToProcessorMap("LoginUser", &apiServiceProcessorLoginUser{handler: handler})
 	self.AddToProcessorMap("RegisterUser", &apiServiceProcessorRegisterUser{handler: handler})
-	self.AddToProcessorMap("MessageChatMessage", &apiServiceProcessorMessageChatMessage{handler: handler})
-	self.AddToProcessorMap("MessageActionMessage", &apiServiceProcessorMessageActionMessage{handler: handler})
+	self.AddToProcessorMap("MessageChat", &apiServiceProcessorMessageChat{handler: handler})
+	self.AddToProcessorMap("MessageAction", &apiServiceProcessorMessageAction{handler: handler})
 	return self
 }
 func (p *ApiServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -2612,16 +2612,16 @@ func (p *apiServiceProcessorRegisterUser) Process(ctx context.Context, seqId int
 	return true, err
 }
 
-type apiServiceProcessorMessageChatMessage struct {
+type apiServiceProcessorMessageChat struct {
 	handler ApiService
 }
 
-func (p *apiServiceProcessorMessageChatMessage) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := ApiServiceMessageChatMessageArgs{}
+func (p *apiServiceProcessorMessageChat) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceMessageChatArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("MessageChatMessage", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("MessageChat", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2630,11 +2630,11 @@ func (p *apiServiceProcessorMessageChatMessage) Process(ctx context.Context, seq
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := ApiServiceMessageChatMessageResult{}
+	result := ApiServiceMessageChatResult{}
 	var retval *MessageChatResponse
-	if retval, err2 = p.handler.MessageChatMessage(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageChatMessage: "+err2.Error())
-		oprot.WriteMessageBegin("MessageChatMessage", thrift.EXCEPTION, seqId)
+	if retval, err2 = p.handler.MessageChat(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageChat: "+err2.Error())
+		oprot.WriteMessageBegin("MessageChat", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2642,7 +2642,7 @@ func (p *apiServiceProcessorMessageChatMessage) Process(ctx context.Context, seq
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("MessageChatMessage", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("MessageChat", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2660,16 +2660,16 @@ func (p *apiServiceProcessorMessageChatMessage) Process(ctx context.Context, seq
 	return true, err
 }
 
-type apiServiceProcessorMessageActionMessage struct {
+type apiServiceProcessorMessageAction struct {
 	handler ApiService
 }
 
-func (p *apiServiceProcessorMessageActionMessage) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := ApiServiceMessageActionMessageArgs{}
+func (p *apiServiceProcessorMessageAction) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceMessageActionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("MessageActionMessage", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("MessageAction", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2678,11 +2678,11 @@ func (p *apiServiceProcessorMessageActionMessage) Process(ctx context.Context, s
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := ApiServiceMessageActionMessageResult{}
+	result := ApiServiceMessageActionResult{}
 	var retval *MessageActionResponse
-	if retval, err2 = p.handler.MessageActionMessage(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageActionMessage: "+err2.Error())
-		oprot.WriteMessageBegin("MessageActionMessage", thrift.EXCEPTION, seqId)
+	if retval, err2 = p.handler.MessageAction(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageAction: "+err2.Error())
+		oprot.WriteMessageBegin("MessageAction", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2690,7 +2690,7 @@ func (p *apiServiceProcessorMessageActionMessage) Process(ctx context.Context, s
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("MessageActionMessage", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("MessageAction", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -3292,32 +3292,32 @@ func (p *ApiServiceRegisterUserResult) String() string {
 	return fmt.Sprintf("ApiServiceRegisterUserResult(%+v)", *p)
 }
 
-type ApiServiceMessageChatMessageArgs struct {
+type ApiServiceMessageChatArgs struct {
 	Req *MessageChatRequest `thrift:"req,1"`
 }
 
-func NewApiServiceMessageChatMessageArgs() *ApiServiceMessageChatMessageArgs {
-	return &ApiServiceMessageChatMessageArgs{}
+func NewApiServiceMessageChatArgs() *ApiServiceMessageChatArgs {
+	return &ApiServiceMessageChatArgs{}
 }
 
-var ApiServiceMessageChatMessageArgs_Req_DEFAULT *MessageChatRequest
+var ApiServiceMessageChatArgs_Req_DEFAULT *MessageChatRequest
 
-func (p *ApiServiceMessageChatMessageArgs) GetReq() (v *MessageChatRequest) {
+func (p *ApiServiceMessageChatArgs) GetReq() (v *MessageChatRequest) {
 	if !p.IsSetReq() {
-		return ApiServiceMessageChatMessageArgs_Req_DEFAULT
+		return ApiServiceMessageChatArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-var fieldIDToName_ApiServiceMessageChatMessageArgs = map[int16]string{
+var fieldIDToName_ApiServiceMessageChatArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *ApiServiceMessageChatMessageArgs) IsSetReq() bool {
+func (p *ApiServiceMessageChatArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *ApiServiceMessageChatMessageArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageChatArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3366,7 +3366,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageChatMessageArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageChatArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3376,7 +3376,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageChatMessageArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ApiServiceMessageChatArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewMessageChatRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -3384,9 +3384,9 @@ func (p *ApiServiceMessageChatMessageArgs) ReadField1(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *ApiServiceMessageChatMessageArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageChatArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageChatMessage_args"); err != nil {
+	if err = oprot.WriteStructBegin("MessageChat_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3413,7 +3413,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageChatMessageArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageChatArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3430,39 +3430,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *ApiServiceMessageChatMessageArgs) String() string {
+func (p *ApiServiceMessageChatArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ApiServiceMessageChatMessageArgs(%+v)", *p)
+	return fmt.Sprintf("ApiServiceMessageChatArgs(%+v)", *p)
 }
 
-type ApiServiceMessageChatMessageResult struct {
+type ApiServiceMessageChatResult struct {
 	Success *MessageChatResponse `thrift:"success,0,optional"`
 }
 
-func NewApiServiceMessageChatMessageResult() *ApiServiceMessageChatMessageResult {
-	return &ApiServiceMessageChatMessageResult{}
+func NewApiServiceMessageChatResult() *ApiServiceMessageChatResult {
+	return &ApiServiceMessageChatResult{}
 }
 
-var ApiServiceMessageChatMessageResult_Success_DEFAULT *MessageChatResponse
+var ApiServiceMessageChatResult_Success_DEFAULT *MessageChatResponse
 
-func (p *ApiServiceMessageChatMessageResult) GetSuccess() (v *MessageChatResponse) {
+func (p *ApiServiceMessageChatResult) GetSuccess() (v *MessageChatResponse) {
 	if !p.IsSetSuccess() {
-		return ApiServiceMessageChatMessageResult_Success_DEFAULT
+		return ApiServiceMessageChatResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-var fieldIDToName_ApiServiceMessageChatMessageResult = map[int16]string{
+var fieldIDToName_ApiServiceMessageChatResult = map[int16]string{
 	0: "success",
 }
 
-func (p *ApiServiceMessageChatMessageResult) IsSetSuccess() bool {
+func (p *ApiServiceMessageChatResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *ApiServiceMessageChatMessageResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageChatResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3511,7 +3511,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageChatMessageResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageChatResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3521,7 +3521,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageChatMessageResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ApiServiceMessageChatResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewMessageChatResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -3529,9 +3529,9 @@ func (p *ApiServiceMessageChatMessageResult) ReadField0(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *ApiServiceMessageChatMessageResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageChatResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageChatMessage_result"); err != nil {
+	if err = oprot.WriteStructBegin("MessageChat_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3558,7 +3558,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageChatMessageResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageChatResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -3577,39 +3577,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *ApiServiceMessageChatMessageResult) String() string {
+func (p *ApiServiceMessageChatResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ApiServiceMessageChatMessageResult(%+v)", *p)
+	return fmt.Sprintf("ApiServiceMessageChatResult(%+v)", *p)
 }
 
-type ApiServiceMessageActionMessageArgs struct {
+type ApiServiceMessageActionArgs struct {
 	Req *MessageActionRequest `thrift:"req,1"`
 }
 
-func NewApiServiceMessageActionMessageArgs() *ApiServiceMessageActionMessageArgs {
-	return &ApiServiceMessageActionMessageArgs{}
+func NewApiServiceMessageActionArgs() *ApiServiceMessageActionArgs {
+	return &ApiServiceMessageActionArgs{}
 }
 
-var ApiServiceMessageActionMessageArgs_Req_DEFAULT *MessageActionRequest
+var ApiServiceMessageActionArgs_Req_DEFAULT *MessageActionRequest
 
-func (p *ApiServiceMessageActionMessageArgs) GetReq() (v *MessageActionRequest) {
+func (p *ApiServiceMessageActionArgs) GetReq() (v *MessageActionRequest) {
 	if !p.IsSetReq() {
-		return ApiServiceMessageActionMessageArgs_Req_DEFAULT
+		return ApiServiceMessageActionArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-var fieldIDToName_ApiServiceMessageActionMessageArgs = map[int16]string{
+var fieldIDToName_ApiServiceMessageActionArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *ApiServiceMessageActionMessageArgs) IsSetReq() bool {
+func (p *ApiServiceMessageActionArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *ApiServiceMessageActionMessageArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageActionArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3658,7 +3658,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageActionMessageArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageActionArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3668,7 +3668,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageActionMessageArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ApiServiceMessageActionArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewMessageActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -3676,9 +3676,9 @@ func (p *ApiServiceMessageActionMessageArgs) ReadField1(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *ApiServiceMessageActionMessageArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageActionArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageActionMessage_args"); err != nil {
+	if err = oprot.WriteStructBegin("MessageAction_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3705,7 +3705,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageActionMessageArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageActionArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3722,39 +3722,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *ApiServiceMessageActionMessageArgs) String() string {
+func (p *ApiServiceMessageActionArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ApiServiceMessageActionMessageArgs(%+v)", *p)
+	return fmt.Sprintf("ApiServiceMessageActionArgs(%+v)", *p)
 }
 
-type ApiServiceMessageActionMessageResult struct {
+type ApiServiceMessageActionResult struct {
 	Success *MessageActionResponse `thrift:"success,0,optional"`
 }
 
-func NewApiServiceMessageActionMessageResult() *ApiServiceMessageActionMessageResult {
-	return &ApiServiceMessageActionMessageResult{}
+func NewApiServiceMessageActionResult() *ApiServiceMessageActionResult {
+	return &ApiServiceMessageActionResult{}
 }
 
-var ApiServiceMessageActionMessageResult_Success_DEFAULT *MessageActionResponse
+var ApiServiceMessageActionResult_Success_DEFAULT *MessageActionResponse
 
-func (p *ApiServiceMessageActionMessageResult) GetSuccess() (v *MessageActionResponse) {
+func (p *ApiServiceMessageActionResult) GetSuccess() (v *MessageActionResponse) {
 	if !p.IsSetSuccess() {
-		return ApiServiceMessageActionMessageResult_Success_DEFAULT
+		return ApiServiceMessageActionResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-var fieldIDToName_ApiServiceMessageActionMessageResult = map[int16]string{
+var fieldIDToName_ApiServiceMessageActionResult = map[int16]string{
 	0: "success",
 }
 
-func (p *ApiServiceMessageActionMessageResult) IsSetSuccess() bool {
+func (p *ApiServiceMessageActionResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *ApiServiceMessageActionMessageResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageActionResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3803,7 +3803,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageActionMessageResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceMessageActionResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3813,7 +3813,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageActionMessageResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ApiServiceMessageActionResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewMessageActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -3821,9 +3821,9 @@ func (p *ApiServiceMessageActionMessageResult) ReadField0(iprot thrift.TProtocol
 	return nil
 }
 
-func (p *ApiServiceMessageActionMessageResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageActionResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageActionMessage_result"); err != nil {
+	if err = oprot.WriteStructBegin("MessageAction_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3850,7 +3850,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ApiServiceMessageActionMessageResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceMessageActionResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -3869,9 +3869,9 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *ApiServiceMessageActionMessageResult) String() string {
+func (p *ApiServiceMessageActionResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ApiServiceMessageActionMessageResult(%+v)", *p)
+	return fmt.Sprintf("ApiServiceMessageActionResult(%+v)", *p)
 }

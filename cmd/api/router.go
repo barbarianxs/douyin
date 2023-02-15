@@ -23,3 +23,4 @@ func customizedRegister(r *server.Hertz) {
 		api.SendResponse(c, errno.ServiceErr, nil)
 	})
 }
+

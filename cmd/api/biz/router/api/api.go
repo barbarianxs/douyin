@@ -3,7 +3,7 @@
 package Api
 
 import (
-	api "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/api"
+	api "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/handler/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -23,11 +23,11 @@ func Register(r *server.Hertz) {
 			_message := _douyin.Group("/message", _messageMw()...)
 			{
 				_action := _message.Group("/action", _actionMw()...)
-				_action.POST("/", append(_message_ctionmessageMw(), api.MessageActionMessage)...)
+				_action.POST("/", append(_message_ctionMw(), api.MessageAction)...)
 			}
 			{
 				_chat := _message.Group("/chat", _chatMw()...)
-				_chat.GET("/", append(_messagechatmessageMw(), api.MessageChatMessage)...)
+				_chat.GET("/", append(_messagechatMw(), api.MessageChat)...)
 			}
 		}
 		{

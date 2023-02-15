@@ -44,7 +44,7 @@ func initMessage() {
 }
 
 // ActionMessage create note info
-func ActionMessage(ctx context.Context, req *message.ActionMessageRequest) error {
+func ActionMessage(ctx context.Context, req *message.MessageActionRequest) error {
 	resp, err := messageClient.ActionMessage(ctx, req)
 	if err != nil {
 		return err
@@ -56,7 +56,7 @@ func ActionMessage(ctx context.Context, req *message.ActionMessageRequest) error
 }
 
 // ChatMessage query list of note info
-func ChatMessages(ctx context.Context, req *message.ChatMessageRequest) ([]*message.Note, int64, error) {
+func ChatMessages(ctx context.Context, req *message.MessageChatRequest) ([]*message.Note, int64, error) {
 	resp, err := messageClient.ChatMessage(ctx, req)
 	if err != nil {
 		return nil, 0, err

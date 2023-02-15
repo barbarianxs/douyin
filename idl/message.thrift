@@ -46,6 +46,6 @@ struct MessageActionResponse {
 }
 
 service MessageService{
-    MessageChatResponse MessageChatMessage(1: MessageChatRequest req)               // 消息记录
-    MessageActionResponse MessageActionMessage(1: MessageActionRequest req)         // 发送消息
+    MessageChatResponse MessageChat(1: MessageChatRequest req)               // 消息记录
+    MessageActionResponse MessageAction(1: MessageActionRequest req)         // 发送消息
 }

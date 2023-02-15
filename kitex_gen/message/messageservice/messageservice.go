@@ -19,8 +19,8 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "MessageService"
 	handlerType := (*message.MessageService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"MessageChatMessage":   kitex.NewMethodInfo(messageChatMessageHandler, newMessageServiceMessageChatMessageArgs, newMessageServiceMessageChatMessageResult, false),
-		"MessageActionMessage": kitex.NewMethodInfo(messageActionMessageHandler, newMessageServiceMessageActionMessageArgs, newMessageServiceMessageActionMessageResult, false),
+		"MessageChat":   kitex.NewMethodInfo(messageChatHandler, newMessageServiceMessageChatArgs, newMessageServiceMessageChatResult, false),
+		"MessageAction": kitex.NewMethodInfo(messageActionHandler, newMessageServiceMessageActionArgs, newMessageServiceMessageActionResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "message",
@@ -36,40 +36,40 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	return svcInfo
 }
 
-func messageChatMessageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*message.MessageServiceMessageChatMessageArgs)
-	realResult := result.(*message.MessageServiceMessageChatMessageResult)
-	success, err := handler.(message.MessageService).MessageChatMessage(ctx, realArg.Req)
+func messageChatHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*message.MessageServiceMessageChatArgs)
+	realResult := result.(*message.MessageServiceMessageChatResult)
+	success, err := handler.(message.MessageService).MessageChat(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newMessageServiceMessageChatMessageArgs() interface{} {
-	return message.NewMessageServiceMessageChatMessageArgs()
+func newMessageServiceMessageChatArgs() interface{} {
+	return message.NewMessageServiceMessageChatArgs()
 }
 
-func newMessageServiceMessageChatMessageResult() interface{} {
-	return message.NewMessageServiceMessageChatMessageResult()
+func newMessageServiceMessageChatResult() interface{} {
+	return message.NewMessageServiceMessageChatResult()
 }
 
-func messageActionMessageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*message.MessageServiceMessageActionMessageArgs)
-	realResult := result.(*message.MessageServiceMessageActionMessageResult)
-	success, err := handler.(message.MessageService).MessageActionMessage(ctx, realArg.Req)
+func messageActionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*message.MessageServiceMessageActionArgs)
+	realResult := result.(*message.MessageServiceMessageActionResult)
+	success, err := handler.(message.MessageService).MessageAction(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newMessageServiceMessageActionMessageArgs() interface{} {
-	return message.NewMessageServiceMessageActionMessageArgs()
+func newMessageServiceMessageActionArgs() interface{} {
+	return message.NewMessageServiceMessageActionArgs()
 }
 
-func newMessageServiceMessageActionMessageResult() interface{} {
-	return message.NewMessageServiceMessageActionMessageResult()
+func newMessageServiceMessageActionResult() interface{} {
+	return message.NewMessageServiceMessageActionResult()
 }
 
 type kClient struct {
@@ -82,21 +82,21 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) MessageChatMessage(ctx context.Context, req *message.MessageChatRequest) (r *message.MessageChatResponse, err error) {
-	var _args message.MessageServiceMessageChatMessageArgs
+func (p *kClient) MessageChat(ctx context.Context, req *message.MessageChatRequest) (r *message.MessageChatResponse, err error) {
+	var _args message.MessageServiceMessageChatArgs
 	_args.Req = req
-	var _result message.MessageServiceMessageChatMessageResult
-	if err = p.c.Call(ctx, "MessageChatMessage", &_args, &_result); err != nil {
+	var _result message.MessageServiceMessageChatResult
+	if err = p.c.Call(ctx, "MessageChat", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) MessageActionMessage(ctx context.Context, req *message.MessageActionRequest) (r *message.MessageActionResponse, err error) {
-	var _args message.MessageServiceMessageActionMessageArgs
+func (p *kClient) MessageAction(ctx context.Context, req *message.MessageActionRequest) (r *message.MessageActionResponse, err error) {
+	var _args message.MessageServiceMessageActionArgs
 	_args.Req = req
-	var _result message.MessageServiceMessageActionMessageResult
-	if err = p.c.Call(ctx, "MessageActionMessage", &_args, &_result); err != nil {
+	var _result message.MessageServiceMessageActionResult
+	if err = p.c.Call(ctx, "MessageAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

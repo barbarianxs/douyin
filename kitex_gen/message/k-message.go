@@ -1424,7 +1424,7 @@ func (p *MessageActionResponse) field1Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatMessageArgs) FastRead(buf []byte) (int, error) {
+func (p *MessageServiceMessageChatArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1486,7 +1486,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatMessageArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -1495,7 +1495,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageArgs) FastReadField1(buf []byte) (int, error) {
+func (p *MessageServiceMessageChatArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageChatRequest()
@@ -1509,13 +1509,13 @@ func (p *MessageServiceMessageChatMessageArgs) FastReadField1(buf []byte) (int, 
 }
 
 // for compatibility
-func (p *MessageServiceMessageChatMessageArgs) FastWrite(buf []byte) int {
+func (p *MessageServiceMessageChatArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageChatMessageArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageChatArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageChatMessage_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageChat_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -1524,9 +1524,9 @@ func (p *MessageServiceMessageChatMessageArgs) FastWriteNocopy(buf []byte, binar
 	return offset
 }
 
-func (p *MessageServiceMessageChatMessageArgs) BLength() int {
+func (p *MessageServiceMessageChatArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MessageChatMessage_args")
+	l += bthrift.Binary.StructBeginLength("MessageChat_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -1535,7 +1535,7 @@ func (p *MessageServiceMessageChatMessageArgs) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatMessageArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageChatArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "req", thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -1543,7 +1543,7 @@ func (p *MessageServiceMessageChatMessageArgs) fastWriteField1(buf []byte, binar
 	return offset
 }
 
-func (p *MessageServiceMessageChatMessageArgs) field1Length() int {
+func (p *MessageServiceMessageChatArgs) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("req", thrift.STRUCT, 1)
 	l += p.Req.BLength()
@@ -1551,7 +1551,7 @@ func (p *MessageServiceMessageChatMessageArgs) field1Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatMessageResult) FastRead(buf []byte) (int, error) {
+func (p *MessageServiceMessageChatResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1613,7 +1613,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatMessageResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -1622,7 +1622,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageResult) FastReadField0(buf []byte) (int, error) {
+func (p *MessageServiceMessageChatResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageChatResponse()
@@ -1636,13 +1636,13 @@ func (p *MessageServiceMessageChatMessageResult) FastReadField0(buf []byte) (int
 }
 
 // for compatibility
-func (p *MessageServiceMessageChatMessageResult) FastWrite(buf []byte) int {
+func (p *MessageServiceMessageChatResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageChatMessageResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageChatResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageChatMessage_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageChat_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -1651,9 +1651,9 @@ func (p *MessageServiceMessageChatMessageResult) FastWriteNocopy(buf []byte, bin
 	return offset
 }
 
-func (p *MessageServiceMessageChatMessageResult) BLength() int {
+func (p *MessageServiceMessageChatResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MessageChatMessage_result")
+	l += bthrift.Binary.StructBeginLength("MessageChat_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -1662,7 +1662,7 @@ func (p *MessageServiceMessageChatMessageResult) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatMessageResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageChatResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "success", thrift.STRUCT, 0)
@@ -1672,7 +1672,7 @@ func (p *MessageServiceMessageChatMessageResult) fastWriteField0(buf []byte, bin
 	return offset
 }
 
-func (p *MessageServiceMessageChatMessageResult) field0Length() int {
+func (p *MessageServiceMessageChatResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += bthrift.Binary.FieldBeginLength("success", thrift.STRUCT, 0)
@@ -1682,7 +1682,7 @@ func (p *MessageServiceMessageChatMessageResult) field0Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionMessageArgs) FastRead(buf []byte) (int, error) {
+func (p *MessageServiceMessageActionArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1744,7 +1744,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionMessageArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -1753,7 +1753,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageArgs) FastReadField1(buf []byte) (int, error) {
+func (p *MessageServiceMessageActionArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageActionRequest()
@@ -1767,13 +1767,13 @@ func (p *MessageServiceMessageActionMessageArgs) FastReadField1(buf []byte) (int
 }
 
 // for compatibility
-func (p *MessageServiceMessageActionMessageArgs) FastWrite(buf []byte) int {
+func (p *MessageServiceMessageActionArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageActionMessageArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageActionArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageActionMessage_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageAction_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -1782,9 +1782,9 @@ func (p *MessageServiceMessageActionMessageArgs) FastWriteNocopy(buf []byte, bin
 	return offset
 }
 
-func (p *MessageServiceMessageActionMessageArgs) BLength() int {
+func (p *MessageServiceMessageActionArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MessageActionMessage_args")
+	l += bthrift.Binary.StructBeginLength("MessageAction_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -1793,7 +1793,7 @@ func (p *MessageServiceMessageActionMessageArgs) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionMessageArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageActionArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "req", thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -1801,7 +1801,7 @@ func (p *MessageServiceMessageActionMessageArgs) fastWriteField1(buf []byte, bin
 	return offset
 }
 
-func (p *MessageServiceMessageActionMessageArgs) field1Length() int {
+func (p *MessageServiceMessageActionArgs) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("req", thrift.STRUCT, 1)
 	l += p.Req.BLength()
@@ -1809,7 +1809,7 @@ func (p *MessageServiceMessageActionMessageArgs) field1Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionMessageResult) FastRead(buf []byte) (int, error) {
+func (p *MessageServiceMessageActionResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1871,7 +1871,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionMessageResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -1880,7 +1880,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageResult) FastReadField0(buf []byte) (int, error) {
+func (p *MessageServiceMessageActionResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageActionResponse()
@@ -1894,13 +1894,13 @@ func (p *MessageServiceMessageActionMessageResult) FastReadField0(buf []byte) (i
 }
 
 // for compatibility
-func (p *MessageServiceMessageActionMessageResult) FastWrite(buf []byte) int {
+func (p *MessageServiceMessageActionResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageActionMessageResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageActionResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageActionMessage_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageAction_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -1909,9 +1909,9 @@ func (p *MessageServiceMessageActionMessageResult) FastWriteNocopy(buf []byte, b
 	return offset
 }
 
-func (p *MessageServiceMessageActionMessageResult) BLength() int {
+func (p *MessageServiceMessageActionResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MessageActionMessage_result")
+	l += bthrift.Binary.StructBeginLength("MessageAction_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -1920,7 +1920,7 @@ func (p *MessageServiceMessageActionMessageResult) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionMessageResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MessageServiceMessageActionResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "success", thrift.STRUCT, 0)
@@ -1930,7 +1930,7 @@ func (p *MessageServiceMessageActionMessageResult) fastWriteField0(buf []byte, b
 	return offset
 }
 
-func (p *MessageServiceMessageActionMessageResult) field0Length() int {
+func (p *MessageServiceMessageActionResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += bthrift.Binary.FieldBeginLength("success", thrift.STRUCT, 0)
@@ -1940,18 +1940,18 @@ func (p *MessageServiceMessageActionMessageResult) field0Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatMessageArgs) GetFirstArgument() interface{} {
+func (p *MessageServiceMessageChatArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *MessageServiceMessageChatMessageResult) GetResult() interface{} {
+func (p *MessageServiceMessageChatResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *MessageServiceMessageActionMessageArgs) GetFirstArgument() interface{} {
+func (p *MessageServiceMessageActionArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *MessageServiceMessageActionMessageResult) GetResult() interface{} {
+func (p *MessageServiceMessageActionResult) GetResult() interface{} {
 	return p.Success
 }

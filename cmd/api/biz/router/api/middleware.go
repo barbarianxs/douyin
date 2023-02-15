@@ -55,7 +55,7 @@ func _actionMw() []app.HandlerFunc {
 	return nil
 }
 
-func _message_ctionmessageMw() []app.HandlerFunc {
+func _message_ctionMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -65,7 +65,7 @@ func _chatMw() []app.HandlerFunc {
 	return nil
 }
 
-func _messagechatmessageMw() []app.HandlerFunc {
+func _messagechatMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

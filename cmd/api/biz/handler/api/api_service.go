@@ -44,9 +44,9 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	SendResponse(c, errno.Success, nil)
 }
 
-// MessageChatMessage .
+// MessageChat .
 // @router /douyin/message/chat/ [GET]
-func MessageChatMessage(ctx context.Context, c *app.RequestContext) {
+func MessageChat(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.MessageChatRequest
 	err = c.BindAndValidate(&req)
@@ -71,9 +71,9 @@ func MessageChatMessage(ctx context.Context, c *app.RequestContext) {
 	})
 }
 
-// MessageActionMessage .
+// MessageAction .
 // @router /douyin/message/action/ [POST]
-func MessageActionMessage(ctx context.Context, c *app.RequestContext) {
+func MessageAction(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.MessageActionRequest
 	err = c.BindAndValidate(&req)

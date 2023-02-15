@@ -6,6 +6,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/message/service"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
 
+
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 
@@ -50,5 +51,23 @@ func (s *MessageServiceImpl) MessageActionMessage(ctx context.Context, req *mess
 	}
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
 	return resp, nil
-	
+
+}
+
+// LoginUser implements the UserServiceImpl interface.
+func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequest) (resp *user.LoginUserResponse, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// LogoutUser implements the UserServiceImpl interface.
+func (s *UserServiceImpl) LogoutUser(ctx context.Context, req *user.LogoutUserRequest) (resp *user.LogoutUserResponse, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// RegisterUser implements the UserServiceImpl interface.
+func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *user.RegisterUserRequest) (resp *user.RegisterUserResponse, err error) {
+	// TODO: Your code here...
+	return
 }

@@ -1832,9 +1832,9 @@ func (p *MessageActionResponse) Field1DeepEqual(src *BaseResp) bool {
 }
 
 type MessageService interface {
-	MessageChatMessage(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error)
+	MessageChat(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error)
 
-	MessageActionMessage(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error)
+	MessageAction(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error)
 }
 
 type MessageServiceClient struct {
@@ -1863,20 +1863,20 @@ func (p *MessageServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *MessageServiceClient) MessageChatMessage(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error) {
-	var _args MessageServiceMessageChatMessageArgs
+func (p *MessageServiceClient) MessageChat(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error) {
+	var _args MessageServiceMessageChatArgs
 	_args.Req = req
-	var _result MessageServiceMessageChatMessageResult
-	if err = p.Client_().Call(ctx, "MessageChatMessage", &_args, &_result); err != nil {
+	var _result MessageServiceMessageChatResult
+	if err = p.Client_().Call(ctx, "MessageChat", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *MessageServiceClient) MessageActionMessage(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error) {
-	var _args MessageServiceMessageActionMessageArgs
+func (p *MessageServiceClient) MessageAction(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error) {
+	var _args MessageServiceMessageActionArgs
 	_args.Req = req
-	var _result MessageServiceMessageActionMessageResult
-	if err = p.Client_().Call(ctx, "MessageActionMessage", &_args, &_result); err != nil {
+	var _result MessageServiceMessageActionResult
+	if err = p.Client_().Call(ctx, "MessageAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -1902,8 +1902,8 @@ func (p *MessageServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFun
 
 func NewMessageServiceProcessor(handler MessageService) *MessageServiceProcessor {
 	self := &MessageServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("MessageChatMessage", &messageServiceProcessorMessageChatMessage{handler: handler})
-	self.AddToProcessorMap("MessageActionMessage", &messageServiceProcessorMessageActionMessage{handler: handler})
+	self.AddToProcessorMap("MessageChat", &messageServiceProcessorMessageChat{handler: handler})
+	self.AddToProcessorMap("MessageAction", &messageServiceProcessorMessageAction{handler: handler})
 	return self
 }
 func (p *MessageServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -1924,16 +1924,16 @@ func (p *MessageServiceProcessor) Process(ctx context.Context, iprot, oprot thri
 	return false, x
 }
 
-type messageServiceProcessorMessageChatMessage struct {
+type messageServiceProcessorMessageChat struct {
 	handler MessageService
 }
 
-func (p *messageServiceProcessorMessageChatMessage) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := MessageServiceMessageChatMessageArgs{}
+func (p *messageServiceProcessorMessageChat) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := MessageServiceMessageChatArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("MessageChatMessage", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("MessageChat", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -1942,11 +1942,11 @@ func (p *messageServiceProcessorMessageChatMessage) Process(ctx context.Context,
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := MessageServiceMessageChatMessageResult{}
+	result := MessageServiceMessageChatResult{}
 	var retval *MessageChatResponse
-	if retval, err2 = p.handler.MessageChatMessage(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageChatMessage: "+err2.Error())
-		oprot.WriteMessageBegin("MessageChatMessage", thrift.EXCEPTION, seqId)
+	if retval, err2 = p.handler.MessageChat(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageChat: "+err2.Error())
+		oprot.WriteMessageBegin("MessageChat", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -1954,7 +1954,7 @@ func (p *messageServiceProcessorMessageChatMessage) Process(ctx context.Context,
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("MessageChatMessage", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("MessageChat", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -1972,16 +1972,16 @@ func (p *messageServiceProcessorMessageChatMessage) Process(ctx context.Context,
 	return true, err
 }
 
-type messageServiceProcessorMessageActionMessage struct {
+type messageServiceProcessorMessageAction struct {
 	handler MessageService
 }
 
-func (p *messageServiceProcessorMessageActionMessage) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := MessageServiceMessageActionMessageArgs{}
+func (p *messageServiceProcessorMessageAction) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := MessageServiceMessageActionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("MessageActionMessage", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("MessageAction", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -1990,11 +1990,11 @@ func (p *messageServiceProcessorMessageActionMessage) Process(ctx context.Contex
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := MessageServiceMessageActionMessageResult{}
+	result := MessageServiceMessageActionResult{}
 	var retval *MessageActionResponse
-	if retval, err2 = p.handler.MessageActionMessage(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageActionMessage: "+err2.Error())
-		oprot.WriteMessageBegin("MessageActionMessage", thrift.EXCEPTION, seqId)
+	if retval, err2 = p.handler.MessageAction(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing MessageAction: "+err2.Error())
+		oprot.WriteMessageBegin("MessageAction", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2002,7 +2002,7 @@ func (p *messageServiceProcessorMessageActionMessage) Process(ctx context.Contex
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("MessageActionMessage", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("MessageAction", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2020,39 +2020,39 @@ func (p *messageServiceProcessorMessageActionMessage) Process(ctx context.Contex
 	return true, err
 }
 
-type MessageServiceMessageChatMessageArgs struct {
+type MessageServiceMessageChatArgs struct {
 	Req *MessageChatRequest `thrift:"req,1" frugal:"1,default,MessageChatRequest" json:"req"`
 }
 
-func NewMessageServiceMessageChatMessageArgs() *MessageServiceMessageChatMessageArgs {
-	return &MessageServiceMessageChatMessageArgs{}
+func NewMessageServiceMessageChatArgs() *MessageServiceMessageChatArgs {
+	return &MessageServiceMessageChatArgs{}
 }
 
-func (p *MessageServiceMessageChatMessageArgs) InitDefault() {
-	*p = MessageServiceMessageChatMessageArgs{}
+func (p *MessageServiceMessageChatArgs) InitDefault() {
+	*p = MessageServiceMessageChatArgs{}
 }
 
-var MessageServiceMessageChatMessageArgs_Req_DEFAULT *MessageChatRequest
+var MessageServiceMessageChatArgs_Req_DEFAULT *MessageChatRequest
 
-func (p *MessageServiceMessageChatMessageArgs) GetReq() (v *MessageChatRequest) {
+func (p *MessageServiceMessageChatArgs) GetReq() (v *MessageChatRequest) {
 	if !p.IsSetReq() {
-		return MessageServiceMessageChatMessageArgs_Req_DEFAULT
+		return MessageServiceMessageChatArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *MessageServiceMessageChatMessageArgs) SetReq(val *MessageChatRequest) {
+func (p *MessageServiceMessageChatArgs) SetReq(val *MessageChatRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_MessageServiceMessageChatMessageArgs = map[int16]string{
+var fieldIDToName_MessageServiceMessageChatArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *MessageServiceMessageChatMessageArgs) IsSetReq() bool {
+func (p *MessageServiceMessageChatArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *MessageServiceMessageChatMessageArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageChatArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2101,7 +2101,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatMessageArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2111,7 +2111,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *MessageServiceMessageChatArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewMessageChatRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -2119,9 +2119,9 @@ func (p *MessageServiceMessageChatMessageArgs) ReadField1(iprot thrift.TProtocol
 	return nil
 }
 
-func (p *MessageServiceMessageChatMessageArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageChatArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageChatMessage_args"); err != nil {
+	if err = oprot.WriteStructBegin("MessageChat_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2148,7 +2148,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageChatArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2165,14 +2165,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageArgs) String() string {
+func (p *MessageServiceMessageChatArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("MessageServiceMessageChatMessageArgs(%+v)", *p)
+	return fmt.Sprintf("MessageServiceMessageChatArgs(%+v)", *p)
 }
 
-func (p *MessageServiceMessageChatMessageArgs) DeepEqual(ano *MessageServiceMessageChatMessageArgs) bool {
+func (p *MessageServiceMessageChatArgs) DeepEqual(ano *MessageServiceMessageChatArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2184,7 +2184,7 @@ func (p *MessageServiceMessageChatMessageArgs) DeepEqual(ano *MessageServiceMess
 	return true
 }
 
-func (p *MessageServiceMessageChatMessageArgs) Field1DeepEqual(src *MessageChatRequest) bool {
+func (p *MessageServiceMessageChatArgs) Field1DeepEqual(src *MessageChatRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -2192,39 +2192,39 @@ func (p *MessageServiceMessageChatMessageArgs) Field1DeepEqual(src *MessageChatR
 	return true
 }
 
-type MessageServiceMessageChatMessageResult struct {
+type MessageServiceMessageChatResult struct {
 	Success *MessageChatResponse `thrift:"success,0,optional" frugal:"0,optional,MessageChatResponse" json:"success,omitempty"`
 }
 
-func NewMessageServiceMessageChatMessageResult() *MessageServiceMessageChatMessageResult {
-	return &MessageServiceMessageChatMessageResult{}
+func NewMessageServiceMessageChatResult() *MessageServiceMessageChatResult {
+	return &MessageServiceMessageChatResult{}
 }
 
-func (p *MessageServiceMessageChatMessageResult) InitDefault() {
-	*p = MessageServiceMessageChatMessageResult{}
+func (p *MessageServiceMessageChatResult) InitDefault() {
+	*p = MessageServiceMessageChatResult{}
 }
 
-var MessageServiceMessageChatMessageResult_Success_DEFAULT *MessageChatResponse
+var MessageServiceMessageChatResult_Success_DEFAULT *MessageChatResponse
 
-func (p *MessageServiceMessageChatMessageResult) GetSuccess() (v *MessageChatResponse) {
+func (p *MessageServiceMessageChatResult) GetSuccess() (v *MessageChatResponse) {
 	if !p.IsSetSuccess() {
-		return MessageServiceMessageChatMessageResult_Success_DEFAULT
+		return MessageServiceMessageChatResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *MessageServiceMessageChatMessageResult) SetSuccess(x interface{}) {
+func (p *MessageServiceMessageChatResult) SetSuccess(x interface{}) {
 	p.Success = x.(*MessageChatResponse)
 }
 
-var fieldIDToName_MessageServiceMessageChatMessageResult = map[int16]string{
+var fieldIDToName_MessageServiceMessageChatResult = map[int16]string{
 	0: "success",
 }
 
-func (p *MessageServiceMessageChatMessageResult) IsSetSuccess() bool {
+func (p *MessageServiceMessageChatResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *MessageServiceMessageChatMessageResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageChatResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2273,7 +2273,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatMessageResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2283,7 +2283,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *MessageServiceMessageChatResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewMessageChatResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -2291,9 +2291,9 @@ func (p *MessageServiceMessageChatMessageResult) ReadField0(iprot thrift.TProtoc
 	return nil
 }
 
-func (p *MessageServiceMessageChatMessageResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageChatResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageChatMessage_result"); err != nil {
+	if err = oprot.WriteStructBegin("MessageChat_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2320,7 +2320,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageChatResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -2339,14 +2339,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatMessageResult) String() string {
+func (p *MessageServiceMessageChatResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("MessageServiceMessageChatMessageResult(%+v)", *p)
+	return fmt.Sprintf("MessageServiceMessageChatResult(%+v)", *p)
 }
 
-func (p *MessageServiceMessageChatMessageResult) DeepEqual(ano *MessageServiceMessageChatMessageResult) bool {
+func (p *MessageServiceMessageChatResult) DeepEqual(ano *MessageServiceMessageChatResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2358,7 +2358,7 @@ func (p *MessageServiceMessageChatMessageResult) DeepEqual(ano *MessageServiceMe
 	return true
 }
 
-func (p *MessageServiceMessageChatMessageResult) Field0DeepEqual(src *MessageChatResponse) bool {
+func (p *MessageServiceMessageChatResult) Field0DeepEqual(src *MessageChatResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -2366,39 +2366,39 @@ func (p *MessageServiceMessageChatMessageResult) Field0DeepEqual(src *MessageCha
 	return true
 }
 
-type MessageServiceMessageActionMessageArgs struct {
+type MessageServiceMessageActionArgs struct {
 	Req *MessageActionRequest `thrift:"req,1" frugal:"1,default,MessageActionRequest" json:"req"`
 }
 
-func NewMessageServiceMessageActionMessageArgs() *MessageServiceMessageActionMessageArgs {
-	return &MessageServiceMessageActionMessageArgs{}
+func NewMessageServiceMessageActionArgs() *MessageServiceMessageActionArgs {
+	return &MessageServiceMessageActionArgs{}
 }
 
-func (p *MessageServiceMessageActionMessageArgs) InitDefault() {
-	*p = MessageServiceMessageActionMessageArgs{}
+func (p *MessageServiceMessageActionArgs) InitDefault() {
+	*p = MessageServiceMessageActionArgs{}
 }
 
-var MessageServiceMessageActionMessageArgs_Req_DEFAULT *MessageActionRequest
+var MessageServiceMessageActionArgs_Req_DEFAULT *MessageActionRequest
 
-func (p *MessageServiceMessageActionMessageArgs) GetReq() (v *MessageActionRequest) {
+func (p *MessageServiceMessageActionArgs) GetReq() (v *MessageActionRequest) {
 	if !p.IsSetReq() {
-		return MessageServiceMessageActionMessageArgs_Req_DEFAULT
+		return MessageServiceMessageActionArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *MessageServiceMessageActionMessageArgs) SetReq(val *MessageActionRequest) {
+func (p *MessageServiceMessageActionArgs) SetReq(val *MessageActionRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_MessageServiceMessageActionMessageArgs = map[int16]string{
+var fieldIDToName_MessageServiceMessageActionArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *MessageServiceMessageActionMessageArgs) IsSetReq() bool {
+func (p *MessageServiceMessageActionArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *MessageServiceMessageActionMessageArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageActionArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2447,7 +2447,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionMessageArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2457,7 +2457,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *MessageServiceMessageActionArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewMessageActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -2465,9 +2465,9 @@ func (p *MessageServiceMessageActionMessageArgs) ReadField1(iprot thrift.TProtoc
 	return nil
 }
 
-func (p *MessageServiceMessageActionMessageArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageActionArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageActionMessage_args"); err != nil {
+	if err = oprot.WriteStructBegin("MessageAction_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2494,7 +2494,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageActionArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2511,14 +2511,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageArgs) String() string {
+func (p *MessageServiceMessageActionArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("MessageServiceMessageActionMessageArgs(%+v)", *p)
+	return fmt.Sprintf("MessageServiceMessageActionArgs(%+v)", *p)
 }
 
-func (p *MessageServiceMessageActionMessageArgs) DeepEqual(ano *MessageServiceMessageActionMessageArgs) bool {
+func (p *MessageServiceMessageActionArgs) DeepEqual(ano *MessageServiceMessageActionArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2530,7 +2530,7 @@ func (p *MessageServiceMessageActionMessageArgs) DeepEqual(ano *MessageServiceMe
 	return true
 }
 
-func (p *MessageServiceMessageActionMessageArgs) Field1DeepEqual(src *MessageActionRequest) bool {
+func (p *MessageServiceMessageActionArgs) Field1DeepEqual(src *MessageActionRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -2538,39 +2538,39 @@ func (p *MessageServiceMessageActionMessageArgs) Field1DeepEqual(src *MessageAct
 	return true
 }
 
-type MessageServiceMessageActionMessageResult struct {
+type MessageServiceMessageActionResult struct {
 	Success *MessageActionResponse `thrift:"success,0,optional" frugal:"0,optional,MessageActionResponse" json:"success,omitempty"`
 }
 
-func NewMessageServiceMessageActionMessageResult() *MessageServiceMessageActionMessageResult {
-	return &MessageServiceMessageActionMessageResult{}
+func NewMessageServiceMessageActionResult() *MessageServiceMessageActionResult {
+	return &MessageServiceMessageActionResult{}
 }
 
-func (p *MessageServiceMessageActionMessageResult) InitDefault() {
-	*p = MessageServiceMessageActionMessageResult{}
+func (p *MessageServiceMessageActionResult) InitDefault() {
+	*p = MessageServiceMessageActionResult{}
 }
 
-var MessageServiceMessageActionMessageResult_Success_DEFAULT *MessageActionResponse
+var MessageServiceMessageActionResult_Success_DEFAULT *MessageActionResponse
 
-func (p *MessageServiceMessageActionMessageResult) GetSuccess() (v *MessageActionResponse) {
+func (p *MessageServiceMessageActionResult) GetSuccess() (v *MessageActionResponse) {
 	if !p.IsSetSuccess() {
-		return MessageServiceMessageActionMessageResult_Success_DEFAULT
+		return MessageServiceMessageActionResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *MessageServiceMessageActionMessageResult) SetSuccess(x interface{}) {
+func (p *MessageServiceMessageActionResult) SetSuccess(x interface{}) {
 	p.Success = x.(*MessageActionResponse)
 }
 
-var fieldIDToName_MessageServiceMessageActionMessageResult = map[int16]string{
+var fieldIDToName_MessageServiceMessageActionResult = map[int16]string{
 	0: "success",
 }
 
-func (p *MessageServiceMessageActionMessageResult) IsSetSuccess() bool {
+func (p *MessageServiceMessageActionResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *MessageServiceMessageActionMessageResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageActionResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2619,7 +2619,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionMessageResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2629,7 +2629,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *MessageServiceMessageActionResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewMessageActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -2637,9 +2637,9 @@ func (p *MessageServiceMessageActionMessageResult) ReadField0(iprot thrift.TProt
 	return nil
 }
 
-func (p *MessageServiceMessageActionMessageResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageActionResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("MessageActionMessage_result"); err != nil {
+	if err = oprot.WriteStructBegin("MessageAction_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2666,7 +2666,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *MessageServiceMessageActionResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -2685,14 +2685,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionMessageResult) String() string {
+func (p *MessageServiceMessageActionResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("MessageServiceMessageActionMessageResult(%+v)", *p)
+	return fmt.Sprintf("MessageServiceMessageActionResult(%+v)", *p)
 }
 
-func (p *MessageServiceMessageActionMessageResult) DeepEqual(ano *MessageServiceMessageActionMessageResult) bool {
+func (p *MessageServiceMessageActionResult) DeepEqual(ano *MessageServiceMessageActionResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2704,7 +2704,7 @@ func (p *MessageServiceMessageActionMessageResult) DeepEqual(ano *MessageService
 	return true
 }
 
-func (p *MessageServiceMessageActionMessageResult) Field0DeepEqual(src *MessageActionResponse) bool {
+func (p *MessageServiceMessageActionResult) Field0DeepEqual(src *MessageActionResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
