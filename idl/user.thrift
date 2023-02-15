@@ -1,12 +1,5 @@
 namespace go user
 
-enum ErrCode {
-    SuccessCode                = 0
-    ServiceErrCode             = 10001
-    ParamErrCode               = 10002
-    UserAlreadyExistErrCode    = 10003
-    AuthorizationFailedErrCode = 10004
-}
 
 struct douyin_user_register_request {
     1: string username // 注册用户名，最长32个字符

@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"time"
+	// "log"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
@@ -46,12 +47,14 @@ func InitJWT() {
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {
 			claims := jwt.ExtractClaims(ctx, c)
 			userid, _ := claims[consts.IdentityKey].(json.Number).Int64()
+			// log.Println("^^^^^^^^userid:%v",userid)
 			return &api.User{
 				ID: userid,
 			}
 		},
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if v, ok := data.(int64); ok {
+				// log.Println("---------userid:%v",v)
 				return jwt.MapClaims{
 					consts.IdentityKey: v,
 				}
