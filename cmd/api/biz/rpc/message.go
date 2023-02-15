@@ -56,13 +56,13 @@ func MessageAction(ctx context.Context, req *message.MessageActionRequest) error
 }
 
 // ChatMessage query list of note info
-func MessageChat(ctx context.Context, req *message.MessageChatRequest) ([]*message.Message, int64, error) {
+func MessageChat(ctx context.Context, req *message.MessageChatRequest) ([]*message.Message, error) {
 	resp, err := messageClient.MessageChat(ctx, req)
 	if err != nil {
-		return nil, 0, err
+		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
 	return resp.Messages, nil
 }
