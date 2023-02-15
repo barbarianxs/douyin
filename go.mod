@@ -4,18 +4,19 @@ go 1.19
 
 require (
 	github.com/apache/thrift v0.17.0
-	github.com/cloudwego/fastpb v0.0.3
 	github.com/cloudwego/hertz v0.5.2
 	github.com/cloudwego/kitex v0.4.4
 	github.com/golang-jwt/jwt/v4 v4.4.3
+	github.com/hertz-contrib/gzip v0.0.1
 	github.com/hertz-contrib/jwt v1.0.2
 	github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.1.1
 	github.com/hertz-contrib/pprof v0.1.0
+	github.com/hertz-contrib/requestid v1.1.0
 	github.com/kitex-contrib/obs-opentelemetry v0.1.0
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20221109071748-a433b0b57972
 	github.com/kitex-contrib/registry-etcd v0.1.0
-	google.golang.org/protobuf v1.28.1
+	go.opentelemetry.io/otel/trace v1.9.0
 	gorm.io/driver/mysql v1.4.6
 	gorm.io/gorm v1.24.5
 	gorm.io/plugin/opentelemetry v0.1.0
@@ -29,6 +30,7 @@ require (
 	github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06 // indirect
 	github.com/chenzhuoyu/iasm v0.0.0-20220818063314-28c361dae733 // indirect
 	github.com/choleraehyq/pid v0.0.15 // indirect
+	github.com/cloudwego/fastpb v0.0.3 // indirect
 	github.com/cloudwego/frugal v0.1.3 // indirect
 	github.com/cloudwego/netpoll v0.3.1 // indirect
 	github.com/cloudwego/thriftgo v0.2.4 // indirect
@@ -41,6 +43,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/pprof v0.0.0-20220608213341-c488b8fa1db3 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
 	github.com/henrylee2cn/ameda v1.4.10 // indirect
 	github.com/henrylee2cn/goutil v0.0.0-20210127050712-89660552f6f8 // indirect
@@ -74,7 +77,6 @@ require (
 	go.opentelemetry.io/otel/metric v0.31.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.9.0 // indirect
 	go.opentelemetry.io/otel/sdk/metric v0.31.0 // indirect
-	go.opentelemetry.io/otel/trace v1.9.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.18.0 // indirect
 	go.uber.org/atomic v1.8.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
@@ -86,6 +88,7 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1 // indirect
 	google.golang.org/grpc v1.46.2 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 

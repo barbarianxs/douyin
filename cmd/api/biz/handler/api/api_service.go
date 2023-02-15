@@ -4,15 +4,17 @@ package api
 
 import (
 	"context"
+	"log"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	// "github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
-	// "github.com/cloudwego/hertz/pkg/common/utils"
+	"github.com/cloudwego/hertz/pkg/common/utils"
 )
 
 // Register .
@@ -26,11 +28,11 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	err = rpc.Register(context.Background(),&user.DouyinUserRegisterRequest{
+	err = rpc.Register(context.Background(), &user.DouyinUserRegisterRequest{
 		Username: req.Username,
 		Password: req.Password,
 	})
-	if err != nil{
+	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
@@ -41,4 +43,179 @@ func Register(ctx context.Context, c *app.RequestContext) {
 // @router /douyin/user/login/ [POST]
 func Login(ctx context.Context, c *app.RequestContext) {
 	mw.JwtMiddleware.LoginHandler(ctx, c)
+}
+
+// RelationAction .
+// @router /douyin/relation/action/ [POST]
+func RelationAction(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.DouyinRelationActionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	//从token中获取id
+	u, _ := c.Get(consts.IdentityKey)
+	if u == nil{
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return 
+	}
+	log.Println(u)
+	// log.Println("userid:%d",u.(*api.User).ID)
+	err = rpc.RelationAction(context.Background(), &relation.DouyinRelationActionRequest{
+		UserId:     u.(*api.User).ID,
+		Token:      req.Token,
+		ToUserId:   req.ToUserID,
+		ActionType: req.ActionType,
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+
+	SendResponse(c, errno.Success, nil)
+}
+
+// RelationFollowList .
+// @router /douyin/relation/follow/list/ [GET]
+func RelationFollowList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.DouyinRelationFollowListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+
+	//从token中获取id
+	u, _ := c.Get(consts.IdentityKey)
+	if u == nil{
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
+	//越权错误
+	if req.UserID!=0&&req.UserID!=u.(*api.User).ID{
+		SendResponse(c, errno.BrokenAccessControlErr, nil)
+		return
+	}
+	if req.UserID==0{
+		req.UserID=u.(*api.User).ID
+	}
+	
+	// resp := new(api.DouyinRelationFollowListResponse)
+	users, err := rpc.RelationFollowList(context.Background(), &relation.DouyinRelationFollowListRequest{
+		UserId: req.UserID,
+		Token:  req.Token,
+	})
+
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	// log.Println("***api.go***")
+	// log.Println(users)
+	// SendResponse(c, errno.Success, utils.H{
+	// 	"user_list": users,
+	// })
+	// 客户端对JSON的名称有要求，不适用SendResponse
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(consts.StatusOK,utils.H{
+		"status_code":Err.ErrCode,
+		"status_msg":Err.ErrMsg,
+		"user_list": users,
+	})
+}
+
+// RelationFollowerList .
+// @router /douyin/relation/follower/list/ [GET]
+func RelationFollowerList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.DouyinRelationFollowerListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	//从token中获取id
+	u, _ := c.Get(consts.IdentityKey)
+	if u == nil{
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
+	//越权错误
+	if req.UserID!=0&&req.UserID!=u.(*api.User).ID{
+		SendResponse(c, errno.BrokenAccessControlErr, nil)
+		return
+	}
+	if req.UserID==0{
+		req.UserID=u.(*api.User).ID
+	}
+	// resp := new(api.DouyinRelationFollowerListResponse)
+	users, err := rpc.RelationFollowerList(context.Background(), &relation.DouyinRelationFollowerListRequest{
+		UserId: req.UserID,
+		Token:  req.Token,
+	})
+
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+
+	// SendResponse(c, errno.Success, utils.H{
+	// 	"user_list": users,
+	// })
+	// 客户端对JSON的名称有要求，不适用SendResponse
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(consts.StatusOK,utils.H{
+		"status_code":Err.ErrCode,
+		"status_msg":Err.ErrMsg,
+		"user_list": users,
+	})
+}
+
+// RelationFriendList .
+// @router /douyin/relation/friend/list/ [GET]
+func RelationFriendList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.DouyinRelationFriendListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	//从token中获取id
+	u, _ := c.Get(consts.IdentityKey)
+	if u == nil{
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
+	//越权错误
+	if req.UserID!=0&&req.UserID!=u.(*api.User).ID{
+		SendResponse(c, errno.BrokenAccessControlErr, nil)
+		return
+	}
+	if req.UserID==0{
+		req.UserID=u.(*api.User).ID
+	}
+	friends, err := rpc.RelationFriendList(context.Background(), &relation.DouyinRelationFriendListRequest{
+		UserId: req.UserID,
+		Token:  req.Token,
+	})
+
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+
+	// SendResponse(c, errno.Success, utils.H{
+	// 	"user_list": friends,
+	// })
+	// 客户端对JSON的名称有要求，不适用SendResponse
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(consts.StatusOK,utils.H{
+		"status_code":Err.ErrCode,
+		"status_msg":Err.ErrMsg,
+		"user_list": friends,
+	})
 }

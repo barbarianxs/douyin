@@ -82,3 +82,13 @@ curl --location --request POST '127.0.0.1:8080/douyin/user/login' \
     "data": null
 }
 ```
+
+
+relation :
+/douyin/relation/action/?token=limingliming&to_user_id=1&action_type=1
+
+/douyin/relation/follow/list/?token=limingliming&user_id=2"
+
+/douyin/relation/follower/list/?token=limingliming&user_id=2"
+
+/douyin/relation/friend/list/?token=limingliming&user_id=2
