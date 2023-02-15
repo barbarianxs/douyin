@@ -56,8 +56,8 @@ func MessageChat(ctx context.Context, c *app.RequestContext) {
 	}
 	v, _ := c.Get(consts.IdentityKey)
 	messages, err := rpc.MessageChat(context.Background(), &message.MessageChatRequest{
-		Token:    v,
-		ToUserId: req.ToUserId,
+		FromUserId:    v.(*api.User).UserID,
+		ToUserId: req.ToUserID,
 		// Offset:    req.Offset,
 		// Limit:     req.Limit,
 	})
@@ -84,8 +84,8 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 	v, _ := c.Get(consts.IdentityKey)
 	
 	err = rpc.MessageAction(context.Background(), &message.MessageActionRequest{
-		Token:  v,
-		ToUserId: req.ToUserId,
+		FromUserId:  v.(*api.User).UserID,
+		ToUserId: req.ToUserID,
 		ActionType: req.ActionType,
 		Content: req.Content,
 		

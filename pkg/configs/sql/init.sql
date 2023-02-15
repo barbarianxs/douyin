@@ -13,8 +13,8 @@ CREATE TABLE `user`
 CREATE TABLE `message`
 (
     `id`         bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
-    `from_user_id`    int(64) NOT NULL DEFAULT 0 COMMENT 'FromUserID',
-    `to_user_id`    int(64) NOT NULL DEFAULT 0 COMMENT 'ToUserID',
+    `from_user_id` bigint NOT NULL, COMMENT 'FromUserID',
+    `to_user_id` bigint NOT NULL, 0 COMMENT 'ToUserID',
     `content`    TEXT NULL COMMENT 'Content',
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Message create time',
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Message update time',

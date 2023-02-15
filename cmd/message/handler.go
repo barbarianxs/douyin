@@ -13,8 +13,8 @@ import (
 // MessageServiceImpl implements the last service interface defined in the IDL.
 type MessageServiceImpl struct{}
 
-// MessageChatMessage implements the MessageServiceImpl interface.
-func (s *MessageServiceImpl) MessageChatMessage(ctx context.Context, req *message.MessageChatRequest) (resp *message.MessageChatResponse, err error) {
+// MessageChat implements the MessageServiceImpl interface.
+func (s *MessageServiceImpl) MessageChat(ctx context.Context, req *message.MessageChatRequest) (resp *message.MessageChatResponse, err error) {
 	// TODO: Your code here...
 	resp = new(message.MessageActionResponse)
 
@@ -34,8 +34,8 @@ func (s *MessageServiceImpl) MessageChatMessage(ctx context.Context, req *messag
 	return resp, nil
 }
 
-// MessageActionMessage implements the MessageServiceImpl interface.
-func (s *MessageServiceImpl) MessageActionMessage(ctx context.Context, req *message.MessageActionRequest) (resp *message.MessageActionResponse, err error) {
+// MessageAction implements the MessageServiceImpl interface.
+func (s *MessageServiceImpl) MessageAction(ctx context.Context, req *message.MessageActionRequest) (resp *message.MessageActionResponse, err error) {
 	// TODO: Your code here...
 	resp = new(message.MessageActionResponse)
 
@@ -54,20 +54,3 @@ func (s *MessageServiceImpl) MessageActionMessage(ctx context.Context, req *mess
 
 }
 
-// LoginUser implements the UserServiceImpl interface.
-func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequest) (resp *user.LoginUserResponse, err error) {
-	// TODO: Your code here...
-	return
-}
-
-// LogoutUser implements the UserServiceImpl interface.
-func (s *UserServiceImpl) LogoutUser(ctx context.Context, req *user.LogoutUserRequest) (resp *user.LogoutUserResponse, err error) {
-	// TODO: Your code here...
-	return
-}
-
-// RegisterUser implements the UserServiceImpl interface.
-func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *user.RegisterUserRequest) (resp *user.RegisterUserResponse, err error) {
-	// TODO: Your code here...
-	return
-}

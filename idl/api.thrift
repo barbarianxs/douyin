@@ -48,7 +48,7 @@ struct RegisterUserResponse {
 
 
 struct MessageChatRequest {
-    1:required string token    (api.chat="token", api.vd="len($) > 0")      // 用户鉴权token
+    1:required i64 from_user_id    (api.chat="from_user_id", api.vd="len($) > 0")      // 用户鉴权token
     2:required i64 to_user_id  (api.chat="to_user_id", api.vd="len($) > 0")      // 对方用户id
 }
 
@@ -59,7 +59,7 @@ struct MessageChatResponse {
 }
 
 struct MessageActionRequest {
-    1:required string token       (api.form="token", api.vd="len($) > 0")               // 用户鉴权token
+    1:required i64 from_user_id       (api.form="from_user_id", api.vd="len($) > 0")               // 用户鉴权token
     2:required i64 to_user_id    (api.form="to_user_id", api.vd="len($) > 0")      // 对方用户id
     3:required i32 action_type    (api.form="action_type", api.vd="len($) > 0")    // 1-发送消息
     4:required string content      (api.form="content", api.vd="len($) > 0")           // 消息内容

@@ -8,7 +8,7 @@ import (
 )
 
 // Message pack message info
-func Message(u *dal.Message) *message.Message {
+func Message(u *db.Message) *message.Message {
 	if u == nil {
 		return nil
 	}
@@ -22,7 +22,7 @@ func Message(u *dal.Message) *message.Message {
 }
 
 // Messages pack list of message info
-func Messages(msgs []*dal.Message) []*message.Message {
+func Messages(msgs []*db.Message) []*message.Message {
 	messages := make([]*message.Message, 0)
 	for _, msg := range msgs {
 		if temp := Message(msg); temp != nil {
