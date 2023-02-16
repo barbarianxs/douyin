@@ -65,5 +65,5 @@ func LoginUser(ctx context.Context, req *user.LoginUserRequest) (int64, error) {
 	if resp.BaseResp.StatusCode != 0 {
 		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	return resp.UserId, resp.Token, nil
+	return resp.UserId, nil
 }
