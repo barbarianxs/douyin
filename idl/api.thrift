@@ -34,7 +34,9 @@ struct LoginUserRequest {
 }
 
 struct LoginUserResponse {
-    1: BaseResp base_resp
+    1: i64 user_id
+    2: string token
+    3: BaseResp base_resp
 }
 
 struct RegisterUserRequest {
@@ -43,7 +45,9 @@ struct RegisterUserRequest {
 }
 
 struct RegisterUserResponse {
-    1: BaseResp base_resp
+    1: i64 user_id
+    2: string token
+    3: BaseResp base_resp
 }
 
 
