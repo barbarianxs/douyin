@@ -38,6 +38,9 @@ func BuildFriendUsers(ctx context.Context, uid int64 ,users []*User)  ([]*relati
 			FollowCount: int64(u.FollowingCount),
 			FollowerCount: int64(u.FollowerCount),
 			IsFollow: true,
+			Avatar:"https://p.qqan.com/up/2020-6/2020060316583052133.jpg",
+			Message:"测试下好用不",
+			MsgType:1,
 		})
 	}
 	return relationUsers,nil

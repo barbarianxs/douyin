@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"context"
-
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
@@ -64,4 +64,17 @@ func Login(ctx context.Context, req *user.DouyinUserRegisterRequest) (int64, err
 		return 0, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return resp.UserId, nil
+}
+
+func Info(ctx context.Context, req *user.DouyinUserRequest) (*user.User, error) {
+	resp, err := userClient.GetUserById(ctx, req)
+	if err != nil {
+		return resp.User, err
+	}
+	if resp.StatusCode != 0 {
+		return resp.User, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
+	}
+	log.Println("***api-rpc***")
+	log.Println(resp.User)
+	return resp.User, nil
 }

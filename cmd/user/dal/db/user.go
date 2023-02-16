@@ -2,7 +2,7 @@ package db
 
 import(
 	"context"
-
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
 	"gorm.io/gorm"
 )
@@ -20,16 +20,18 @@ func (u *User) TableName() string {
 	return consts.UserTableName
 }
 
-// MGetUsers multiple get list of user info
-func MGetUsers(ctx context.Context, userIDs []int64) ([]*User, error) {
-	res := make([]*User, 0)
-	if len(userIDs) == 0 {
+// GetUserById multiple get list of user info
+func GetUserById(ctx context.Context, userID int64) (*User, error) {
+	var res *User
+	if userID == 0 {
 		return res, nil
 	}
 
-	if err := DB.WithContext(ctx).Where("id in ?", userIDs).Find(&res).Error; err != nil {
+	if err := DB.WithContext(ctx).Where("id = ?", userID).Find(&res).Error; err != nil {
 		return nil, err
 	}
+	log.Println("***db***")
+	log.Println(res)
 	return res, nil
 }
 

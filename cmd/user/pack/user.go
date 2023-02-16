@@ -7,25 +7,26 @@ import (
 
 // User pack user info
 //打包 user 还没用到， 后续需要改，followcount,followercount,isfollow都需要从数据库查询
-func User(u *db.User) *user.User {
+func BuildUser(u *db.User) *user.User {
 	if u == nil {
 		return nil
 	}
 	return &user.User{
 		Id: int64(u.ID),
 		Name: u.Username,
-		FollowCount: 0,
-		FollowerCount:0,
-		IsFollow:false}
+		FollowCount: int64(u.FollowingCount),
+		FollowerCount:int64(u.FollowerCount),
+		IsFollow:true,
+	}
 }
 
 // Users pack list of user info
-func Users(us []*db.User) []*user.User {
-	users := make([]*user.User, 0)
-	for _, u := range us {
-		if temp := User(u); temp != nil {
-			users = append(users, temp)
-		}
-	}
-	return users
-}
+// func Users(us []*db.User) []*user.User {
+// 	users := make([]*user.User, 0)
+// 	for _, u := range us {
+// 		if temp := User(u); temp != nil {
+// 			users = append(users, temp)
+// 		}
+// 	}
+// 	return users
+// }
