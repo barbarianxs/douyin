@@ -24,7 +24,7 @@ import (
 type Response struct {
 	Code    int32       `json:"status_code"`
 	Message string      `json:"status_msg,omitempty"`
-	Data    interface{} `json:"data,omitempty"`
+	Data    interface{} `json:"data,omitempty"`//when it is nil ,it will be empty
 }
 
 // SendResponse pack response
