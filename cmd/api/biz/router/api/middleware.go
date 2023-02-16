@@ -138,3 +138,13 @@ func _register0Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _infoMw() []app.HandlerFunc {
+	// your code...
+		//需要授权访问的路由组 需要在中间件里注入授权逻辑
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+	return nil
+}

@@ -1,5 +1,13 @@
 # douyin
 
+##  Completed API:
++ douyin/user/*
++ douyin/relation/*
+##  demo show 
++ relation
+
+![relation](gif/relation.gif)
+
 ## Quick Start
 ### Setup Basic Dependence
 ```
@@ -9,6 +17,12 @@ docker-compose up
 ### Run User RPC Server
 ```
 cd cmd/user
+sh build.sh
+sh output/bootstrap.sh
+```
+### Run Relation RPC Server
+```
+cd cmd/relation
 sh build.sh
 sh output/bootstrap.sh
 ```
