@@ -17,7 +17,7 @@ func Message(u *db.Message) *message.Message {
 		FromUserId: u.FromUserId,
 		ToUserId:   u.ToUserId,
 		Content:    u.Content,
-		CreateTime: u.CreatedAt.Unix(),
+		// CreateTime: u.CreatedAt.Unix(),
 	}
 }
 

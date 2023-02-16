@@ -18,7 +18,7 @@ struct Message {
     2:required i64 to_user_id          // 该消息接收者的id
     3:required i64 from_user_id        // 该消息发送者的id
     4:required string content (vt.min_size = "1")         // 消息内容
-    5:optional string create_time      // 消息创建时间
+    5:optional i64 create_time      // 消息创建时间
 }
 
 struct MessageChatRequest {
