@@ -16,7 +16,7 @@ func NewActionMsgService(ctx context.Context) *ActionMsgService {
 }
 
 // Create Message
-func (s *ActionMsgService) MGetActionMsg(req *message.MessageActionRequest, to_user_id int64) error {
+func (s *ActionMsgService) MGetActionMsg(req *message.MessageActionRequest) error {
 	MessageModel := &db.Message{
 		ToUserId:   req.ToUserId,
 		FromUserId:  req.FromUserId,

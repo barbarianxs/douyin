@@ -21,10 +21,10 @@ struct User {
 }
 
 struct Message {
-    1:required i64 id                  // 消息id
-    2:required i64 to_user_id          // 该消息接收者的id
-    3:required i64 from_user_id        // 该消息发送者的id
-    4:required string content         // 消息内容
+    1:i64 id                  // 消息id
+    2:i64 to_user_id          // 该消息接收者的id
+    3:i64 from_user_id        // 该消息发送者的id
+    4:string content         // 消息内容
     5:optional string create_time      // 消息创建时间
 }
 
@@ -48,8 +48,8 @@ struct RegisterUserResponse {
 
 
 struct MessageChatRequest {
-    1:required i64 from_user_id    (api.chat="from_user_id", api.vd="len($) > 0")      // 用户鉴权token
-    2:required i64 to_user_id  (api.chat="to_user_id", api.vd="len($) > 0")      // 对方用户id
+    1:i64 from_user_id  
+    2:i64 to_user_id 
 }
 
 struct MessageChatResponse {
@@ -59,10 +59,10 @@ struct MessageChatResponse {
 }
 
 struct MessageActionRequest {
-    1:required i64 from_user_id       (api.form="from_user_id", api.vd="len($) > 0")               // 用户鉴权token
-    2:required i64 to_user_id    (api.form="to_user_id", api.vd="len($) > 0")      // 对方用户id
-    3:required i32 action_type    (api.form="action_type", api.vd="len($) > 0")    // 1-发送消息
-    4:required string content      (api.form="content", api.vd="len($) > 0")           // 消息内容
+    1:i64 from_user_id   
+    2:i64 to_user_id
+    3:i32 action_type    (api.form="action_type")    // 1-发送消息
+    4:string content      (api.form="content", api.vd="len($) > 0")           // 消息内容
 }
 
 struct MessageActionResponse {

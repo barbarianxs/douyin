@@ -1,7 +1,7 @@
 package pack
 
 import (
-	"time"
+	// "time"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/message/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
@@ -17,7 +17,7 @@ func Message(u *db.Message) *message.Message {
 		FromUserId: u.FromUserId,
 		ToUserId:   u.ToUserId,
 		Content:    u.Content,
-		CreateTime: FormatTime(u.CreatedAt),
+		CreateTime: u.CreatedAt.Unix(),
 	}
 }
 
@@ -32,7 +32,7 @@ func Messages(msgs []*db.Message) []*message.Message {
 	return messages
 }
 
-func FormatTime(t time.Time) *string {
-	s := t.Format("2006-01-02 15:04:05")
-	return &s
-}
+// func FormatTime(t time.Time) *string {
+// 	s := t.Format("2006-01-02 15:04:05")
+// 	return &s
+// }

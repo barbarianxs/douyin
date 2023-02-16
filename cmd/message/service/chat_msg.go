@@ -16,7 +16,7 @@ func NewChatMsgService(ctx context.Context) *ChatMsgService {
 	return &ChatMsgService{ctx: ctx}
 }
 
-func (s *ChatMsgService) MGetChatMsg(req *message.MessageChatRequest, to_user_id int64) ([]*message.Message, error) {
+func (s *ChatMsgService) MGetChatMsg(req *message.MessageChatRequest) ([]*message.Message, error) {
 	messageModels, err := db.MGetMessages(s.ctx, req.FromUserId, req.ToUserId)
 	if err != nil {
 		return nil, err

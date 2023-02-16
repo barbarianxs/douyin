@@ -16,20 +16,20 @@ type MessageServiceImpl struct{}
 // MessageChat implements the MessageServiceImpl interface.
 func (s *MessageServiceImpl) MessageChat(ctx context.Context, req *message.MessageChatRequest) (resp *message.MessageChatResponse, err error) {
 	// TODO: Your code here...
-	resp = new(message.MessageActionResponse)
+	resp = new(message.MessageChatResponse)
 
 	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 
-	uid, err := service.NewChatMsgService(ctx).ChatMsgService(req)
+	messages, err := service.NewChatMsgService(ctx).MGetChatMsg(req)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return resp, nil
 	}
 
-	resp.UserId = uid
+	resp.Messages = messages
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
 	return resp, nil
 }

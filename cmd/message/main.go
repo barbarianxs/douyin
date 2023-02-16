@@ -28,17 +28,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	addr, err := net.ResolveTCPAddr(consts.TCP, consts.MessageserviceAddr)
+	addr, err := net.ResolveTCPAddr(consts.TCP, consts.MessageServiceAddr)
 	if err != nil {
 		panic(err)
 	}
 	Init()
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(consts.MessageserviceName),
+		provider.WithServiceName(consts.MessageServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
-	svr := messageservice.NewServer(new(messageserviceImpl),
+	svr := messageservice.NewServer(new(MessageServiceImpl),
 		server.WithServiceAddr(addr),
 		server.WithRegistry(r),
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
@@ -46,7 +46,7 @@ func main() {
 		server.WithMiddleware(mw.CommonMiddleware),
 		server.WithMiddleware(mw.ServerMiddleware),
 		server.WithSuite(tracing.NewServerSuite()),
-		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.MessageserviceName}),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.MessageServiceName}),
 	)
 	err = svr.Run()
 
