@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/user/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/user/service"
@@ -40,7 +41,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.DouyinUserRegiste
 		resp = pack.BuildDouyinUserRegisterResponse(errno.ParamErr)
 		return resp, nil
 	}
-
+	
 	uid, err := service.NewLoginService(ctx).Login(req)
 	if err != nil {
 		resp = pack.BuildDouyinUserRegisterResponse(err)
@@ -56,21 +57,19 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.DouyinUserRegiste
 // GetUserById implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetUserById(ctx context.Context, req *user.DouyinUserRequest) (resp *user.DouyinUserResponse, err error) {
 	// TODO: Your code here...
+	log.Println("userGetUserById")
 	resp = new(user.DouyinUserResponse)
-	//还没写 空的
-	// if err = req.IsValid(); err != nil {
-	// 	resp = pack.BuildDouyinUserRegisterResponse(errno.ParamErr)
-	// 	return resp, nil
-	// }
+	if req.UserId ==0{
+		resp = pack.BuildDouyinUserResponse(errno.ParamErr)
+		return resp, nil
+	}
+	info, err := service.NewGetUserByIdService(ctx).GetUserById(req)
+	if err != nil {
+		resp = pack.BuildDouyinUserResponse(err)
+		return resp, nil
+	}
 
-	// users, err := service.NewMGetUserByIdService(ctx).GetUserById(req)
-	// if err != nil {
-	// 	resp = pack.BuildDouyinUserRegisterResponse(err)
-	// 	return resp, nil
-	// }
-
-	// resp = pack.BuildDouyinUserRegisterResponse(errno.Success)
-	// resp.Users = users
+	resp = pack.BuildDouyinUserResponse(errno.Success)
+	resp.User = pack.BuildUser(info)
 	return resp, nil
-	return
 }

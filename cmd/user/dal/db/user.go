@@ -2,7 +2,7 @@ package db
 
 import(
 	"context"
-
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
 	"gorm.io/gorm"
 )
@@ -44,5 +44,19 @@ func QueryUser(ctx context.Context, userName string) ([]*User, error) {
 	if err := DB.WithContext(ctx).Where("username = ?", userName).Find(&res).Error; err != nil {
 		return nil, err
 	}
+	return res, nil
+}
+
+func GetUserById(ctx context.Context, userID int64) (*User, error) {
+	var res *User
+	if userID == 0 {
+		return res, nil
+	}
+
+	if err := DB.WithContext(ctx).Where("id = ?", userID).Find(&res).Error; err != nil {
+		return nil, err
+	}
+	log.Println("***db***")
+	log.Println(res)
 	return res, nil
 }

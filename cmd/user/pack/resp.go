@@ -26,3 +26,23 @@ func BuildDouyinUserRegisterResponse(err error) *user.DouyinUserRegisterResponse
 func DouyinUserRegisterResponse(err errno.ErrNo) *user.DouyinUserRegisterResponse {
 	return &user.DouyinUserRegisterResponse{StatusCode: int32(err.ErrCode), StatusMsg: err.ErrMsg}
 }
+func BuildDouyinUserResponse(err error) *user.DouyinUserResponse {
+	if err == nil {
+		return DouyinUserResponse(errno.Success)
+	}
+
+	e := errno.ErrNo{}
+	if errors.As(err, &e) {
+		return DouyinUserResponse(e)
+	}
+
+	s := errno.ServiceErr.WithMessage(err.Error())
+	return DouyinUserResponse(s)
+}
+
+func DouyinUserResponse(err errno.ErrNo) *user.DouyinUserResponse {
+	return &user.DouyinUserResponse{
+		StatusCode: int32(err.ErrCode),
+		StatusMsg: err.ErrMsg,
+	}
+}

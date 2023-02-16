@@ -65,3 +65,14 @@ func Login(ctx context.Context, req *user.DouyinUserRegisterRequest) (int64, err
 	}
 	return resp.UserId, nil
 }
+
+func GetUserById(ctx context.Context, req *user.DouyinUserRequest) (*user.User, error) {
+	var resp, err = userClient.GetUserById(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 0 {
+		return resp.User, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
+	}
+	return resp.User, nil
+}

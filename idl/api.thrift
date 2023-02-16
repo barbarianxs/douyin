@@ -32,4 +32,5 @@ struct User {
 service ApiService {
     douyin_user_register_response Register (1: douyin_user_register_request req)(api.post="/douyin/user/register/");
     douyin_user_register_response Login (1: douyin_user_register_request req)(api.post="/douyin/user/login/");
+    douyin_user_response GetUserById (1: douyin_user_request req)(api.get="/douyin/user/")
 }

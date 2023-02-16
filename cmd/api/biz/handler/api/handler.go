@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
+// 打包返回信息
 
 package api
 
@@ -35,4 +35,9 @@ func SendResponse(c *app.RequestContext, err error, data interface{}) {
 		Message: Err.ErrMsg,
 		Data:    data,
 	})
+}
+
+type UserParam struct {
+	UserId int64  `json:"user_id,omitempty"` // 用户id
+	Token  string `json:"token,omitempty"`   // 用户鉴权token
 }
