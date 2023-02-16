@@ -6,7 +6,7 @@
 ##  demo show 
 + relation
 
-![](/gif/relation.gif)
+![](https://github.com/zhaowenxun/douyin/blob/main/gif/relation.gif)
 
 ## Quick Start
 ### Setup Basic Dependence
