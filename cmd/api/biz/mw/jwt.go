@@ -77,15 +77,17 @@ func InitJWT() {
 		},
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
 			c.JSON(http.StatusOK, utils.H{
-				"code":   errno.Success.ErrCode,
+				"status_code":   errno.Success.ErrCode,
+				"status_msg":	errno.Success.ErrMsg,
+				"user_id": 0,
 				"token":  token,
-				"expire": expire.Format(time.RFC3339),
+				// "expire": expire.Format(time.RFC3339),
 			})
 		},
 		Unauthorized: func(ctx context.Context, c *app.RequestContext, code int, message string) {
 			c.JSON(http.StatusOK, utils.H{
-				"code":    errno.AuthorizationFailedErr.ErrCode,
-				"message": message,
+				"status_code":    errno.AuthorizationFailedErr.ErrCode,
+				"status_msg": message,
 			})
 		},
 		HTTPStatusMessageFunc: func(e error, ctx context.Context, c *app.RequestContext) string {

@@ -22,9 +22,9 @@ import (
 )
 
 type Response struct {
-	Code    int32       `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Code    int32       `json:"status_code"`
+	Message string      `json:"status_msg,omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
 // SendResponse pack response
