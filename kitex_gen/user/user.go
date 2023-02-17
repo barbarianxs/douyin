@@ -70,7 +70,7 @@ func (p *ErrCode) Value() (driver.Value, error) {
 
 type BaseResp struct {
 	StatusCode  int64  `thrift:"status_code,1" frugal:"1,default,i64" json:"status_code"`
-	StatysMsg   string `thrift:"statys_msg,2" frugal:"2,default,string" json:"statys_msg"`
+	StatusMsg   string `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
 	ServiceTime int64  `thrift:"service_time,3" frugal:"3,default,i64" json:"service_time"`
 }
 
@@ -86,8 +86,8 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 	return p.StatusCode
 }
 
-func (p *BaseResp) GetStatysMsg() (v string) {
-	return p.StatysMsg
+func (p *BaseResp) GetStatusMsg() (v string) {
+	return p.StatusMsg
 }
 
 func (p *BaseResp) GetServiceTime() (v int64) {
@@ -96,8 +96,8 @@ func (p *BaseResp) GetServiceTime() (v int64) {
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
-func (p *BaseResp) SetStatysMsg(val string) {
-	p.StatysMsg = val
+func (p *BaseResp) SetStatusMsg(val string) {
+	p.StatusMsg = val
 }
 func (p *BaseResp) SetServiceTime(val int64) {
 	p.ServiceTime = val
@@ -105,7 +105,7 @@ func (p *BaseResp) SetServiceTime(val int64) {
 
 var fieldIDToName_BaseResp = map[int16]string{
 	1: "status_code",
-	2: "statys_msg",
+	2: "status_msg",
 	3: "service_time",
 }
 
@@ -201,7 +201,7 @@ func (p *BaseResp) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.StatysMsg = v
+		p.StatusMsg = v
 	}
 	return nil
 }
@@ -270,10 +270,10 @@ WriteFieldEndError:
 }
 
 func (p *BaseResp) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("statys_msg", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.StatysMsg); err != nil {
+	if err := oprot.WriteString(p.StatusMsg); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -319,7 +319,7 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 	if !p.Field1DeepEqual(ano.StatusCode) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.StatysMsg) {
+	if !p.Field2DeepEqual(ano.StatusMsg) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.ServiceTime) {
@@ -337,7 +337,7 @@ func (p *BaseResp) Field1DeepEqual(src int64) bool {
 }
 func (p *BaseResp) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.StatysMsg, src) != 0 {
+	if strings.Compare(p.StatusMsg, src) != 0 {
 		return false
 	}
 	return true
@@ -857,7 +857,7 @@ func (p *LoginUserRequest) Field2DeepEqual(src string) bool {
 
 type LoginUserResponse struct {
 	StatusCode int32  `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
-	StatysMsg  string `thrift:"statys_msg,2" frugal:"2,default,string" json:"statys_msg"`
+	StatusMsg  string `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
 	UserId     int64  `thrift:"user_id,3" frugal:"3,default,i64" json:"user_id"`
 	Token      string `thrift:"token,4" frugal:"4,default,string" json:"token"`
 }
@@ -874,8 +874,8 @@ func (p *LoginUserResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *LoginUserResponse) GetStatysMsg() (v string) {
-	return p.StatysMsg
+func (p *LoginUserResponse) GetStatusMsg() (v string) {
+	return p.StatusMsg
 }
 
 func (p *LoginUserResponse) GetUserId() (v int64) {
@@ -888,8 +888,8 @@ func (p *LoginUserResponse) GetToken() (v string) {
 func (p *LoginUserResponse) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
-func (p *LoginUserResponse) SetStatysMsg(val string) {
-	p.StatysMsg = val
+func (p *LoginUserResponse) SetStatusMsg(val string) {
+	p.StatusMsg = val
 }
 func (p *LoginUserResponse) SetUserId(val int64) {
 	p.UserId = val
@@ -900,7 +900,7 @@ func (p *LoginUserResponse) SetToken(val string) {
 
 var fieldIDToName_LoginUserResponse = map[int16]string{
 	1: "status_code",
-	2: "statys_msg",
+	2: "status_msg",
 	3: "user_id",
 	4: "token",
 }
@@ -1007,7 +1007,7 @@ func (p *LoginUserResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.StatysMsg = v
+		p.StatusMsg = v
 	}
 	return nil
 }
@@ -1089,10 +1089,10 @@ WriteFieldEndError:
 }
 
 func (p *LoginUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("statys_msg", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.StatysMsg); err != nil {
+	if err := oprot.WriteString(p.StatusMsg); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1155,7 +1155,7 @@ func (p *LoginUserResponse) DeepEqual(ano *LoginUserResponse) bool {
 	if !p.Field1DeepEqual(ano.StatusCode) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.StatysMsg) {
+	if !p.Field2DeepEqual(ano.StatusMsg) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.UserId) {
@@ -1176,7 +1176,7 @@ func (p *LoginUserResponse) Field1DeepEqual(src int32) bool {
 }
 func (p *LoginUserResponse) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.StatysMsg, src) != 0 {
+	if strings.Compare(p.StatusMsg, src) != 0 {
 		return false
 	}
 	return true
@@ -1421,7 +1421,7 @@ func (p *LogoutUserRequest) Field2DeepEqual(src string) bool {
 
 type LogoutUserResponse struct {
 	StatusCode int32  `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
-	StatysMsg  string `thrift:"statys_msg,2" frugal:"2,default,string" json:"statys_msg"`
+	StatusMsg  string `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
 	UserId     int64  `thrift:"user_id,3" frugal:"3,default,i64" json:"user_id"`
 	Token      string `thrift:"token,4" frugal:"4,default,string" json:"token"`
 }
@@ -1438,8 +1438,8 @@ func (p *LogoutUserResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *LogoutUserResponse) GetStatysMsg() (v string) {
-	return p.StatysMsg
+func (p *LogoutUserResponse) GetStatusMsg() (v string) {
+	return p.StatusMsg
 }
 
 func (p *LogoutUserResponse) GetUserId() (v int64) {
@@ -1452,8 +1452,8 @@ func (p *LogoutUserResponse) GetToken() (v string) {
 func (p *LogoutUserResponse) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
-func (p *LogoutUserResponse) SetStatysMsg(val string) {
-	p.StatysMsg = val
+func (p *LogoutUserResponse) SetStatusMsg(val string) {
+	p.StatusMsg = val
 }
 func (p *LogoutUserResponse) SetUserId(val int64) {
 	p.UserId = val
@@ -1464,7 +1464,7 @@ func (p *LogoutUserResponse) SetToken(val string) {
 
 var fieldIDToName_LogoutUserResponse = map[int16]string{
 	1: "status_code",
-	2: "statys_msg",
+	2: "status_msg",
 	3: "user_id",
 	4: "token",
 }
@@ -1571,7 +1571,7 @@ func (p *LogoutUserResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.StatysMsg = v
+		p.StatusMsg = v
 	}
 	return nil
 }
@@ -1653,10 +1653,10 @@ WriteFieldEndError:
 }
 
 func (p *LogoutUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("statys_msg", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.StatysMsg); err != nil {
+	if err := oprot.WriteString(p.StatusMsg); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1719,7 +1719,7 @@ func (p *LogoutUserResponse) DeepEqual(ano *LogoutUserResponse) bool {
 	if !p.Field1DeepEqual(ano.StatusCode) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.StatysMsg) {
+	if !p.Field2DeepEqual(ano.StatusMsg) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.UserId) {
@@ -1740,7 +1740,7 @@ func (p *LogoutUserResponse) Field1DeepEqual(src int32) bool {
 }
 func (p *LogoutUserResponse) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.StatysMsg, src) != 0 {
+	if strings.Compare(p.StatusMsg, src) != 0 {
 		return false
 	}
 	return true
@@ -1985,7 +1985,7 @@ func (p *RegisterUserRequest) Field2DeepEqual(src string) bool {
 
 type RegisterUserResponse struct {
 	StatusCode int32  `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
-	StatysMsg  string `thrift:"statys_msg,2" frugal:"2,default,string" json:"statys_msg"`
+	StatusMsg  string `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
 	UserId     int64  `thrift:"user_id,3" frugal:"3,default,i64" json:"user_id"`
 	Token      string `thrift:"token,4" frugal:"4,default,string" json:"token"`
 }
@@ -2002,8 +2002,8 @@ func (p *RegisterUserResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *RegisterUserResponse) GetStatysMsg() (v string) {
-	return p.StatysMsg
+func (p *RegisterUserResponse) GetStatusMsg() (v string) {
+	return p.StatusMsg
 }
 
 func (p *RegisterUserResponse) GetUserId() (v int64) {
@@ -2016,8 +2016,8 @@ func (p *RegisterUserResponse) GetToken() (v string) {
 func (p *RegisterUserResponse) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
-func (p *RegisterUserResponse) SetStatysMsg(val string) {
-	p.StatysMsg = val
+func (p *RegisterUserResponse) SetStatusMsg(val string) {
+	p.StatusMsg = val
 }
 func (p *RegisterUserResponse) SetUserId(val int64) {
 	p.UserId = val
@@ -2028,7 +2028,7 @@ func (p *RegisterUserResponse) SetToken(val string) {
 
 var fieldIDToName_RegisterUserResponse = map[int16]string{
 	1: "status_code",
-	2: "statys_msg",
+	2: "status_msg",
 	3: "user_id",
 	4: "token",
 }
@@ -2135,7 +2135,7 @@ func (p *RegisterUserResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.StatysMsg = v
+		p.StatusMsg = v
 	}
 	return nil
 }
@@ -2217,10 +2217,10 @@ WriteFieldEndError:
 }
 
 func (p *RegisterUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("statys_msg", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.StatysMsg); err != nil {
+	if err := oprot.WriteString(p.StatusMsg); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2283,7 +2283,7 @@ func (p *RegisterUserResponse) DeepEqual(ano *RegisterUserResponse) bool {
 	if !p.Field1DeepEqual(ano.StatusCode) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.StatysMsg) {
+	if !p.Field2DeepEqual(ano.StatusMsg) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.UserId) {
@@ -2304,7 +2304,7 @@ func (p *RegisterUserResponse) Field1DeepEqual(src int32) bool {
 }
 func (p *RegisterUserResponse) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.StatysMsg, src) != 0 {
+	if strings.Compare(p.StatusMsg, src) != 0 {
 		return false
 	}
 	return true

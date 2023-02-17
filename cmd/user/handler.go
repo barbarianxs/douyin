@@ -18,17 +18,17 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequ
 	resp = new(user.LoginUserResponse)
 
 	if err = req.IsValid(); err != nil {
-		resp.BaseResp = pack.BuildLoginResp(errno.ParamErr)
+		resp = pack.BuildLoginResp(errno.ParamErr)
 		return resp, nil
 	}
 	
 	uid, err := service.NewLoginUserService(ctx).LoginUser(req)
 	if err != nil {
-		resp.BaseResp = pack.BuildLoginResp(err)
+		resp = pack.BuildLoginResp(err)
 		return resp, nil
 	}
 	
-	resp.BaseResp = pack.BuildLoginResp(errno.Success)
+	resp = pack.BuildLoginResp(errno.Success)
 
 	resp.UserId = uid
 
@@ -49,16 +49,16 @@ func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *user.RegisterUs
 	resp = new(user.RegisterUserResponse)
 
 	if err = req.IsValid(); err != nil {
-		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		resp = pack.BuildRegisterResp(errno.ParamErr)
 		return resp, nil
 	}
 	err = service.NewRegisterUserService(ctx).RegisterUser(req)
 	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
+		resp = pack.BuildRegisterResp(err)
 		return resp, nil
 	}
 
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp = pack.BuildRegisterResp(errno.Success)
 
 	// resp.UserId = uid
 
