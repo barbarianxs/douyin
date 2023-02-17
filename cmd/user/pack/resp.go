@@ -3,27 +3,31 @@ package pack
 
 import (
 	"errors"
-	"time"
+	// "time"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *user.BaseResp {
+func BuildLoginResp(err error) *user.LoginUserResponse {
 	if err == nil {
-		return baseResp(errno.Success)
+		return LoginResp(errno.Success)
 	}
 
 	e := errno.ErrNo{}
 	if errors.As(err, &e) {
-		return baseResp(e)
+		return LoginResp(e)
 	}
 
 	s := errno.ServiceErr.WithMessage(err.Error())
-	return baseResp(s)
+	return LoginResp(s)
 }
 
-func baseResp(err errno.ErrNo) *user.BaseResp {
-	return &user.BaseResp{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
+func LoginResp(err errno.ErrNo) *user.LoginUserResponse {
+	return &user.LoginUserResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
 }
+
+// func loginResp(err errno.ErrNo) *user.LoginUserResponse {
+// 	return &user.LoginUserResponse{UserId: ,StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
+// }

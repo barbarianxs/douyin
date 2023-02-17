@@ -36,6 +36,7 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	err = rpc.RegisterUser(context.Background(), &user.RegisterUserRequest{
 		Username: req.Username,
 		Password: req.Password,
+
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)

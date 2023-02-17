@@ -26,9 +26,11 @@ struct LoginUserRequest {
 }
 
 struct LoginUserResponse {
-    1: i64 user_id
-    2: string token
-    3: BaseResp base_resp
+    1: i32 status_code
+    2: string status_message
+    3: i64 user_id
+    4: string token
+
 }
 
 struct LogoutUserRequest {
@@ -37,7 +39,11 @@ struct LogoutUserRequest {
 }
 
 struct LogoutUserResponse {
-    1: BaseResp base_resp
+    1: i32 status_code
+    2: string status_message
+    3: i64 user_id
+    4: string token
+
 }
 
 struct RegisterUserRequest {
@@ -46,9 +52,11 @@ struct RegisterUserRequest {
 }
 
 struct RegisterUserResponse {
-    1: i64 user_id
-    2: string token
-    3: BaseResp base_resp
+    1: i32 status_code
+    2: string status_message
+    3: i64 user_id
+    4: string token
+
 }
 service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req)

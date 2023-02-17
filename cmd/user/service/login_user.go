@@ -30,6 +30,7 @@ func (s *LoginUserService) LoginUser(req *user.LoginUserRequest) (int64, error) 
 	passWord := fmt.Sprintf("%x", h.Sum(nil))
 
 	userName := req.Username
+
 	users, err := db.QueryUser(s.ctx, userName)
 	if err != nil {
 		return 0, err
@@ -41,5 +42,6 @@ func (s *LoginUserService) LoginUser(req *user.LoginUserRequest) (int64, error) 
 	if u.Password != passWord {
 		return 0, errno.AuthorizationFailedErr
 	}
+
 	return int64(u.ID), nil
 }
