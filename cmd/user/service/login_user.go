@@ -23,7 +23,7 @@ func NewLoginUserService(ctx context.Context) *LoginUserService {
 
 /// LoginUser Login user info
 func (s *LoginUserService) LoginUser(req *user.LoginUserRequest) (int64, error) {
-	fmt,Println("---------------------------kitex test----------------------------")
+	fmt.Println("---------------------------kitex test----------------------------")
 	h := md5.New()
 	if _, err := io.WriteString(h, req.Password); err != nil {
 		return 0, err

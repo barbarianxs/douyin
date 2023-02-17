@@ -20,7 +20,7 @@ import (
 // LoginUser .
 // @router /douyin/user/login/ [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
-	fmt,Println("---------------------------hertz test----------------------------")
+	fmt.Println("---------------------------hertz test----------------------------")
 	mw.JwtMiddleware.LoginHandler(ctx, c)
 }
 
