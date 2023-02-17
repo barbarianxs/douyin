@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
-
+	"fmt"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
@@ -15,6 +15,7 @@ type UserServiceImpl struct{}
 // LoginUser implements the UserServiceImpl interface.
 func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequest) (resp *user.LoginUserResponse, err error) {
 	// TODO: Your code here...
+	fmt.Println("ttttttttttttttttttttttttttttttttttttttt-----------------------------------------------------")
 	resp = new(user.LoginUserResponse)
 
 	if err = req.IsValid(); err != nil {

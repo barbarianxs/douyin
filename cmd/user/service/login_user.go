@@ -23,6 +23,7 @@ func NewLoginUserService(ctx context.Context) *LoginUserService {
 
 /// LoginUser Login user info
 func (s *LoginUserService) LoginUser(req *user.LoginUserRequest) (int64, error) {
+	
 	h := md5.New()
 	if _, err := io.WriteString(h, req.Password); err != nil {
 		return 0, err
@@ -42,6 +43,6 @@ func (s *LoginUserService) LoginUser(req *user.LoginUserRequest) (int64, error) 
 	if u.Password != passWord {
 		return 0, errno.AuthorizationFailedErr
 	}
-
+	
 	return int64(u.ID), nil
 }

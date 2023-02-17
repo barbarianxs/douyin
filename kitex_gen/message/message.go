@@ -69,7 +69,7 @@ func (p *ErrCode) Value() (driver.Value, error) {
 }
 
 type BaseResp struct {
-	StatusCode    int64  `thrift:"status_code,1" frugal:"1,default,i64" json:"status_code"`
+	StatusCode    int32  `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
 	StatusMessage string `thrift:"status_message,2" frugal:"2,default,string" json:"status_message"`
 	ServiceTime   int64  `thrift:"service_time,3" frugal:"3,default,i64" json:"service_time"`
 }
@@ -82,7 +82,7 @@ func (p *BaseResp) InitDefault() {
 	*p = BaseResp{}
 }
 
-func (p *BaseResp) GetStatusCode() (v int64) {
+func (p *BaseResp) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
@@ -93,7 +93,7 @@ func (p *BaseResp) GetStatusMessage() (v string) {
 func (p *BaseResp) GetServiceTime() (v int64) {
 	return p.ServiceTime
 }
-func (p *BaseResp) SetStatusCode(val int64) {
+func (p *BaseResp) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
 func (p *BaseResp) SetStatusMessage(val string) {
@@ -129,7 +129,7 @@ func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -189,7 +189,7 @@ ReadStructEndError:
 }
 
 func (p *BaseResp) ReadField1(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI64(); err != nil {
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		p.StatusCode = v
@@ -253,10 +253,10 @@ WriteStructEndError:
 }
 
 func (p *BaseResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("status_code", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.StatusCode); err != nil {
+	if err := oprot.WriteI32(p.StatusCode); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -328,7 +328,7 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 	return true
 }
 
-func (p *BaseResp) Field1DeepEqual(src int64) bool {
+func (p *BaseResp) Field1DeepEqual(src int32) bool {
 
 	if p.StatusCode != src {
 		return false
