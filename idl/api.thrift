@@ -52,7 +52,17 @@ struct RegisterUserResponse {
     4: string token
 }
 
+struct UserInfoRequest {
+    1: i64 user_id
+    2: string token
+}
 
+struct UserInfoResponse {
+    1: i32 status_code
+    2: string status_msg
+    3: User user
+
+}
 struct MessageChatRequest {
     1:i64 from_user_id  
     2:i64 to_user_id 
