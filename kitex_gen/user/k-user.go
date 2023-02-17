@@ -144,7 +144,7 @@ func (p *BaseResp) FastReadField2(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.StatusMessage = v
+		p.StatysMsg = v
 
 	}
 	return offset, nil
@@ -206,8 +206,8 @@ func (p *BaseResp) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BaseResp) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_message", thrift.STRING, 2)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatusMessage)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "statys_msg", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatysMsg)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -233,8 +233,8 @@ func (p *BaseResp) field1Length() int {
 
 func (p *BaseResp) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("status_message", thrift.STRING, 2)
-	l += bthrift.Binary.StringLengthNocopy(p.StatusMessage)
+	l += bthrift.Binary.FieldBeginLength("statys_msg", thrift.STRING, 2)
+	l += bthrift.Binary.StringLengthNocopy(p.StatysMsg)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -788,7 +788,7 @@ func (p *LoginUserResponse) FastReadField2(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.StatusMessage = v
+		p.StatysMsg = v
 
 	}
 	return offset, nil
@@ -866,8 +866,8 @@ func (p *LoginUserResponse) fastWriteField1(buf []byte, binaryWriter bthrift.Bin
 
 func (p *LoginUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_message", thrift.STRING, 2)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatusMessage)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "statys_msg", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatysMsg)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -902,8 +902,8 @@ func (p *LoginUserResponse) field1Length() int {
 
 func (p *LoginUserResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("status_message", thrift.STRING, 2)
-	l += bthrift.Binary.StringLengthNocopy(p.StatusMessage)
+	l += bthrift.Binary.FieldBeginLength("statys_msg", thrift.STRING, 2)
+	l += bthrift.Binary.StringLengthNocopy(p.StatysMsg)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -1240,7 +1240,7 @@ func (p *LogoutUserResponse) FastReadField2(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.StatusMessage = v
+		p.StatysMsg = v
 
 	}
 	return offset, nil
@@ -1318,8 +1318,8 @@ func (p *LogoutUserResponse) fastWriteField1(buf []byte, binaryWriter bthrift.Bi
 
 func (p *LogoutUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_message", thrift.STRING, 2)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatusMessage)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "statys_msg", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatysMsg)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -1354,8 +1354,8 @@ func (p *LogoutUserResponse) field1Length() int {
 
 func (p *LogoutUserResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("status_message", thrift.STRING, 2)
-	l += bthrift.Binary.StringLengthNocopy(p.StatusMessage)
+	l += bthrift.Binary.FieldBeginLength("statys_msg", thrift.STRING, 2)
+	l += bthrift.Binary.StringLengthNocopy(p.StatysMsg)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -1692,7 +1692,7 @@ func (p *RegisterUserResponse) FastReadField2(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.StatusMessage = v
+		p.StatysMsg = v
 
 	}
 	return offset, nil
@@ -1770,8 +1770,8 @@ func (p *RegisterUserResponse) fastWriteField1(buf []byte, binaryWriter bthrift.
 
 func (p *RegisterUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_message", thrift.STRING, 2)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatusMessage)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "statys_msg", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatysMsg)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -1806,8 +1806,8 @@ func (p *RegisterUserResponse) field1Length() int {
 
 func (p *RegisterUserResponse) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("status_message", thrift.STRING, 2)
-	l += bthrift.Binary.StringLengthNocopy(p.StatusMessage)
+	l += bthrift.Binary.FieldBeginLength("statys_msg", thrift.STRING, 2)
+	l += bthrift.Binary.StringLengthNocopy(p.StatysMsg)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
