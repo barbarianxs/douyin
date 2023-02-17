@@ -17,7 +17,10 @@ struct BaseResp {
 struct User {
     1: i64 user_id
     2: string username
-    3: string avatar
+    3: i64 follow_count // 关注总数
+    4: i64 follower_count  // 粉丝总数
+    5: bool is_follow  // true-已关注，false-未关注
+    6: string avatar
 }
 
 struct LoginUserRequest {
@@ -58,8 +61,21 @@ struct RegisterUserResponse {
     4: string token
 
 }
+struct UserInfoRequest {
+    1: i64 user_id
+    2: string token
+}
+
+struct UserInfoResponse {
+    1: i32 status_code
+    2: string status_msg
+    3: User user
+
+}
+
 service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req)
     LogoutUserResponse LogoutUser(1: LogoutUserRequest req)
     RegisterUserResponse RegisterUser(1: RegisterUserRequest req)
+    UserInfoResponse UserInfo(1: UserInfoRequest req)
 }

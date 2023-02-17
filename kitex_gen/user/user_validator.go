@@ -51,3 +51,14 @@ func (p *RegisterUserRequest) IsValid() error {
 func (p *RegisterUserResponse) IsValid() error {
 	return nil
 }
+func (p *UserInfoRequest) IsValid() error {
+	return nil
+}
+func (p *UserInfoResponse) IsValid() error {
+	if p.User != nil {
+		if err := p.User.IsValid(); err != nil {
+			return fmt.Errorf("filed User not valid, %w", err)
+		}
+	}
+	return nil
+}

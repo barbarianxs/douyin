@@ -4,6 +4,7 @@ package pack
 import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	
 )
 
 // User pack user info
@@ -12,7 +13,13 @@ func User(u *db.User) *user.User {
 		return nil
 	}
 
-	return &user.User{UserId: int64(u.ID), Username: u.Username, Avatar: "test"}
+	return &user.User{
+		UserId: int64(u.ID), 
+		Username: u.Username,
+		FollowCount: int64(u.FollowCount),
+		FollowerCount: int64(u.FollowerCount),
+		IsFollow: bool(u.IsFollow ),
+		}
 }
 
 // Users pack list of user info

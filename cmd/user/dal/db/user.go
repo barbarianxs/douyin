@@ -12,6 +12,9 @@ type User struct {
 	gorm.Model
 	Username string `json:"username"`
 	Password string `json:"password"`
+	FollowCount   int64  `json:"follow_count"`
+	FollowerCount int64  `json:"follower_count"`
+	IsFollow      bool   `json:"is_follow"`
 }
 
 func (u *User) TableName() string {
@@ -41,6 +44,15 @@ func CreateUser(ctx context.Context, users []*User) error {
 func QueryUser(ctx context.Context, userName string) ([]*User, error) {
 	res := make([]*User, 0)
 	if err := DB.WithContext(ctx).Where("username = ?", userName).Find(&res).Error; err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+// QueryUserInfo query list of user info
+func QueryUserInfo(ctx context.Context, uid int64) ([]*User, error) {
+	res := make([]*User, 0)
+	if err := DB.WithContext(ctx).Where("id = ?", uid).Find(&res).Error; err != nil {
 		return nil, err
 	}
 	return res, nil

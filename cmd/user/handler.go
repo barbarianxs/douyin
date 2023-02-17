@@ -7,6 +7,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 
@@ -62,6 +63,31 @@ func (s *UserServiceImpl) RegisterUser(ctx context.Context, req *user.RegisterUs
 	resp = pack.BuildRegisterResp(errno.Success)
 
 	// resp.UserId = uid
+
+	return resp, nil
+}
+
+// UserInfo implements the UserServiceImpl interface.
+func (s *UserServiceImpl) UserInfo(ctx context.Context, req *user.UserInfoRequest) (resp *user.UserInfoResponse, err error) {
+	// TODO: Your code here...
+
+	resp = new(user.UserInfoResponse)
+
+	if err = req.IsValid(); err != nil {
+		resp = pack.BuildUserInfoResp(errno.ParamErr)
+		return resp, nil
+	}
+
+	user_info, err := service.NewUserInfoService(ctx).UserInfo(req)
+	if err != nil {
+		resp = pack.BuildUserInfoResp(err)
+		return resp, nil
+	}
+
+	resp = pack.BuildUserInfoResp(errno.Success)
+
+	resp.User = user_info
+
 
 	return resp, nil
 }

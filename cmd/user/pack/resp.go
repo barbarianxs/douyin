@@ -9,7 +9,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 
-// BuildBaseResp build baseResp from error
+// BuildLoginResp build baseResp from error
 func BuildLoginResp(err error) *user.LoginUserResponse {
 	if err == nil {
 		return LoginResp(errno.Success)
@@ -46,6 +46,21 @@ func BuildRegisterResp(err error) *user.RegisterUserResponse {
 func RegisterResp(err errno.ErrNo) *user.RegisterUserResponse {
 	return &user.RegisterUserResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
 }
-// func loginResp(err errno.ErrNo) *user.LoginUserResponse {
-// 	return &user.LoginUserResponse{UserId: ,StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
-// }
+// BuildUserInfoResp build baseResp from error
+func BuildUserInfoResp(err error) *user.UserInfoResponse {
+	if err == nil {
+		return UserInfoResp(errno.Success)
+	}
+
+	e := errno.ErrNo{}
+	if errors.As(err, &e) {
+		return UserInfoResp(e)
+	}
+
+	s := errno.ServiceErr.WithMessage(err.Error())
+	return UserInfoResp(s)
+}
+
+func UserInfoResp(err errno.ErrNo) *user.UserInfoResponse {
+	return &user.UserInfoResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
+}

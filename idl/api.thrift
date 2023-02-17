@@ -79,6 +79,7 @@ struct MessageActionResponse {
 service ApiService {
     LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login/")
     RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register/")
+    UserInfoResponse UserInfo(1: UserInfoRequest req) (api.get="/douyin/user/")
     MessageChatResponse MessageChat(1: MessageChatRequest req) (api.get="/douyin/message/chat/")      // 消息记录
     MessageActionResponse MessageAction(1: MessageActionRequest req) (api.post="/douyin/message/action/")     // 发送消息
 }
