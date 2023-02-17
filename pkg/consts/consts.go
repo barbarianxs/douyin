@@ -7,7 +7,7 @@ const (
 	SecretKey       = "secret key"
 	IdentityKey     = "id"
 	Total           = "total"
-	Messages           = "messages"
+	Messages        = "messages"
 	ApiServiceName  = "api"
 	// NoteServiceName = "note"
 	UserServiceName = "user"
