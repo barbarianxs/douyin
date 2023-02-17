@@ -1,7 +1,8 @@
 CREATE TABLE `user` (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `username` varchar(20) UNIQUE NOT NULL,
-  `password` char(128) NOT NULL,
+  `username`   varchar(128) NOT NULL DEFAULT '' COMMENT 'Username',
+  `password`   varchar(128) NOT NULL DEFAULT '' COMMENT 'Password',
+  `avatar`   varchar(128) NOT NULL DEFAULT '' COMMENT 'Avatar',
   `follow_count` bigint NOT NULL DEFAULT 0,
   `follower_count` bigint NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'User account create time',
