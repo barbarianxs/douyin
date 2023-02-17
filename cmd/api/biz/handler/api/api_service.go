@@ -21,6 +21,7 @@ import (
 // @router /douyin/user/login/ [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
 	mw.JwtMiddleware.LoginHandler(ctx, c)
+
 }
 
 // RegisterUser .

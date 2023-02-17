@@ -5,7 +5,7 @@ POST http://{{host}}/douyin/user/register
 Content-Type: application/json
 
 {
-    "username":"love",
+    "username":"lorain",
     "password":"123456"
 }
 ### 

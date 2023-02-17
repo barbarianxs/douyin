@@ -17,7 +17,7 @@ type UserServiceImpl struct{}
 // LoginUser implements the UserServiceImpl interface.
 func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequest) (resp *user.LoginUserResponse, err error) {
 	// TODO: Your code here...
-	fmt.Println("ttttttttttttttttttttttttttttttttttttttt-----------------------------------------------------")
+	
 	resp = new(user.LoginUserResponse)
 
 	if err = req.IsValid(); err != nil {
@@ -34,7 +34,7 @@ func (s *UserServiceImpl) LoginUser(ctx context.Context, req *user.LoginUserRequ
 	resp = pack.BuildLoginResp(errno.Success)
 
 	resp.UserId = uid
-
+	
 	return resp, nil
 
 }
