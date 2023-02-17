@@ -1,5 +1,5 @@
 #  start docker for ubuntu : service docker start
-version: "3.7"
+version: "3.3"
 services:
   # MySQL
   mysql:
