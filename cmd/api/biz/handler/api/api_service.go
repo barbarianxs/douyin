@@ -4,7 +4,7 @@ package api
 
 import (
 	"context"
-	// "fmt"
+	"fmt"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
@@ -20,7 +20,7 @@ import (
 // LoginUser .
 // @router /douyin/user/login/ [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
-	
+	fmt,Println("---------------------------hertz test----------------------------")
 	mw.JwtMiddleware.LoginHandler(ctx, c)
 }
 
