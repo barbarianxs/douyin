@@ -25,9 +25,6 @@ func (p *BaseResp) IsValid() error {
 	return nil
 }
 func (p *Message) IsValid() error {
-	if len(p.Content) < int(1) {
-		return fmt.Errorf("field Content min_len rule failed, current value: %d", len(p.Content))
-	}
 	return nil
 }
 func (p *MessageChatRequest) IsValid() error {

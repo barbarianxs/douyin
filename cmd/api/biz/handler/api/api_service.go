@@ -20,8 +20,9 @@ import (
 // LoginUser .
 // @router /douyin/user/login/ [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
-	fmt.Println("---------------------------hertz test----------------------------")
+	fmt.Println("---------------------------hertz test 1----------------------------")
 	mw.JwtMiddleware.LoginHandler(ctx, c)
+	fmt.Println("---------------------------hertz test 2----------------------------")
 }
 
 // RegisterUser .
@@ -30,10 +31,13 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.RegisterUserRequest
 	err = c.BindAndValidate(&req)
+	// fmt.Println("---------------------------hertz test register-1 %s----------------------------", err)
+	// // fmt.Println("---------------------------hertz test register-1 %s----------------------------", api.GetUsername(req))
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+	// fmt.Println("---------------------------hertz test register-2  %s----------------------------", err)
 	err = rpc.RegisterUser(context.Background(), &user.RegisterUserRequest{
 		Username: req.Username,
 		Password: req.Password,

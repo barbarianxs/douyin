@@ -29,8 +29,8 @@ struct Message {
 }
 
 struct LoginUserRequest {
-    1: string username (api.form="username", api.vd="len($) > 0")
-    2: string password (api.form="password", api.vd="len($) > 0")
+    1: string username
+    2: string password
 }
 
 struct LoginUserResponse {
@@ -41,8 +41,8 @@ struct LoginUserResponse {
 }
 
 struct RegisterUserRequest {
-    1: string username (api.form="username", api.vd="len($) > 0")
-    2: string password (api.form="password", api.vd="len($) > 0")
+    1: string username
+    2: string password
 }
 
 struct RegisterUserResponse {
@@ -67,8 +67,8 @@ struct MessageChatResponse {
 struct MessageActionRequest {
     1:i64 from_user_id   
     2:i64 to_user_id
-    3:i32 action_type    (api.form="action_type")    // 1-发送消息
-    4:string content      (api.form="content", api.vd="len($) > 0")           // 消息内容
+    3:i32 action_type
+    4:string content
 }
 
 struct MessageActionResponse {

@@ -34,8 +34,8 @@ struct LoginUserResponse {
 }
 
 struct LogoutUserRequest {
-    1: string username (vt.min_size = "1")
-    2: string password (vt.min_size = "1")
+    1: string username
+    2: string password
 }
 
 struct LogoutUserResponse {
@@ -47,8 +47,8 @@ struct LogoutUserResponse {
 }
 
 struct RegisterUserRequest {
-    1: string username (vt.min_size = "1")
-    2: string password (vt.min_size = "1")
+    1: string username
+    2: string password
 }
 
 struct RegisterUserResponse {

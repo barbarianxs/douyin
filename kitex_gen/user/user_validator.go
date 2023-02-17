@@ -40,24 +40,12 @@ func (p *LoginUserResponse) IsValid() error {
 	return nil
 }
 func (p *LogoutUserRequest) IsValid() error {
-	if len(p.Username) < int(1) {
-		return fmt.Errorf("field Username min_len rule failed, current value: %d", len(p.Username))
-	}
-	if len(p.Password) < int(1) {
-		return fmt.Errorf("field Password min_len rule failed, current value: %d", len(p.Password))
-	}
 	return nil
 }
 func (p *LogoutUserResponse) IsValid() error {
 	return nil
 }
 func (p *RegisterUserRequest) IsValid() error {
-	if len(p.Username) < int(1) {
-		return fmt.Errorf("field Username min_len rule failed, current value: %d", len(p.Username))
-	}
-	if len(p.Password) < int(1) {
-		return fmt.Errorf("field Password min_len rule failed, current value: %d", len(p.Password))
-	}
 	return nil
 }
 func (p *RegisterUserResponse) IsValid() error {

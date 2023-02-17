@@ -858,8 +858,8 @@ func (p *Message) String() string {
 }
 
 type LoginUserRequest struct {
-	Username string `thrift:"username,1" form:"username" json:"username" vd:"len($) > 0"`
-	Password string `thrift:"password,2" form:"password" json:"password" vd:"len($) > 0"`
+	Username string `thrift:"username,1" form:"username" json:"username" query:"username"`
+	Password string `thrift:"password,2" form:"password" json:"password" query:"password"`
 }
 
 func NewLoginUserRequest() *LoginUserRequest {
@@ -1316,8 +1316,8 @@ func (p *LoginUserResponse) String() string {
 }
 
 type RegisterUserRequest struct {
-	Username string `thrift:"username,1" form:"username" json:"username" vd:"len($) > 0"`
-	Password string `thrift:"password,2" form:"password" json:"password" vd:"len($) > 0"`
+	Username string `thrift:"username,1" form:"username" json:"username" query:"username"`
+	Password string `thrift:"password,2" form:"password" json:"password" query:"password"`
 }
 
 func NewRegisterUserRequest() *RegisterUserRequest {
@@ -2169,8 +2169,8 @@ func (p *MessageChatResponse) String() string {
 type MessageActionRequest struct {
 	FromUserID int64  `thrift:"from_user_id,1" form:"from_user_id" json:"from_user_id" query:"from_user_id"`
 	ToUserID   int64  `thrift:"to_user_id,2" form:"to_user_id" json:"to_user_id" query:"to_user_id"`
-	ActionType int32  `thrift:"action_type,3" form:"action_type" json:"action_type"`
-	Content    string `thrift:"content,4" form:"content" json:"content" vd:"len($) > 0"`
+	ActionType int32  `thrift:"action_type,3" form:"action_type" json:"action_type" query:"action_type"`
+	Content    string `thrift:"content,4" form:"content" json:"content" query:"content"`
 }
 
 func NewMessageActionRequest() *MessageActionRequest {
