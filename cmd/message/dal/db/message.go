@@ -26,7 +26,7 @@ func (u *Message) TableName() string {
 func MGetMessages(ctx context.Context, uid int64, toUId int64) ([]*Message, error) {
 	res := make([]*Message, 0)
 	
-	if err := DB.WithContext(ctx).Model(&Message{}).Where("messages.from_user_id = ?", uid).Where("messages.to_user_id = ?", toUId).Order("messages.id desc").Scan(&res).Error; err != nil{
+	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ?", uid).Where("to_user_id = ?", toUId).Order("id desc").Scan(&res).Error; err != nil{
 		return nil, err
 	}
 
