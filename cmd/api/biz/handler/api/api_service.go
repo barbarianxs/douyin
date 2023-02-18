@@ -177,15 +177,24 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 // PublishList .
 // @router /douyin/publish/list/ [GET]
 func PublishList(ctx context.Context, c *app.RequestContext) {
-	// var err error
-	// var req api.PublishListRequest
-	// err = c.BindAndValidate(&req)
-	// if err != nil {
-	// 	c.String(consts.StatusBadRequest, err.Error())
-	// 	return
-	// }
-
-	// resp := new(api.PublishListResponse)
-
-	// c.JSON(consts.StatusOK, resp)
+	var err error
+	var req api.PublishListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	v, _ := c.Get(consts.IdentityKey)
+	videos, err := rpc.PublishList(context.Background(), &user.PublishListRequest{
+		UserId:    v.(*api.User).UserID,
+		
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, utils.H{
+		// consts.Total: total,
+		consts.Videos: videos,
+	})
 }

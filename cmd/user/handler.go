@@ -136,7 +136,7 @@ func (s *UserServiceImpl) PublishList(ctx context.Context, req *user.PublishList
 		return resp, nil
 	}
 
-	videos_list, err = service.NewPublishListService(ctx).PublishList(req)
+	videos_list, err := service.NewPublishListService(ctx).PublishList(req)
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(err).StatusCode
 		resp.StatusMsg = pack.BuildBaseResp(err).StatusMsg
@@ -145,7 +145,7 @@ func (s *UserServiceImpl) PublishList(ctx context.Context, req *user.PublishList
 
 	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
-	resp.videosList = videos_list
+	resp.VideoList = videos_list
 
 	return resp, nil
 }

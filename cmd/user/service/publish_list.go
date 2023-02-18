@@ -22,7 +22,7 @@ func NewPublishListService(ctx context.Context) *PublishListService {
 }
 
 /// PublishListService query user info
-func (s *PublishListService) PublishList(req *user.PublishListRequest) error{
+func (s *PublishListService) PublishList(req *user.PublishListRequest) ([]*user.Video, error){
 	videoModels, err := db.MGetVideosOfUserIDList(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err

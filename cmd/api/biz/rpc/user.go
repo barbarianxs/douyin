@@ -91,3 +91,15 @@ func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
 	}
 	return nil
 }
+
+// PublishList query list of note info
+func PublishList(ctx context.Context, req *user.PublishListRequest) ([]*user.Video, error) {
+	resp, err := userClient.PublishList(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMsg)
+	}
+	return resp.Videos, nil
+}
