@@ -31,7 +31,7 @@ func main() {
 	}
 	Init()
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(consts.FavorteServiceName),
+		provider.WithServiceName(consts.FavoriteServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
@@ -43,7 +43,7 @@ func main() {
 		server.WithMiddleware(mw.CommonMiddleware),
 		server.WithMiddleware(mw.ServerMiddleware),
 		server.WithSuite(tracing.NewServerSuite()),
-		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.FavorteServiceName}),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.FavoriteServiceName}),
 	)
 	err = svr.Run()
 	if err != nil {
