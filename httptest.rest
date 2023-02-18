@@ -18,12 +18,12 @@ Content-Type: application/json
     "password":"123456"
 }
 ### 
-
+@token = {{loginAdmin.response.body.$.token}}
 GET http://{{host}}/douyin/user/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ###
-@token = {{loginAdmin.response.body.$.token}}
+
 GET http://{{host}}/douyin/message/chat/
 ?to_user_id=2
 Authorization: Bearer {{token}}
@@ -37,3 +37,8 @@ Content-Type: application/json
     "action_type":1,
     "content":"shou dao"
 }
+###
+POST  http://{{host}}/douyin/publish/action/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+

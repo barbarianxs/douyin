@@ -13,7 +13,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='User account table';
 
 CREATE TABLE `video` (
-  `id` bigint PRIMARY KEY AUTO_INCREMENT COMMENT 'PK',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `author_id` bigint NOT NULL,
   `publish_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `file_path` varchar(128) NOT NULL,
@@ -23,9 +23,10 @@ CREATE TABLE `video` (
   `title` varchar(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'video create time',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'video update time',
-  `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'video delete time'
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'video delete time',
   PRIMARY KEY (`id`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='video table';
+  KEY          `idx_video_of_user_id` (`author_id`) COMMENT 'VideoOfUserId index'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Video table';
 
 CREATE TABLE `message`
 (

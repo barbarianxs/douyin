@@ -4,7 +4,7 @@ package consts
 const (
 	MessageTableName   = "message"
 	UserTableName   = "user"
-	VideoTableName   = "videos"
+	VideoTableName   = "video"
 	SecretKey       = "secret key"
 	IdentityKey     = "id"
 	Total           = "total"
