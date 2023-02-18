@@ -87,8 +87,9 @@ struct UserInfoResponse {
 struct PublishActionRequest {
     1: i64 user_id;
     2: string token;
-    3: binary data;
-    4: string title;
+    3: string file_path;
+    4: string cover_path;
+    5: string title;
 }
 
 struct PublishActionResponse {

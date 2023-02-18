@@ -135,6 +135,20 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
+	file, err :=  c.FormFile("data")
+	
+	if err != nil {
+		// SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+
+	filename := "123"
+	err = c.SaveUploadedFile(file, const.VideoSavePath)
+
+	if err != nil {
+		// SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
 	
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  v.(*api.User).UserID,

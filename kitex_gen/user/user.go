@@ -3,7 +3,6 @@
 package user
 
 import (
-	"bytes"
 	"context"
 	"database/sql"
 	"database/sql/driver"
@@ -3658,10 +3657,11 @@ func (p *UserInfoResponse) Field3DeepEqual(src *User) bool {
 }
 
 type PublishActionRequest struct {
-	UserId int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
-	Token  string `thrift:"token,2" frugal:"2,default,string" json:"token"`
-	Data   []byte `thrift:"data,3" frugal:"3,default,binary" json:"data"`
-	Title  string `thrift:"title,4" frugal:"4,default,string" json:"title"`
+	UserId    int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
+	Token     string `thrift:"token,2" frugal:"2,default,string" json:"token"`
+	FilePath  string `thrift:"file_path,3" frugal:"3,default,string" json:"file_path"`
+	CoverPath string `thrift:"cover_path,4" frugal:"4,default,string" json:"cover_path"`
+	Title     string `thrift:"title,5" frugal:"5,default,string" json:"title"`
 }
 
 func NewPublishActionRequest() *PublishActionRequest {
@@ -3680,8 +3680,12 @@ func (p *PublishActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *PublishActionRequest) GetData() (v []byte) {
-	return p.Data
+func (p *PublishActionRequest) GetFilePath() (v string) {
+	return p.FilePath
+}
+
+func (p *PublishActionRequest) GetCoverPath() (v string) {
+	return p.CoverPath
 }
 
 func (p *PublishActionRequest) GetTitle() (v string) {
@@ -3693,8 +3697,11 @@ func (p *PublishActionRequest) SetUserId(val int64) {
 func (p *PublishActionRequest) SetToken(val string) {
 	p.Token = val
 }
-func (p *PublishActionRequest) SetData(val []byte) {
-	p.Data = val
+func (p *PublishActionRequest) SetFilePath(val string) {
+	p.FilePath = val
+}
+func (p *PublishActionRequest) SetCoverPath(val string) {
+	p.CoverPath = val
 }
 func (p *PublishActionRequest) SetTitle(val string) {
 	p.Title = val
@@ -3703,8 +3710,9 @@ func (p *PublishActionRequest) SetTitle(val string) {
 var fieldIDToName_PublishActionRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
-	3: "data",
-	4: "title",
+	3: "file_path",
+	4: "cover_path",
+	5: "title",
 }
 
 func (p *PublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -3766,6 +3774,16 @@ func (p *PublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
 					goto SkipFieldError
 				}
 			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
@@ -3815,15 +3833,24 @@ func (p *PublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *PublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadBinary(); err != nil {
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.Data = []byte(v)
+		p.FilePath = v
 	}
 	return nil
 }
 
 func (p *PublishActionRequest) ReadField4(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.CoverPath = v
+	}
+	return nil
+}
+
+func (p *PublishActionRequest) ReadField5(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3852,6 +3879,10 @@ func (p *PublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField4(oprot); err != nil {
 			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
 			goto WriteFieldError
 		}
 
@@ -3908,10 +3939,10 @@ WriteFieldEndError:
 }
 
 func (p *PublishActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("data", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("file_path", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBinary([]byte(p.Data)); err != nil {
+	if err := oprot.WriteString(p.FilePath); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3925,10 +3956,10 @@ WriteFieldEndError:
 }
 
 func (p *PublishActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("title", thrift.STRING, 4); err != nil {
+	if err = oprot.WriteFieldBegin("cover_path", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Title); err != nil {
+	if err := oprot.WriteString(p.CoverPath); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3939,6 +3970,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *PublishActionRequest) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("title", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Title); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
 func (p *PublishActionRequest) String() string {
@@ -3960,10 +4008,13 @@ func (p *PublishActionRequest) DeepEqual(ano *PublishActionRequest) bool {
 	if !p.Field2DeepEqual(ano.Token) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Data) {
+	if !p.Field3DeepEqual(ano.FilePath) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.Title) {
+	if !p.Field4DeepEqual(ano.CoverPath) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Title) {
 		return false
 	}
 	return true
@@ -3983,14 +4034,21 @@ func (p *PublishActionRequest) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *PublishActionRequest) Field3DeepEqual(src []byte) bool {
+func (p *PublishActionRequest) Field3DeepEqual(src string) bool {
 
-	if bytes.Compare(p.Data, src) != 0 {
+	if strings.Compare(p.FilePath, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *PublishActionRequest) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.CoverPath, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *PublishActionRequest) Field5DeepEqual(src string) bool {
 
 	if strings.Compare(p.Title, src) != 0 {
 		return false
