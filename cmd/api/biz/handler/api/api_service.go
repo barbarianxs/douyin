@@ -21,7 +21,6 @@ import (
 // @router /douyin/user/login/ [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
 	mw.JwtMiddleware.LoginHandler(ctx, c)
-
 }
 
 // RegisterUser .
@@ -123,4 +122,45 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	SendResponse(c, errno.Success, nil)
+}
+
+// PublishAction .
+// @router /douyin/publish/action/ [POST]
+func PublishAction(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.PublishListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	v, _ := c.Get(consts.IdentityKey)
+	
+	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
+		UserId:  v.(*api.User).UserID,
+		Data: req.Data,
+		Title: req.Title,
+		
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, nil)
+}
+
+// PublishList .
+// @router /douyin/publish/list/ [GET]
+func PublishList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.PublishListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(api.PublishListResponse)
+
+	c.JSON(consts.StatusOK, resp)
 }

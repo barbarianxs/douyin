@@ -79,3 +79,15 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (*user.User, error
 	}
 	return resp.User, nil
 }
+
+// PublishAction check user info
+func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
+	resp, err := userClient.PublishAction(ctx, req)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != 0 {
+		return errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
+	}
+	return nil
+}
