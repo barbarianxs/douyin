@@ -16,6 +16,8 @@
 package consts
 
 const (
+	EtcdAddress = "127.0.0.1:2379"
+
 	UserTableName     = "user"
 	RelationTableName = "relations"
 	//数据库表名
@@ -28,7 +30,7 @@ const (
 	ApiServiceName      = "api"
 	UserServiceName     = "user"
 	RelationServiceName = "relation"
-	FavorteServiceName  = "favorite"
+	FavoriteServiceName = "favorite"
 
 	MySQLDefaultDSN     = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
 	TCP                 = "tcp"

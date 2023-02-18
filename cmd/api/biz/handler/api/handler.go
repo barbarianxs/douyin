@@ -36,3 +36,17 @@ func SendResponse(c *app.RequestContext, err error, data interface{}) {
 		Data:    data,
 	})
 }
+
+// 点赞操作 handler 输入参数
+type FavoriteActionParam struct {
+	UserId     int64  `json:"user_id,omitempty"`     // 用户id
+	Token      string `json:"token,omitempty"`       // 用户鉴权token
+	VideoId    int64  `json:"video_id,omitempty"`    // 视频id
+	ActionType int32  `json:"action_type,omitempty"` // 1-点赞，2-取消点赞
+}
+
+// 用户信息 输出参数
+type UserParam struct {
+	UserId int64  `json:"user_id,omitempty"` // 用户id
+	Token  string `json:"token,omitempty"`   // 用户鉴权token
+}
