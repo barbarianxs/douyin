@@ -4,7 +4,7 @@ package api
 
 import (
 	"context"
-	// "fmt"
+	"fmt"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
@@ -15,6 +15,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	"path/filepath"
 )
 
 // LoginUser .
@@ -135,26 +136,46 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	file, err :=  c.FormFile("data")
+	video_data, err := c.FormFile("data")
 	
 	if err != nil {
-		// SendResponse(c, errno.ConvertErr(err), nil)
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
 		return
 	}
 
-	filename := "123"
-	err = c.SaveUploadedFile(file, const.VideoSavePath)
+	filename := filepath.Base(data.Filename)
+	finalName := fmt.Sprintf("%s_%s", quser.Username, filename)
+	video_path := filepath.Join(const.VideoSavePath, video_name)
+
+	err = c.SaveUploadedFile(video_data, video_path)
 
 	if err != nil {
-		// SendResponse(c, errno.ConvertErr(err), nil)
+		hlog.Error(err)
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
 		return
 	}
 	
+	coverPath = "../../../../../../snapshot/"
+
+	if err := GetSnapshot(video_path, coverPath, "00:00:02"); err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 232323,
+			StatusMsg:  err.Error(),
+		})
+	}
+
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  v.(*api.User).UserID,
 		Data: req.Data,
 		Title: req.Title,
-		
+		FilePath: video_path,
+		CoverPath: coverPath,
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
