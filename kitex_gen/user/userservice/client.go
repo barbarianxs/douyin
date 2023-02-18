@@ -15,6 +15,8 @@ type Client interface {
 	LogoutUser(ctx context.Context, req *user.LogoutUserRequest, callOptions ...callopt.Option) (r *user.LogoutUserResponse, err error)
 	RegisterUser(ctx context.Context, req *user.RegisterUserRequest, callOptions ...callopt.Option) (r *user.RegisterUserResponse, err error)
 	UserInfo(ctx context.Context, req *user.UserInfoRequest, callOptions ...callopt.Option) (r *user.UserInfoResponse, err error)
+	PublishAction(ctx context.Context, req *user.PublishActionRequest, callOptions ...callopt.Option) (r *user.PublishActionResponse, err error)
+	PublishList(ctx context.Context, req *user.PublishListRequest, callOptions ...callopt.Option) (r *user.PublishListResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -64,4 +66,14 @@ func (p *kUserServiceClient) RegisterUser(ctx context.Context, req *user.Registe
 func (p *kUserServiceClient) UserInfo(ctx context.Context, req *user.UserInfoRequest, callOptions ...callopt.Option) (r *user.UserInfoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UserInfo(ctx, req)
+}
+
+func (p *kUserServiceClient) PublishAction(ctx context.Context, req *user.PublishActionRequest, callOptions ...callopt.Option) (r *user.PublishActionResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.PublishAction(ctx, req)
+}
+
+func (p *kUserServiceClient) PublishList(ctx context.Context, req *user.PublishListRequest, callOptions ...callopt.Option) (r *user.PublishListResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.PublishList(ctx, req)
 }

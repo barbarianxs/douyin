@@ -20,6 +20,17 @@ struct User {
     3: string avatar
 }
 
+struct Video {
+    1: required i64 ID;
+    2: required User Author;
+    3: required string PlayURL;
+    4: required string CoverURL;
+    5: required i64 FavoriteCount;
+    6: required i64 CommentCount;
+    7: required bool IsFavorite;
+    8: required string Title;
+}
+
 struct Message {
     1:i64 id                  // 消息id
     2:i64 to_user_id          // 该消息接收者的id
@@ -63,6 +74,30 @@ struct UserInfoResponse {
     3: User user
 
 }
+
+struct PublishActionRequest {
+    1: i64 user_id;
+    2: string token;
+    3: binary data;
+    4: string title;
+}
+
+struct PublishActionResponse {
+    1: i32 status_code;
+    2: string status_msg;
+}
+
+struct PublishListRequest {
+    1: i64 user_id;
+    2: string token;
+}
+
+struct PublishListResponse {
+    1: i32 status_code;
+    2: string status_msg;
+    3: list<Video> video_list;
+}
+
 struct MessageChatRequest {
     1:i64 from_user_id  
     2:i64 to_user_id 
@@ -92,4 +127,6 @@ service ApiService {
     UserInfoResponse UserInfo(1: UserInfoRequest req) (api.get="/douyin/user/")
     MessageChatResponse MessageChat(1: MessageChatRequest req) (api.get="/douyin/message/chat/")      // 消息记录
     MessageActionResponse MessageAction(1: MessageActionRequest req) (api.post="/douyin/message/action/")     // 发送消息
+    PublishActionResponse PublishAction(1: PublishActionRequest req) (api.post="/douyin/publish/action/");
+    PublishListResponse PublishList(1: PublishListRequest req) (api.get="/douyin/publish/list/");
 }

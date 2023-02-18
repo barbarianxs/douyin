@@ -4,10 +4,12 @@ package consts
 const (
 	MessageTableName   = "message"
 	UserTableName   = "user"
+	VideoTableName   = "videos"
 	SecretKey       = "secret key"
 	IdentityKey     = "id"
 	Total           = "total"
 	Messages        = "messages"
+	Videos			= "videos"
 	ApiServiceName  = "api"
 	// NoteServiceName = "note"
 	UserServiceName = "user"

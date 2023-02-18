@@ -17,6 +17,8 @@ type User struct {
 	// IsFollow      bool   `json:"is_follow"`
 }
 
+
+
 func (u *User) TableName() string {
 	return consts.UserTableName
 }

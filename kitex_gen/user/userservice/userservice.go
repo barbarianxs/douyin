@@ -19,10 +19,12 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserService"
 	handlerType := (*user.UserService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"LoginUser":    kitex.NewMethodInfo(loginUserHandler, newUserServiceLoginUserArgs, newUserServiceLoginUserResult, false),
-		"LogoutUser":   kitex.NewMethodInfo(logoutUserHandler, newUserServiceLogoutUserArgs, newUserServiceLogoutUserResult, false),
-		"RegisterUser": kitex.NewMethodInfo(registerUserHandler, newUserServiceRegisterUserArgs, newUserServiceRegisterUserResult, false),
-		"UserInfo":     kitex.NewMethodInfo(userInfoHandler, newUserServiceUserInfoArgs, newUserServiceUserInfoResult, false),
+		"LoginUser":     kitex.NewMethodInfo(loginUserHandler, newUserServiceLoginUserArgs, newUserServiceLoginUserResult, false),
+		"LogoutUser":    kitex.NewMethodInfo(logoutUserHandler, newUserServiceLogoutUserArgs, newUserServiceLogoutUserResult, false),
+		"RegisterUser":  kitex.NewMethodInfo(registerUserHandler, newUserServiceRegisterUserArgs, newUserServiceRegisterUserResult, false),
+		"UserInfo":      kitex.NewMethodInfo(userInfoHandler, newUserServiceUserInfoArgs, newUserServiceUserInfoResult, false),
+		"PublishAction": kitex.NewMethodInfo(publishActionHandler, newUserServicePublishActionArgs, newUserServicePublishActionResult, false),
+		"PublishList":   kitex.NewMethodInfo(publishListHandler, newUserServicePublishListArgs, newUserServicePublishListResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -110,6 +112,42 @@ func newUserServiceUserInfoResult() interface{} {
 	return user.NewUserServiceUserInfoResult()
 }
 
+func publishActionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServicePublishActionArgs)
+	realResult := result.(*user.UserServicePublishActionResult)
+	success, err := handler.(user.UserService).PublishAction(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServicePublishActionArgs() interface{} {
+	return user.NewUserServicePublishActionArgs()
+}
+
+func newUserServicePublishActionResult() interface{} {
+	return user.NewUserServicePublishActionResult()
+}
+
+func publishListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServicePublishListArgs)
+	realResult := result.(*user.UserServicePublishListResult)
+	success, err := handler.(user.UserService).PublishList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServicePublishListArgs() interface{} {
+	return user.NewUserServicePublishListArgs()
+}
+
+func newUserServicePublishListResult() interface{} {
+	return user.NewUserServicePublishListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -155,6 +193,26 @@ func (p *kClient) UserInfo(ctx context.Context, req *user.UserInfoRequest) (r *u
 	_args.Req = req
 	var _result user.UserServiceUserInfoResult
 	if err = p.c.Call(ctx, "UserInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) PublishAction(ctx context.Context, req *user.PublishActionRequest) (r *user.PublishActionResponse, err error) {
+	var _args user.UserServicePublishActionArgs
+	_args.Req = req
+	var _result user.UserServicePublishActionResult
+	if err = p.c.Call(ctx, "PublishAction", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) PublishList(ctx context.Context, req *user.PublishListRequest) (r *user.PublishListResponse, err error) {
+	var _args user.UserServicePublishListArgs
+	_args.Req = req
+	var _result user.UserServicePublishListResult
+	if err = p.c.Call(ctx, "PublishList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
