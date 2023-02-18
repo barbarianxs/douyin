@@ -25,6 +25,12 @@ func CreateComment(ctx context.Context, arr []*Comment) error {
 }
 
 // CreateUser create user info
+func SelectComment(ctx context.Context, id int) (*Comment, error) {
+	cmt := &Comment{ID: uint(id)}
+	return cmt, DB.Model(&Comment{}).WithContext(ctx).First(cmt).Error
+}
+
+// CreateUser create user info
 func DeleteComment(ctx context.Context, arr *Comment) error {
 	return DB.Model(&Comment{}).WithContext(ctx).Where("id = ?", arr.ID).Update("is_valid", false).Error
 }

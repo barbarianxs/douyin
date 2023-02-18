@@ -2,7 +2,7 @@
 package commentsrv
 
 import (
-	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/kitex_gen/comment"
+	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/comment"
 	server "github.com/cloudwego/kitex/server"
 )
 

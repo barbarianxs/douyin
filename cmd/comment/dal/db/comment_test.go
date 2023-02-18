@@ -35,7 +35,9 @@ func Test(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(res) != 0 {
-		t.Error()
+		t.Fatal()
 	}
 
+	// c, err := SelectComment(context.Background(), 1)
+	// fmt.Println(err, c)
 }

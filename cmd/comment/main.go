@@ -1,7 +1,7 @@
 package main
 
 import (
-	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/kitex_gen/comment/commentsrv"
+	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/comment/commentsrv"
 	"log"
 )
 

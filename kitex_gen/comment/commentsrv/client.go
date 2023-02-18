@@ -4,7 +4,7 @@ package commentsrv
 
 import (
 	"context"
-	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/kitex_gen/comment"
+	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/comment"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
 )
