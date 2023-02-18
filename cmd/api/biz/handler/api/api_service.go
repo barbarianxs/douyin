@@ -164,8 +164,8 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  v.(*api.User).UserID,
 		Title: req.Title,
-		FilePath: video_path,
-		CoverPath: coverPath,
+		FileUrl: video_path,
+		CoverUrl: coverPath,
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)

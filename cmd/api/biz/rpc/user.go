@@ -98,8 +98,8 @@ func PublishList(ctx context.Context, req *user.PublishListRequest) ([]*user.Vid
 	if err != nil {
 		return nil, err
 	}
-	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMsg)
+	if resp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
-	return resp.Videos, nil
+	return resp.VideoList, nil
 }
