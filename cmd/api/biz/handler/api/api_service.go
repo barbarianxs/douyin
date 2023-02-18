@@ -128,7 +128,7 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 // @router /douyin/publish/action/ [POST]
 func PublishAction(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.PublishListRequest
+	var req api.PublishActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
@@ -152,15 +152,15 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 // PublishList .
 // @router /douyin/publish/list/ [GET]
 func PublishList(ctx context.Context, c *app.RequestContext) {
-	var err error
-	var req api.PublishListRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
-		return
-	}
+	// var err error
+	// var req api.PublishListRequest
+	// err = c.BindAndValidate(&req)
+	// if err != nil {
+	// 	c.String(consts.StatusBadRequest, err.Error())
+	// 	return
+	// }
 
-	resp := new(api.PublishListResponse)
+	// resp := new(api.PublishListResponse)
 
-	c.JSON(consts.StatusOK, resp)
+	// c.JSON(consts.StatusOK, resp)
 }
