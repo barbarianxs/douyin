@@ -16,26 +16,40 @@
 package consts
 
 const (
-	UserTableName   = "user"
-	RelationTableName= "relations"
+	UserTableName     = "user"
+	RelationTableName = "relations"
+	//数据库表名
+	VideoTableName = "video"
 
-	SecretKey       = "secret key"
-	IdentityKey     = "id"
-	Total           = "total"
-	Notes           = "notes"
-	ApiServiceName  = "api"
-	UserServiceName = "user"
+	SecretKey           = "secret key"
+	IdentityKey         = "id"
+	Total               = "total"
+	Notes               = "notes"
+	ApiServiceName      = "api"
+	UserServiceName     = "user"
 	RelationServiceName = "relation"
+	FavorteServiceName  = "favorite"
 
-	MySQLDefaultDSN = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
-	TCP             = "tcp"
-	UserServiceAddr = ":9000"
+	MySQLDefaultDSN     = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
+	TCP                 = "tcp"
+	UserServiceAddr     = ":9000"
 	RelationServiceAddr = ":8087"
+
+	FavoriteServiceAddr = ":8090"
 
 	NoteServiceAddr = ":10000"
 	ExportEndpoint  = ":4317"
 	ETCDAddress     = "127.0.0.1:2379"
 	DefaultLimit    = 10
 
-	StatusOK		=200
+	StatusOK = 200
+
+	//favorite actiontype,1是点赞，2是取消点赞
+	Like   = 1
+	Unlike = 2
+
+	OssEndPoint        = "oss-cn-shenzhen.aliyuncs.com" //Oss
+	OssAccessKeyId     = "oss"
+	OssAccessKeySecret = "oss"
+	OssBucket          = "dousheng1"
 )

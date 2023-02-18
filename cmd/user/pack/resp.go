@@ -1,12 +1,12 @@
-
 package pack
 
 import (
 	"errors"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 )
+
 // 官方接口 仅使用douyinregisterresp的打包格式
 // BuildDouyinUserRegisterResponse build DouyinUserRegisterResponse from error
 func BuildDouyinUserRegisterResponse(err error) *user.DouyinUserRegisterResponse {
@@ -27,7 +27,7 @@ func DouyinUserRegisterResponse(err errno.ErrNo) *user.DouyinUserRegisterRespons
 	return &user.DouyinUserRegisterResponse{StatusCode: int32(err.ErrCode), StatusMsg: err.ErrMsg}
 }
 
-// user info response 
+// user info response
 func BuildDouyinUserResponse(err error) *user.DouyinUserResponse {
 	if err == nil {
 		return DouyinUserResponse(errno.Success)
@@ -45,6 +45,6 @@ func BuildDouyinUserResponse(err error) *user.DouyinUserResponse {
 func DouyinUserResponse(err errno.ErrNo) *user.DouyinUserResponse {
 	return &user.DouyinUserResponse{
 		StatusCode: int32(err.ErrCode),
-		StatusMsg: err.ErrMsg,
+		StatusMsg:  err.ErrMsg,
 	}
 }

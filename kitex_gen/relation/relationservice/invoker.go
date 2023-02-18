@@ -3,7 +3,7 @@
 package relationservice
 
 import (
-	relation "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation"
 	server "github.com/cloudwego/kitex/server"
 )
 

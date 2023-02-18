@@ -3,9 +3,9 @@
 package main
 
 import (
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/rpc"
 	"github.com/cloudwego/hertz/pkg/app/server"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/mw"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
 	"github.com/hertz-contrib/obs-opentelemetry/tracing"

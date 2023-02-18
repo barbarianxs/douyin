@@ -1,12 +1,12 @@
-
 package pack
 
 import (
 	"errors"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 )
+
 // 接口 打包 DouyinRelationActionResponse
 func BuildDouyinRelationActionResponse(err error) *relation.DouyinRelationActionResponse {
 	if err == nil {

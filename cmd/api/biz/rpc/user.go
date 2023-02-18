@@ -2,17 +2,17 @@ package rpc
 
 import (
 	"context"
-	"log"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user/userservice"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user/userservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/mw"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	etcd "github.com/kitex-contrib/registry-etcd"
+	"log"
 )
 
 var userClient userservice.Client

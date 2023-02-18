@@ -6,8 +6,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/mw"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -141,7 +141,7 @@ func _register0Mw() []app.HandlerFunc {
 
 func _infoMw() []app.HandlerFunc {
 	// your code...
-		//需要授权访问的路由组 需要在中间件里注入授权逻辑
+	//需要授权访问的路由组 需要在中间件里注入授权逻辑
 	return []app.HandlerFunc{
 		// use jwt mw
 		mw.JwtMiddleware.MiddlewareFunc(),

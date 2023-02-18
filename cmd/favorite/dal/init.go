@@ -1,6 +1,6 @@
 package dal
 
-import "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/user/dal/db"
+import "github.com/YANGJUNYAN0715/douyin/tree/li/cmd/favorite/dal/db"
 
 // Init init dal
 func Init() {

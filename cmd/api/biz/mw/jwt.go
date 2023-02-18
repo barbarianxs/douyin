@@ -22,11 +22,11 @@ import (
 	"time"
 	// "log"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/model/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	jwtv4 "github.com/golang-jwt/jwt/v4"
@@ -77,17 +77,17 @@ func InitJWT() {
 		},
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
 			c.JSON(http.StatusOK, utils.H{
-				"status_code":   errno.Success.ErrCode,
-				"status_msg":	errno.Success.ErrMsg,
-				"user_id": 0,
-				"token":  token,
+				"status_code": errno.Success.ErrCode,
+				"status_msg":  errno.Success.ErrMsg,
+				"user_id":     0,
+				"token":       token,
 				// "expire": expire.Format(time.RFC3339),
 			})
 		},
 		Unauthorized: func(ctx context.Context, c *app.RequestContext, code int, message string) {
 			c.JSON(http.StatusOK, utils.H{
-				"status_code":    errno.AuthorizationFailedErr.ErrCode,
-				"status_msg": message,
+				"status_code": errno.AuthorizationFailedErr.ErrCode,
+				"status_msg":  message,
 			})
 		},
 		HTTPStatusMessageFunc: func(e error, ctx context.Context, c *app.RequestContext) string {

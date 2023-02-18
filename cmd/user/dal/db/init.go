@@ -3,7 +3,7 @@ package db
 import (
 	"time"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

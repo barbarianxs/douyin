@@ -3,13 +3,13 @@
 package handler
 
 import (
-	"fmt"
 	"context"
-	// "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
+	"fmt"
+	// "github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	// "github.com/cloudwego/hertz/pkg/protocol/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
 )
 
 // Ping .
@@ -19,8 +19,8 @@ func Ping(ctx context.Context, c *app.RequestContext) {
 	// })
 
 	u, _ := c.Get(consts.IdentityKey)
-    c.JSON(200, utils.H{
-        "message": fmt.Sprintf("userid:%#v", u),
-		"uerid": fmt.Sprintf("userid:%#v", u),
-    })
+	c.JSON(200, utils.H{
+		"message": fmt.Sprintf("userid:%#v", u),
+		"uerid":   fmt.Sprintf("userid:%#v", u),
+	})
 }

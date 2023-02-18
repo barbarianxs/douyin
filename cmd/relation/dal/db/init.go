@@ -3,7 +3,7 @@ package db
 import (
 	"time"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -44,7 +44,7 @@ func Init() {
 		// logger.ZapLogger.Fatal(err.Error())
 	}
 	//每个连接的设置
-	
+
 	// 获取通用数据库对象 sql.DB ，然后使用其提供的功能
 	sqlDB, err := DB.DB()
 	if err != nil {
@@ -60,6 +60,3 @@ func Init() {
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
 }
-
-
-

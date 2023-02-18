@@ -1,4 +1,3 @@
-
 package service
 
 import (
@@ -7,9 +6,9 @@ import (
 	// "fmt"
 	// "io"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/user/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	// "github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/user/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user"
+	// "github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 )
 
 type GetUserByIdService struct {
@@ -22,10 +21,10 @@ func NewGetUserByIdService(ctx context.Context) *GetUserByIdService {
 }
 
 // get user info.
-func (s *GetUserByIdService) GetUserById(req *user.DouyinUserRequest) (*db.User,error) {
+func (s *GetUserByIdService) GetUserById(req *user.DouyinUserRequest) (*db.User, error) {
 	info, err := db.GetUserById(s.ctx, req.UserId)
 	if err != nil {
-		return info,err
+		return info, err
 	}
-	return info,nil
+	return info, nil
 }

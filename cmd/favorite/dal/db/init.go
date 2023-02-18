@@ -3,7 +3,7 @@ package db
 import (
 	"time"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -38,7 +38,7 @@ func Init() {
 	}
 	// AutoMigrate会创建表，缺失的外键，约束，列和索引。如果大小，精度，是否为空，可以更改，则AutoMigrate会改变列的类型。出于保护您数据的目的，它不会删除未使用的列
 	// 刷新数据库的表格，使其保持最新。即如果我在旧表的基础上增加一个字段age，那么调用autoMigrate后，旧表会自动多出一列age，值为空
-	if err := DB.AutoMigrate(&User{}); err != nil {
+	if err := DB.AutoMigrate(&Favorite{}); err != nil {
 		panic(err)
 		// logger.ZapLogger.Fatal(err.Error())
 	}

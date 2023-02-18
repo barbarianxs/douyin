@@ -16,7 +16,7 @@
 package api
 
 import (
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
@@ -24,7 +24,7 @@ import (
 type Response struct {
 	Code    int32       `json:"status_code"`
 	Message string      `json:"status_msg,omitempty"`
-	Data    interface{} `json:"data,omitempty"`//when it is nil ,it will be empty
+	Data    interface{} `json:"data,omitempty"` //when it is nil ,it will be empty
 }
 
 // SendResponse pack response

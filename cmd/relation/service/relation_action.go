@@ -1,4 +1,3 @@
-
 package service
 
 import (
@@ -7,9 +6,9 @@ import (
 	// "fmt"
 	// "io"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/relation/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/relation/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 )
 
 type RelationActionService struct {
@@ -24,12 +23,12 @@ func NewRelationActionService(ctx context.Context) *RelationActionService {
 // Register create user info.
 func (s *RelationActionService) RelationAction(req *relation.DouyinRelationActionRequest) error {
 	//新建关注
-	if req.ActionType==1{
-		return db.NewAction(s.ctx,req.UserId,req.ToUserId);
+	if req.ActionType == 1 {
+		return db.NewAction(s.ctx, req.UserId, req.ToUserId)
 	}
 	//删除关注
-	if req.ActionType==2{
-		return db.DelAction(s.ctx,req.UserId,req.ToUserId);
+	if req.ActionType == 2 {
+		return db.DelAction(s.ctx, req.UserId, req.ToUserId)
 	}
 
 	return errno.ActionTypeErr

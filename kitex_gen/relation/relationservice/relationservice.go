@@ -4,7 +4,7 @@ package relationservice
 
 import (
 	"context"
-	relation "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 )
@@ -22,7 +22,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"RelationAction":       kitex.NewMethodInfo(relationActionHandler, newRelationServiceRelationActionArgs, newRelationServiceRelationActionResult, false),
 		"RelationFollowList":   kitex.NewMethodInfo(relationFollowListHandler, newRelationServiceRelationFollowListArgs, newRelationServiceRelationFollowListResult, false),
 		"RelationFollowerList": kitex.NewMethodInfo(relationFollowerListHandler, newRelationServiceRelationFollowerListArgs, newRelationServiceRelationFollowerListResult, false),
-		"RelationFriendList":     kitex.NewMethodInfo(RelationFriendListHandler, newRelationServiceRelationFriendListArgs, newRelationServiceRelationFriendListResult, false),
+		"RelationFriendList":   kitex.NewMethodInfo(RelationFriendListHandler, newRelationServiceRelationFriendListArgs, newRelationServiceRelationFriendListResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "relation",

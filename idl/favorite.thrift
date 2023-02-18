@@ -23,6 +23,14 @@ struct FavoriteListResponse {
     3: list<Video> video_list //用户点赞视频列表
 }
 
+struct User {
+    1: i64 id // 用户id
+    2: string name // 用户名称
+    3: i64 follow_count // 关注总数
+    4: i64 follower_count // 粉丝总数
+    5: bool is_follow // true-已关注，false-未关注
+}
+
 struct Video{
    1:required i64 id;
    2:required User author;
@@ -32,14 +40,6 @@ struct Video{
    6:required i64 comment_count;
    7:required bool is_favorite;
    8:required string title;
-}
-
-struct User{
-    1:required i64 user_id;
-    2:required string username;
-    3:optional i64 follow_count;
-    4:optional i64 follower_count;
-    5:required bool is_follow;
 }
 
 service FavoriteService {

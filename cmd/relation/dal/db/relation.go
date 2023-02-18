@@ -1,38 +1,35 @@
 package db
 
-import(
+import (
 	"context"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation"
 	// "log"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 	"gorm.io/gorm"
 )
 
 // Relation Gorm data structure
 type User struct {
 	gorm.Model
-	Username       string  `gorm:"index:idx_username,unique;type:varchar(40);not null" json:"username"`
-	Password       string  `gorm:"type:varchar(256);not null" json:"password"`
+	Username string `gorm:"index:idx_username,unique;type:varchar(40);not null" json:"username"`
+	Password string `gorm:"type:varchar(256);not null" json:"password"`
 	// FavoriteVideos []Video `gorm:"many2many:user_favorite_videos" json:"favorite_videos"`
-	FollowingCount int     `gorm:"default:0" json:"following_count"`
-	FollowerCount  int     `gorm:"default:0" json:"follower_count"`
+	FollowingCount int `gorm:"default:0" json:"following_count"`
+	FollowerCount  int `gorm:"default:0" json:"follower_count"`
 }
 
 // Relation表 记录关注关系
 // 不设置外键 提高效率 通过程序保证参照完整性
 type Relation struct {
 	gorm.Model
-	UserID   int  `gorm:"index:idx_userid;not null"`
-	ToUserID int  `gorm:"index:index:idx_userid_to;not null"`
+	UserID   int `gorm:"index:idx_userid;not null"`
+	ToUserID int `gorm:"index:index:idx_userid_to;not null"`
 }
-
-
 
 func (u *User) TableName() string {
 	return consts.RelationTableName
 }
-
 
 // GetRelation get relation info
 func GetRelation(ctx context.Context, uid int64, tid int64) (*Relation, error) {
@@ -44,8 +41,7 @@ func GetRelation(ctx context.Context, uid int64, tid int64) (*Relation, error) {
 	return relations, nil
 }
 
-
-//根据id获取user
+// 根据id获取user
 // MGetUsers multiple get list of user info
 func MGetUsers(ctx context.Context, userIDs []int64) ([]*User, error) {
 	res := make([]*User, 0)
@@ -59,14 +55,13 @@ func MGetUsers(ctx context.Context, userIDs []int64) ([]*User, error) {
 	return res, nil
 }
 
-
 // NewAction creates a new Relation
 // uid关注tid，所以uid的关注人数加一，tid的粉丝数加一
 func NewAction(ctx context.Context, uid int64, tid int64) error {
-	relations,_ :=GetRelation(ctx,uid,tid)
-		if relations != nil{
-			return errno.RelationExistErr
-		}
+	relations, _ := GetRelation(ctx, uid, tid)
+	if relations != nil {
+		return errno.RelationExistErr
+	}
 
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作
@@ -147,16 +142,16 @@ func RelationFollowList(ctx context.Context, uid int64) ([]*relation.User, error
 	if err != nil {
 		return nil, err
 	}
-	userIDs :=make([]int64,0)
-	for _,u := range RelationList{
-		userIDs= append(userIDs,int64(u.ToUserID))
+	userIDs := make([]int64, 0)
+	for _, u := range RelationList {
+		userIDs = append(userIDs, int64(u.ToUserID))
 	}
-	users, err := MGetUsers(ctx,userIDs)
+	users, err := MGetUsers(ctx, userIDs)
 	if err != nil {
 		return nil, err
 	}
 	// log.Println(users)
-	return BuildUsers(ctx,uid,users)
+	return BuildUsers(ctx, uid, users)
 }
 
 // RelationFollowerList returns the Follower List.
@@ -166,15 +161,15 @@ func RelationFollowerList(ctx context.Context, tid int64) ([]*relation.User, err
 	if err != nil {
 		return nil, err
 	}
-	userIDs :=make([]int64,0)
-	for _,u := range RelationList{
-		userIDs= append(userIDs,int64(u.UserID))
+	userIDs := make([]int64, 0)
+	for _, u := range RelationList {
+		userIDs = append(userIDs, int64(u.UserID))
 	}
-	users, err := MGetUsers(ctx,userIDs)
+	users, err := MGetUsers(ctx, userIDs)
 	if err != nil {
 		return nil, err
 	}
-	return BuildUsers(ctx,tid,users)
+	return BuildUsers(ctx, tid, users)
 }
 
 // 朋友：相互关注者->粉丝和关注者的交集
@@ -191,30 +186,30 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 		return nil, err
 	}
 
-	LuserIDs :=make([]int64,0)
-	for _,u := range LRelationList{
-		LuserIDs= append(LuserIDs,int64(u.ToUserID))
+	LuserIDs := make([]int64, 0)
+	for _, u := range LRelationList {
+		LuserIDs = append(LuserIDs, int64(u.ToUserID))
 	}
 
-	RuserIDs :=make([]int64,0)
-	for _,u := range RRelationList{
-		RuserIDs= append(RuserIDs,int64(u.UserID))
+	RuserIDs := make([]int64, 0)
+	for _, u := range RRelationList {
+		RuserIDs = append(RuserIDs, int64(u.UserID))
 	}
-	userIDs :=make([]int64,0)
+	userIDs := make([]int64, 0)
 
 	m := make(map[int64]int)
-	for _,v :=range LuserIDs{
+	for _, v := range LuserIDs {
 		m[v]++
 	}
-	for _,v :=range RuserIDs{
-		if m[v]==1{
-			userIDs = append(userIDs,v)
+	for _, v := range RuserIDs {
+		if m[v] == 1 {
+			userIDs = append(userIDs, v)
 		}
 	}
 	// log.Println(userIDs)
-	users, err := MGetUsers(ctx,userIDs)
+	users, err := MGetUsers(ctx, userIDs)
 	if err != nil {
 		return nil, err
 	}
-	return BuildFriendUsers(ctx,id,users)
+	return BuildFriendUsers(ctx, id, users)
 }

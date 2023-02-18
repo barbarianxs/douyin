@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/user/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/user/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 )
 
 type LoginService struct {

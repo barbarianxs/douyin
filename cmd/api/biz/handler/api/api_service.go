@@ -6,13 +6,13 @@ import (
 	"context"
 	"log"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/mw"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/model/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )
@@ -245,7 +245,7 @@ func Info(ctx context.Context, c *app.RequestContext) {
 		req.UserID = u.(*api.User).ID
 	}
 	// resp := new(api.DouyinUserResponse)
-	userinfo,err := rpc.Info(ctx,&user.DouyinUserRequest{
+	userinfo, err := rpc.Info(ctx, &user.DouyinUserRequest{
 		UserId: req.UserID,
 		Token:  req.Token,
 	})
@@ -256,6 +256,6 @@ func Info(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, utils.H{
 		"status_code": Err.ErrCode,
 		"status_msg":  Err.ErrMsg,
-		"user":   userinfo,
+		"user":        userinfo,
 	})
 }

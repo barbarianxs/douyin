@@ -3,10 +3,10 @@ package main
 import (
 	"net"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/relation/dal"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation/relationservice"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/cmd/relation/dal"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/kitex_gen/relation/relationservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/mw"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
@@ -23,7 +23,6 @@ func Init() {
 	klog.SetLogger(kitexlogrus.NewLogger())
 	klog.SetLevel(klog.LevelInfo)
 }
-
 
 func main() {
 	r, err := etcd.NewEtcdRegistry([]string{consts.ETCDAddress})
