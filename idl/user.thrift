@@ -24,14 +24,14 @@ struct User {
 }
 
 struct Video {
-    1: required i64 ID;
-    2: required User Author;
-    3: required string PlayURL;
-    4: required string CoverURL;
-    5: required i64 FavoriteCount;
-    6: required i64 CommentCount;
-    7: required bool IsFavorite;
-    8: required string Title;
+    1: i64 video_id;
+    2: i64 author_id;
+    3: string play_url;
+    4: string cover_url;
+    5: i64 favorite_count;
+    6: i64 comment_count;
+    7: bool is_favorite;
+    8: string title;
 }
 
 struct LoginUserRequest {
@@ -87,8 +87,8 @@ struct UserInfoResponse {
 struct PublishActionRequest {
     1: i64 user_id;
     2: string token;
-    3: string file_path;
-    4: string cover_path;
+    3: string file_url;
+    4: string cover_url;
     5: string title;
 }
 

@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
        "bytes"
@@ -46,9 +46,9 @@ func GetSnapshot(videoPath, snapshotPath string, frameNum int) (snapshotName str
        return
 }
 
-func main() {
-       _, err := GetSnapshot("./test.mp4", "test", 1)
-       if err != nil {
-             return
-       }
-}
+// func main() {
+//        _, err := GetSnapshot("./test.mp4", "test", 1)
+//        if err != nil {
+//              return
+//        }
+// }

@@ -42,3 +42,8 @@ POST  http://{{host}}/douyin/publish/action/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
+{
+//    "data":.......,
+
+}
+###

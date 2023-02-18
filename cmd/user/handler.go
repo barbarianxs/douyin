@@ -128,5 +128,24 @@ func (s *UserServiceImpl) PublishAction(ctx context.Context, req *user.PublishAc
 // PublishList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) PublishList(ctx context.Context, req *user.PublishListRequest) (resp *user.PublishListResponse, err error) {
 	// TODO: Your code here...
-	return
+	resp = new(user.PublishListResponse)
+
+	if err = req.IsValid(); err != nil {
+		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
+		return resp, nil
+	}
+
+	videos_list, err = service.NewPublishListService(ctx).PublishList(req)
+	if err != nil {
+		resp.StatusCode = pack.BuildBaseResp(err).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(err).StatusMsg
+		return resp, nil
+	}
+
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
+	resp.videosList = videos_list
+
+	return resp, nil
 }

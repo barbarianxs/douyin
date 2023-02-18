@@ -28,8 +28,8 @@ func (s *PublishActionService) PublishAction(req *user.PublishActionRequest) err
 	
 	VideoModel := &db.Video{
 		AuthorID:   req.UserId,
-		FilePath:  req.Data,
-		CoverPath: req.CoverPath,
+		PlayUrl:  req.FileUrl,
+		CoverUrl: req.CoverUrl,
 		Title: req.Title,
 	}
 	return db.CreateVideo(s.ctx, []*db.Video{VideoModel})

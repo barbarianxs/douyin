@@ -625,14 +625,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 	var l int
 	var fieldTypeId thrift.TType
 	var fieldId int16
-	var issetID bool = false
-	var issetAuthor bool = false
-	var issetPlayURL bool = false
-	var issetCoverURL bool = false
-	var issetFavoriteCount bool = false
-	var issetCommentCount bool = false
-	var issetIsFavorite bool = false
-	var issetTitle bool = false
 	_, l, err = bthrift.Binary.ReadStructBegin(buf)
 	offset += l
 	if err != nil {
@@ -656,7 +648,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetID = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -665,13 +656,12 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.I64 {
 				l, err = p.FastReadField2(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetAuthor = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -686,7 +676,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetPlayURL = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -701,7 +690,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetCoverURL = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -716,7 +704,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetFavoriteCount = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -731,7 +718,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetCommentCount = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -746,7 +732,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetIsFavorite = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -761,7 +746,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetTitle = true
 			} else {
 				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -789,45 +773,6 @@ func (p *Video) FastRead(buf []byte) (int, error) {
 		goto ReadStructEndError
 	}
 
-	if !issetID {
-		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetAuthor {
-		fieldId = 2
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetPlayURL {
-		fieldId = 3
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetCoverURL {
-		fieldId = 4
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetFavoriteCount {
-		fieldId = 5
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetCommentCount {
-		fieldId = 6
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetIsFavorite {
-		fieldId = 7
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetTitle {
-		fieldId = 8
-		goto RequiredFieldNotSetError
-	}
 	return offset, nil
 ReadStructBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -841,8 +786,6 @@ ReadFieldEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
 ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-RequiredFieldNotSetError:
-	return offset, thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_Video[fieldId]))
 }
 
 func (p *Video) FastReadField1(buf []byte) (int, error) {
@@ -853,7 +796,7 @@ func (p *Video) FastReadField1(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.ID = v
+		p.VideoId = v
 
 	}
 	return offset, nil
@@ -862,13 +805,14 @@ func (p *Video) FastReadField1(buf []byte) (int, error) {
 func (p *Video) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewUser()
-	if l, err := tmp.FastRead(buf[offset:]); err != nil {
+	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
+
+		p.AuthorId = v
+
 	}
-	p.Author = tmp
 	return offset, nil
 }
 
@@ -880,7 +824,7 @@ func (p *Video) FastReadField3(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.PlayURL = v
+		p.PlayUrl = v
 
 	}
 	return offset, nil
@@ -894,7 +838,7 @@ func (p *Video) FastReadField4(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.CoverURL = v
+		p.CoverUrl = v
 
 	}
 	return offset, nil
@@ -966,10 +910,10 @@ func (p *Video) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) i
 	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "Video")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
+		offset += p.fastWriteField2(buf[offset:], binaryWriter)
 		offset += p.fastWriteField5(buf[offset:], binaryWriter)
 		offset += p.fastWriteField6(buf[offset:], binaryWriter)
 		offset += p.fastWriteField7(buf[offset:], binaryWriter)
-		offset += p.fastWriteField2(buf[offset:], binaryWriter)
 		offset += p.fastWriteField3(buf[offset:], binaryWriter)
 		offset += p.fastWriteField4(buf[offset:], binaryWriter)
 		offset += p.fastWriteField8(buf[offset:], binaryWriter)
@@ -999,8 +943,8 @@ func (p *Video) BLength() int {
 
 func (p *Video) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "ID", thrift.I64, 1)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.ID)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "video_id", thrift.I64, 1)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.VideoId)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -1008,16 +952,17 @@ func (p *Video) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Author", thrift.STRUCT, 2)
-	offset += p.Author.FastWriteNocopy(buf[offset:], binaryWriter)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "author_id", thrift.I64, 2)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.AuthorId)
+
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
 }
 
 func (p *Video) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "PlayURL", thrift.STRING, 3)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.PlayURL)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "play_url", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.PlayUrl)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -1025,8 +970,8 @@ func (p *Video) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "CoverURL", thrift.STRING, 4)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.CoverURL)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "cover_url", thrift.STRING, 4)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.CoverUrl)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -1034,7 +979,7 @@ func (p *Video) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "FavoriteCount", thrift.I64, 5)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "favorite_count", thrift.I64, 5)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.FavoriteCount)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -1043,7 +988,7 @@ func (p *Video) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "CommentCount", thrift.I64, 6)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "comment_count", thrift.I64, 6)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.CommentCount)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -1052,7 +997,7 @@ func (p *Video) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) fastWriteField7(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "IsFavorite", thrift.BOOL, 7)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "is_favorite", thrift.BOOL, 7)
 	offset += bthrift.Binary.WriteBool(buf[offset:], p.IsFavorite)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -1061,7 +1006,7 @@ func (p *Video) fastWriteField7(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) fastWriteField8(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Title", thrift.STRING, 8)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "title", thrift.STRING, 8)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Title)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -1070,8 +1015,8 @@ func (p *Video) fastWriteField8(buf []byte, binaryWriter bthrift.BinaryWriter) i
 
 func (p *Video) field1Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("ID", thrift.I64, 1)
-	l += bthrift.Binary.I64Length(p.ID)
+	l += bthrift.Binary.FieldBeginLength("video_id", thrift.I64, 1)
+	l += bthrift.Binary.I64Length(p.VideoId)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -1079,16 +1024,17 @@ func (p *Video) field1Length() int {
 
 func (p *Video) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Author", thrift.STRUCT, 2)
-	l += p.Author.BLength()
+	l += bthrift.Binary.FieldBeginLength("author_id", thrift.I64, 2)
+	l += bthrift.Binary.I64Length(p.AuthorId)
+
 	l += bthrift.Binary.FieldEndLength()
 	return l
 }
 
 func (p *Video) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("PlayURL", thrift.STRING, 3)
-	l += bthrift.Binary.StringLengthNocopy(p.PlayURL)
+	l += bthrift.Binary.FieldBeginLength("play_url", thrift.STRING, 3)
+	l += bthrift.Binary.StringLengthNocopy(p.PlayUrl)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -1096,8 +1042,8 @@ func (p *Video) field3Length() int {
 
 func (p *Video) field4Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("CoverURL", thrift.STRING, 4)
-	l += bthrift.Binary.StringLengthNocopy(p.CoverURL)
+	l += bthrift.Binary.FieldBeginLength("cover_url", thrift.STRING, 4)
+	l += bthrift.Binary.StringLengthNocopy(p.CoverUrl)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -1105,7 +1051,7 @@ func (p *Video) field4Length() int {
 
 func (p *Video) field5Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("FavoriteCount", thrift.I64, 5)
+	l += bthrift.Binary.FieldBeginLength("favorite_count", thrift.I64, 5)
 	l += bthrift.Binary.I64Length(p.FavoriteCount)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -1114,7 +1060,7 @@ func (p *Video) field5Length() int {
 
 func (p *Video) field6Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("CommentCount", thrift.I64, 6)
+	l += bthrift.Binary.FieldBeginLength("comment_count", thrift.I64, 6)
 	l += bthrift.Binary.I64Length(p.CommentCount)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -1123,7 +1069,7 @@ func (p *Video) field6Length() int {
 
 func (p *Video) field7Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("IsFavorite", thrift.BOOL, 7)
+	l += bthrift.Binary.FieldBeginLength("is_favorite", thrift.BOOL, 7)
 	l += bthrift.Binary.BoolLength(p.IsFavorite)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -1132,7 +1078,7 @@ func (p *Video) field7Length() int {
 
 func (p *Video) field8Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Title", thrift.STRING, 8)
+	l += bthrift.Binary.FieldBeginLength("title", thrift.STRING, 8)
 	l += bthrift.Binary.StringLengthNocopy(p.Title)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -3059,7 +3005,7 @@ func (p *PublishActionRequest) FastReadField3(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.FilePath = v
+		p.FileUrl = v
 
 	}
 	return offset, nil
@@ -3073,7 +3019,7 @@ func (p *PublishActionRequest) FastReadField4(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.CoverPath = v
+		p.CoverUrl = v
 
 	}
 	return offset, nil
@@ -3148,8 +3094,8 @@ func (p *PublishActionRequest) fastWriteField2(buf []byte, binaryWriter bthrift.
 
 func (p *PublishActionRequest) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "file_path", thrift.STRING, 3)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.FilePath)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "file_url", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.FileUrl)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -3157,8 +3103,8 @@ func (p *PublishActionRequest) fastWriteField3(buf []byte, binaryWriter bthrift.
 
 func (p *PublishActionRequest) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "cover_path", thrift.STRING, 4)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.CoverPath)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "cover_url", thrift.STRING, 4)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.CoverUrl)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -3193,8 +3139,8 @@ func (p *PublishActionRequest) field2Length() int {
 
 func (p *PublishActionRequest) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("file_path", thrift.STRING, 3)
-	l += bthrift.Binary.StringLengthNocopy(p.FilePath)
+	l += bthrift.Binary.FieldBeginLength("file_url", thrift.STRING, 3)
+	l += bthrift.Binary.StringLengthNocopy(p.FileUrl)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -3202,8 +3148,8 @@ func (p *PublishActionRequest) field3Length() int {
 
 func (p *PublishActionRequest) field4Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("cover_path", thrift.STRING, 4)
-	l += bthrift.Binary.StringLengthNocopy(p.CoverPath)
+	l += bthrift.Binary.FieldBeginLength("cover_url", thrift.STRING, 4)
+	l += bthrift.Binary.StringLengthNocopy(p.CoverUrl)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l

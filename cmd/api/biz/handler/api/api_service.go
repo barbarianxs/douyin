@@ -139,40 +139,30 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	video_data, err := c.FormFile("data")
 	
 	if err != nil {
-		c.JSON(http.StatusOK, Response{
-			StatusCode: 1,
-			StatusMsg:  err.Error(),
-		})
+		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	filename := filepath.Base(data.Filename)
-	finalName := fmt.Sprintf("%s_%s", quser.Username, filename)
-	video_path := filepath.Join(const.VideoSavePath, video_name)
+	filename := filepath.Base(video_data.Filename)
+	finalName := fmt.Sprintf("%s", filename)
+	video_path := filepath.Join(consts.VideoSavePath, finalName)
 
 	err = c.SaveUploadedFile(video_data, video_path)
 
 	if err != nil {
-		hlog.Error(err)
-		c.JSON(http.StatusOK, Response{
-			StatusCode: 1,
-			StatusMsg:  err.Error(),
-		})
+		
+		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 	
-	coverPath = "../../../../../../snapshot/"
+	coverPath := "../../../../../../snapshot/"
 
-	if err := GetSnapshot(video_path, coverPath, "00:00:02"); err != nil {
-		c.JSON(http.StatusOK, Response{
-			StatusCode: 232323,
-			StatusMsg:  err.Error(),
-		})
+	if _, err := GetSnapshot(video_path, coverPath, 1); err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
 	}
 
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  v.(*api.User).UserID,
-		Data: req.Data,
 		Title: req.Title,
 		FilePath: video_path,
 		CoverPath: coverPath,
