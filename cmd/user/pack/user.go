@@ -34,14 +34,14 @@ func Users(us []*db.User) []*user.User {
 }
 
 // User pack user info
-func Video(v *db.Video) *user.Video {
+func Video(v *db.Video, author *db.User) *user.Video {
 	if v == nil {
 		return nil
 	}
 
 	return &user.Video{
 		VideoId: int64(v.ID), 
-		AuthorId: int64(v.AuthorID),
+		Author: User(author),
 		PlayUrl: string(v.PlayUrl),
 		CoverUrl: string(v.CoverUrl),
 		FavoriteCount: int64(v.FavoriteCount),
@@ -50,10 +50,10 @@ func Video(v *db.Video) *user.Video {
 }
 
 // Users pack list of user info
-func Videos(vs []*db.Video) []*user.Video {
+func Videos(vs []*db.Video, author *db.User) []*user.Video {
 	videos := make([]*user.Video, 0)
 	for _, v := range vs {
-		if temp := Video(v); temp != nil {
+		if temp := Video(v, author); temp != nil {
 			videos = append(videos, temp)
 		}
 	}

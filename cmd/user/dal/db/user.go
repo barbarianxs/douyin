@@ -10,6 +10,7 @@ import (
 
 type User struct {
 	gorm.Model
+	ID            int64     `gorm:"column:id;primary_key;AUTO_INCREMENT"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 	FollowCount   int64  `json:"follow_count"`
@@ -57,5 +58,8 @@ func QueryUserInfo(ctx context.Context, uid int64) ([]*User, error) {
 	if err := DB.WithContext(ctx).Where("id = ?", uid).Find(&res).Error; err != nil {
 		return nil, err
 	}
+	// if res != 1{
+	// 	return 
+	// }
 	return res, nil
 }

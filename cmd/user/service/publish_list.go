@@ -27,8 +27,9 @@ func (s *PublishListService) PublishList(req *user.PublishListRequest) ([]*user.
 	if err != nil {
 		return nil, err
 	}
-	
-	videos := pack.Videos(videoModels)
+	users, err := db.QueryUserInfo(s.ctx, req.UserId)
+	u := users[0]
+	videos := pack.Videos(videoModels, u)
 	
 	return videos, nil
 }
