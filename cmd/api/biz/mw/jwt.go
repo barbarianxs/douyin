@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api_user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
@@ -29,7 +29,7 @@ func InitJWT() {
 		IdentityKey:   consts.IdentityKey,
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {
 			claims := jwt.ExtractClaims(ctx, c)
-			return &user.User{
+			return &api_user.User{
 				ID: int64(claims[consts.IdentityKey].(float64)),
 			}
 		},
@@ -43,7 +43,7 @@ func InitJWT() {
 		},
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
 			var err error
-			var req user.LoginUserRequest
+			var req api_user.LoginUserRequest
 			if err = c.BindAndValidate(&req); err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}
