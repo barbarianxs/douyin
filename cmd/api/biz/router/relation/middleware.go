@@ -8,7 +8,22 @@ import (
 
 func rootMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		// use recovery mw
+		recovery.Recovery(recovery.WithRecoveryHandler(
+			func(ctx context.Context, c *app.RequestContext, err interface{}, stack []byte) {
+				hlog.SystemLogger().CtxErrorf(ctx, "[Recovery] err=%v\nstack=%s", err, stack)
+				c.JSON(consts.StatusInternalServerError, utils.H{
+					"code":    errno.ServiceErr.ErrCode,
+					"message": fmt.Sprintf("[Recovery] err=%v\nstack=%s", err, stack),
+				})
+			},
+		)),
+		// use requestid mw
+		requestid.New(),
+		// use gzip mw
+		gzip.Gzip(gzip.DefaultCompression),
+	}
 }
 
 func _douyinMw() []app.HandlerFunc {
@@ -18,7 +33,10 @@ func _douyinMw() []app.HandlerFunc {
 
 func _messageMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _actionMw() []app.HandlerFunc {
@@ -37,6 +55,69 @@ func _chatMw() []app.HandlerFunc {
 }
 
 func _messagechatMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _relationMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _action0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _relation_ctionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _followMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _listMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _relationfollowlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _followerMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _relationfollowerlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _friendMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list1Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _relationfriendlistMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

@@ -1,4 +1,4 @@
-namespace go api
+namespace go user
 
 enum ErrCode {
     SuccessCode                = 0

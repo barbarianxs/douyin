@@ -4,40 +4,69 @@ package relation
 
 import (
 	"context"
+	"fmt"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 
-	relation "github.com/YANGJUNYAN0715/douyin/biz/model/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/cloudwego/hertz/pkg/common/utils"
 )
 
 // MessageChat .
 // @router /douyin/message/chat/ [GET]
 func MessageChat(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req relation.MessageChatRequest
+	var req user.MessageChatRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-
-	resp := new(relation.MessageChatResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	v, _ := c.Get(consts.IdentityKey)
+	messages, err := rpc.MessageChat(context.Background(), &message.MessageChatRequest{
+		FromUserId:    v.(*user.User).UserID,
+		ToUserId: req.ToUserID,
+		// Offset:    req.Offset,
+		// Limit:     req.Limit,
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, utils.H{
+		// consts.Total: total,
+		consts.Messages: messages,
+	})
 }
 
 // MessageAction .
 // @router /douyin/message/action/ [POST]
 func MessageAction(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req relation.MessageActionRequest
+	var req user.MessageActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-
-	resp := new(relation.MessageActionResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	v, _ := c.Get(consts.IdentityKey)
+	
+	err = rpc.MessageAction(context.Background(), &message.MessageActionRequest{
+		FromUserId:  v.(*user.User).UserID,
+		ToUserId: req.ToUserID,
+		ActionType: req.ActionType,
+		Content: req.Content,
+		
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, nil)
 }

@@ -49,8 +49,8 @@ func MessageAction(ctx context.Context, req *message.MessageActionRequest) error
 	if err != nil {
 		return err
 	}
-	if resp.BaseResp.StatusCode != 0 {
-		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	if resp.StatusCode != 0 {
+		return errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return nil
 }
@@ -61,8 +61,8 @@ func MessageChat(ctx context.Context, req *message.MessageChatRequest) ([]*messa
 	if err != nil {
 		return nil, err
 	}
-	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	if resp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return resp.Messages, nil
 }

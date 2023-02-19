@@ -5,7 +5,8 @@ package relation
 import (
 	"context"
 	"fmt"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 
@@ -15,5 +16,69 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	"path/filepath"
+
 )
+
+// RelationAction .
+// @router /douyin/relation/action/ [POST]
+func RelationAction(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req relation.RelationActionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(relation.RelationActionResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// RelationFollowList .
+// @router /douyin/relation/follow/list/ [GET]
+func RelationFollowList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req relation.RelationFollowListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(relation.RelationFollowListResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// RelationFollowerList .
+// @router /douyin/relation/follower/list/ [GET]
+func RelationFollowerList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req relation.RelationFollowerListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(relation.RelationFollowerListResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// RelationFriendList .
+// @router /douyin/relation/friend/list/ [GET]
+func RelationFriendList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req relation.RelationFriendListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(relation.RelationFriendListResponse)
+
+	c.JSON(consts.StatusOK, resp)
+}
