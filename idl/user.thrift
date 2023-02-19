@@ -25,7 +25,7 @@ struct User {
 
 struct Video {
     1: i64 video_id;
-    2: i64 author_id;
+    2: User author;
     3: string play_url;
     4: string cover_url;
     5: i64 favorite_count;

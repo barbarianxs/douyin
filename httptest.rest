@@ -47,3 +47,6 @@ Content-Type: application/json
 
 }
 ###
+GET  http://{{host}}/douyin/publish/list/
+Authorization: Bearer {{token}}
+Content-Type: application/json
