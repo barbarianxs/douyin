@@ -21,6 +21,9 @@ var (
 	_ = time.Nanosecond
 )
 
+func (p *BaseResp) IsValid() error {
+	return nil
+}
 func (p *Message) IsValid() error {
 	return nil
 }

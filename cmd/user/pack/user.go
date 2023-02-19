@@ -14,8 +14,8 @@ func User(u *db.User) *user.User {
 	}
 
 	return &user.User{
-		UserId: int64(u.ID), 
-		Username: u.Username,
+		Id: int64(u.ID), 
+		Name: u.Username,
 		FollowCount: int64(u.FollowCount),
 		FollowerCount: int64(u.FollowerCount),
 		// IsFollow: bool(u.IsFollow ),
@@ -40,7 +40,7 @@ func Video(v *db.Video, author *db.User) *user.Video {
 	}
 
 	return &user.Video{
-		VideoId: int64(v.ID), 
+		Id: int64(v.ID), 
 		Author: User(author),
 		PlayUrl: string(v.PlayUrl),
 		CoverUrl: string(v.CoverUrl),
