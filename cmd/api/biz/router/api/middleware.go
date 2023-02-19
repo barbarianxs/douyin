@@ -141,10 +141,40 @@ func _register0Mw() []app.HandlerFunc {
 
 func _infoMw() []app.HandlerFunc {
 	// your code...
-		//需要授权访问的路由组 需要在中间件里注入授权逻辑
+	//需要授权访问的路由组 需要在中间件里注入授权逻辑
 	return []app.HandlerFunc{
 		// use jwt mw
 		mw.JwtMiddleware.MiddlewareFunc(),
 	}
+	return nil
+}
+
+func _comment_ctionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _commentlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list2Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _commentMw() []app.HandlerFunc {
+	// your code...
+	//需要授权访问的路由组 需要在中间件里注入授权逻辑
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+	return nil
+}
+
+func _action0Mw() []app.HandlerFunc {
+	// your code...
 	return nil
 }

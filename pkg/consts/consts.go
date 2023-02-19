@@ -27,11 +27,13 @@ const (
 	ApiServiceName      = "api"
 	UserServiceName     = "user"
 	RelationServiceName = "relation"
+	CommentServiceName  = "comment"
 
 	MySQLDefaultDSN     = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
 	TCP                 = "tcp"
 	UserServiceAddr     = ":9000"
 	RelationServiceAddr = ":8087"
+	CommentServiceAddr  = ":8088"
 
 	NoteServiceAddr = ":10000"
 	ExportEndpoint  = ":4317"

@@ -9,6 +9,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/comment"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/relation"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
@@ -245,7 +246,7 @@ func Info(ctx context.Context, c *app.RequestContext) {
 		req.UserID = u.(*api.User).ID
 	}
 	// resp := new(api.DouyinUserResponse)
-	userinfo,err := rpc.Info(ctx,&user.DouyinUserRequest{
+	userinfo, err := rpc.Info(ctx, &user.DouyinUserRequest{
 		UserId: req.UserID,
 		Token:  req.Token,
 	})
@@ -256,6 +257,71 @@ func Info(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, utils.H{
 		"status_code": Err.ErrCode,
 		"status_msg":  Err.ErrMsg,
-		"user":   userinfo,
+		"user":        userinfo,
+	})
+}
+
+// CommentAction .
+// @router /douyin/comment/action/ [POST]
+func CommentAction(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.DouyinCommentActionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	//从token中获取id TODO middleware中处理
+	u, _ := c.Get(consts.IdentityKey)
+	if u == nil {
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
+	//越权错误
+	if req.UserID != 0 && req.UserID != u.(*api.User).ID {
+		SendResponse(c, errno.BrokenAccessControlErr, nil)
+		return
+	}
+	resp, err := rpc.CommentAction(ctx, &comment.DouyinCommentActionRequest{
+		UserId:      req.UserID,
+		Token:       req.Token,
+		VideoId:     req.VideoID,
+		ActionType:  req.ActionType,
+		CommentText: req.CommentText,
+		CommentId:   req.CommentID,
+	})
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(consts.StatusOK, utils.H{
+		"status_code": Err.ErrCode,
+		"status_msg":  Err.ErrMsg,
+		"comment":     resp,
+	})
+}
+
+// CommentList .
+// @router /douyin/comment/list/ [GET]
+func CommentList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.DouyinCommentListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	//从token中获取id TODO middleware中处理
+	u, _ := c.Get(consts.IdentityKey)
+	if u == nil {
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
+	resp, err := rpc.CommentList(ctx, &comment.DouyinCommentListRequest{
+		Token:   req.Token,
+		VideoId: req.VideoID,
+	})
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(consts.StatusOK, utils.H{
+		"status_code":  Err.ErrCode,
+		"status_msg":   Err.ErrMsg,
+		"comment_list": resp,
 	})
 }

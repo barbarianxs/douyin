@@ -20,7 +20,7 @@ func (u *Comment) TableName() string {
 }
 
 // CreateUser create user info
-func CreateComment(ctx context.Context, arr []*Comment) error {
+func CreateComment(ctx context.Context, arr *Comment) error {
 	return DB.WithContext(ctx).Create(arr).Error
 }
 

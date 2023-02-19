@@ -18,8 +18,10 @@ package mw
 import (
 	"context"
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
+
 	// "log"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/model/api"
@@ -47,14 +49,14 @@ func InitJWT() {
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {
 			claims := jwt.ExtractClaims(ctx, c)
 			userid, _ := claims[consts.IdentityKey].(json.Number).Int64()
-			// log.Println("^^^^^^^^userid:%v",userid)
+			log.Println("^^^^^^^^userid:%v", userid)
 			return &api.User{
 				ID: userid,
 			}
 		},
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if v, ok := data.(int64); ok {
-				// log.Println("---------userid:%v",v)
+				log.Println("---------userid:%v", v)
 				return jwt.MapClaims{
 					consts.IdentityKey: v,
 				}
@@ -77,17 +79,17 @@ func InitJWT() {
 		},
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
 			c.JSON(http.StatusOK, utils.H{
-				"status_code":   errno.Success.ErrCode,
-				"status_msg":	errno.Success.ErrMsg,
-				"user_id": 0,
-				"token":  token,
+				"status_code": errno.Success.ErrCode,
+				"status_msg":  errno.Success.ErrMsg,
+				"user_id":     0,
+				"token":       token,
 				// "expire": expire.Format(time.RFC3339),
 			})
 		},
 		Unauthorized: func(ctx context.Context, c *app.RequestContext, code int, message string) {
 			c.JSON(http.StatusOK, utils.H{
-				"status_code":    errno.AuthorizationFailedErr.ErrCode,
-				"status_msg": message,
+				"status_code": errno.AuthorizationFailedErr.ErrCode,
+				"status_msg":  message,
 			})
 		},
 		HTTPStatusMessageFunc: func(e error, ctx context.Context, c *app.RequestContext) string {
