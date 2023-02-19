@@ -7,12 +7,6 @@ enum ErrCode {
     AuthorizationFailedErrCode = 90004
 }
 
-struct BaseResp {
-    1: i32 status_code
-    2: string status_message
-    3: i64 service_time
-}
-
 struct Message {
     1:required i64 id                  // 消息id
     2:required i64 to_user_id          // 该消息接收者的id
@@ -27,15 +21,13 @@ struct MessageChatRequest {
 }
 
 struct MessageChatResponse {
-    1: list<Message> messages
-    2: BaseResp base_resp
+    1: i32 status_code
+    2: string status_msg
+    3: list<Message> messages
     
 }
 
-
-
 struct MessageActionRequest {
-
     1:required i64 from_user_id           // 用户鉴权token
     2:required i64 to_user_id         // 对方用户id
     3:required i32 action_type       // 1-发送消息
@@ -43,7 +35,8 @@ struct MessageActionRequest {
 }
 
 struct MessageActionResponse {
-    1: BaseResp base_resp
+    1: i32 status_code
+    2: string status_msg
 }
 
 service MessageService{

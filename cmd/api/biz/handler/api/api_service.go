@@ -156,8 +156,9 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	}
 	
 	coverPath := "../../../../../../snapshot/"
-
-	if _, err := GetSnapshot(video_path, coverPath, 1); err != nil {
+	// 获取视频截图
+	snapshotName, err := GetSnapshot(video_path, coverPath, 1)
+	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
 
@@ -165,7 +166,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		UserId:  v.(*api.User).UserID,
 		Title: req.Title,
 		FileUrl: video_path,
-		CoverUrl: coverPath,
+		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
