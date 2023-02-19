@@ -67,10 +67,10 @@ struct RelationFriendListResponse {
 
 
 service RelationService {
-    RelationActionResponse RelationAction (1: RelationActionRequest req) (api.post="/douyin/relation/action/")
-    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req) (api.get="/douyin/relation/follow/list/")
-    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req) (api.get="/douyin/relation/follower/list/")
-    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req) (api.get="/douyin/relation/friend/list/")
+    RelationActionResponse RelationAction (1: RelationActionRequest req)
+    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req)
+    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req)
+    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req)
 }
 
 
