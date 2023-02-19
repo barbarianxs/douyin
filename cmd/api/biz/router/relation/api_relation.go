@@ -3,7 +3,7 @@
 package Relation
 
 import (
-	relation "github.com/YANGJUNYAN0715/douyin/biz/handler/relation"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/relation"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

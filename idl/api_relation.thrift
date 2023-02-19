@@ -1,4 +1,4 @@
-namespace go relation
+namespace go api_relation
 enum ErrCode {
     SuccessCode                = 0
     ServiceErrCode             = 90001

@@ -3,7 +3,7 @@
 package User
 
 import (
-	user "github.com/YANGJUNYAN0715/douyin/biz/handler/user"
+	user "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/user"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

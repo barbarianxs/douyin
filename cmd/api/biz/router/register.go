@@ -3,8 +3,8 @@
 package router
 
 import (
-	relation "github.com/YANGJUNYAN0715/douyin/biz/router/relation"
-	user "github.com/YANGJUNYAN0715/douyin/biz/router/user"
+	user "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/router/user"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/router/relation"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
