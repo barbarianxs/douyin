@@ -19,22 +19,22 @@ import (
 
 func rootMw() []app.HandlerFunc {
 	// your code...
-	return []app.HandlerFunc{
-		// use recovery mw
-		recovery.Recovery(recovery.WithRecoveryHandler(
-			func(ctx context.Context, c *app.RequestContext, err interface{}, stack []byte) {
-				hlog.SystemLogger().CtxErrorf(ctx, "[Recovery] err=%v\nstack=%s", err, stack)
-				c.JSON(consts.StatusInternalServerError, utils.H{
-					"code":    errno.ServiceErr.ErrCode,
-					"message": fmt.Sprintf("[Recovery] err=%v\nstack=%s", err, stack),
-				})
-			},
-		)),
-		// use requestid mw
-		requestid.New(),
-		// use gzip mw
-		gzip.Gzip(gzip.DefaultCompression),
-	}
+	// return []app.HandlerFunc{
+	// 	// use recovery mw
+	// 	recovery.Recovery(recovery.WithRecoveryHandler(
+	// 		func(ctx context.Context, c *app.RequestContext, err interface{}, stack []byte) {
+	// 			hlog.SystemLogger().CtxErrorf(ctx, "[Recovery] err=%v\nstack=%s", err, stack)
+	// 			c.JSON(consts.StatusInternalServerError, utils.H{
+	// 				"code":    errno.ServiceErr.ErrCode,
+	// 				"message": fmt.Sprintf("[Recovery] err=%v\nstack=%s", err, stack),
+	// 			})
+	// 		},
+	// 	)),
+	// 	// use requestid mw
+	// 	requestid.New(),
+	// 	// use gzip mw
+	// 	gzip.Gzip(gzip.DefaultCompression),
+	// }
 }
 
 func _douyinMw() []app.HandlerFunc {
@@ -72,10 +72,7 @@ func _messagechatMw() []app.HandlerFunc {
 
 func _relationMw() []app.HandlerFunc {
 	// your code...
-	return []app.HandlerFunc{
-		// use jwt mw
-		mw.JwtMiddleware.MiddlewareFunc(),
-	}
+	return nil
 }
 
 func _action0Mw() []app.HandlerFunc {

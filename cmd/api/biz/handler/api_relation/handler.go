@@ -1,5 +1,5 @@
 
-package relation
+package api_relation
 
 import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"

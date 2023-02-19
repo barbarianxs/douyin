@@ -1,5 +1,5 @@
 
-package user
+package api_user
 
 import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"

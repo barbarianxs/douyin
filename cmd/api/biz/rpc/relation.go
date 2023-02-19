@@ -4,8 +4,8 @@ package rpc
 import (
 	"context"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message/messageservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation/relationservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/mw"
@@ -16,36 +16,36 @@ import (
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
 
-var messageClient messageservice.Client
+var relationClient relationservice.Client
 
-func initMessage() {
+func initRelation() {
 	r, err := etcd.NewEtcdResolver([]string{consts.ETCDAddress})
 	if err != nil {
 		panic(err)
 	}
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(consts.ApiServiceName),
+		provider.WithServiceName(consts.RelationServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
-	c, err := messageservice.NewClient(
-		consts.MessageServiceName,
+	c, err := relationservice.NewClient(
+		consts.RelationServiceName,
 		client.WithResolver(r),
 		client.WithMuxConnection(1),
 		client.WithMiddleware(mw.CommonMiddleware),
 		client.WithInstanceMW(mw.ClientMiddleware),
 		client.WithSuite(tracing.NewClientSuite()),
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.ApiServiceName}),
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.RelationServiceName}),
 	)
 	if err != nil {
 		panic(err)
 	}
-	messageClient = c
+	relationClient = c
 }
 
 // MessageAction create note info
-func MessageAction(ctx context.Context, req *message.MessageActionRequest) error {
-	resp, err := messageClient.MessageAction(ctx, req)
+func MessageAction(ctx context.Context, req *relation.MessageActionRequest) error {
+	resp, err := relationClient.MessageAction(ctx, req)
 	if err != nil {
 		return err
 	}
@@ -56,8 +56,8 @@ func MessageAction(ctx context.Context, req *message.MessageActionRequest) error
 }
 
 // ChatMessage query list of note info
-func MessageChat(ctx context.Context, req *message.MessageChatRequest) ([]*message.Message, error) {
-	resp, err := messageClient.MessageChat(ctx, req)
+func MessageChat(ctx context.Context, req *relation.MessageChatRequest) ([]*relation.Message, error) {
+	resp, err := relationClient.MessageChat(ctx, req)
 	if err != nil {
 		return nil, err
 	}

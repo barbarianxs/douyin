@@ -25,7 +25,7 @@ func initUser() {
 		panic(err)
 	}
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(consts.ApiServiceName),
+		provider.WithServiceName(consts.UserServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
@@ -36,7 +36,7 @@ func initUser() {
 		client.WithMiddleware(mw.CommonMiddleware),
 		client.WithInstanceMW(mw.ClientMiddleware),
 		client.WithSuite(tracing.NewClientSuite()),
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.ApiServiceName}),
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.UserServiceName}),
 	)
 	if err != nil {
 		panic(err)
