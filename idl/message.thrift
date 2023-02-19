@@ -7,6 +7,13 @@ enum ErrCode {
     AuthorizationFailedErrCode = 90004
 }
 
+struct BaseResp {
+    1: i32 status_code
+    2: string status_msg
+    3: i64 service_time
+}
+
+
 struct Message {
     1:required i64 id                  // 消息id
     2:required i64 to_user_id          // 该消息接收者的id
