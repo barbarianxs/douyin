@@ -1,4 +1,4 @@
-package user
+package api_user
 
 import (
        "bytes"

@@ -93,7 +93,7 @@ func MessageChat(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	messages, err := rpc.MessageChat(context.Background(), &message.MessageChatRequest{
+	messages, err := rpc.MessageChat(context.Background(), &relation.MessageChatRequest{
 		FromUserId:    v.(*api_relation.User).ID,
 		ToUserId: req.ToUserID,
 		// Offset:    req.Offset,
@@ -121,7 +121,7 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 	}
 	v, _ := c.Get(consts.IdentityKey)
 	
-	err = rpc.MessageAction(context.Background(), &message.MessageActionRequest{
+	err = rpc.MessageAction(context.Background(), &relation.MessageActionRequest{
 		FromUserId:  v.(*api_relation.User).ID,
 		ToUserId: req.ToUserID,
 		ActionType: req.ActionType,
