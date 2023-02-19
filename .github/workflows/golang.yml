@@ -41,5 +41,6 @@ jobs:
       - name: build
         run: |
           cd cmd/comment && ./build.sh
-          cd cmd/user && ./build.sh
-          cd cmd/relation && ./build.sh
+          cd - && cd cmd/user && ./build.sh
+          cd - && cd cmd/relation && ./build.sh
+          
