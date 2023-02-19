@@ -811,7 +811,7 @@ func (p *User) Field6DeepEqual(src string) bool {
 
 type Video struct {
 	VideoId       int64  `thrift:"video_id,1" frugal:"1,default,i64" json:"video_id"`
-	AuthorId      int64  `thrift:"author_id,2" frugal:"2,default,i64" json:"author_id"`
+	Author        *User  `thrift:"author,2" frugal:"2,default,User" json:"author"`
 	PlayUrl       string `thrift:"play_url,3" frugal:"3,default,string" json:"play_url"`
 	CoverUrl      string `thrift:"cover_url,4" frugal:"4,default,string" json:"cover_url"`
 	FavoriteCount int64  `thrift:"favorite_count,5" frugal:"5,default,i64" json:"favorite_count"`
@@ -832,8 +832,13 @@ func (p *Video) GetVideoId() (v int64) {
 	return p.VideoId
 }
 
-func (p *Video) GetAuthorId() (v int64) {
-	return p.AuthorId
+var Video_Author_DEFAULT *User
+
+func (p *Video) GetAuthor() (v *User) {
+	if !p.IsSetAuthor() {
+		return Video_Author_DEFAULT
+	}
+	return p.Author
 }
 
 func (p *Video) GetPlayUrl() (v string) {
@@ -862,8 +867,8 @@ func (p *Video) GetTitle() (v string) {
 func (p *Video) SetVideoId(val int64) {
 	p.VideoId = val
 }
-func (p *Video) SetAuthorId(val int64) {
-	p.AuthorId = val
+func (p *Video) SetAuthor(val *User) {
+	p.Author = val
 }
 func (p *Video) SetPlayUrl(val string) {
 	p.PlayUrl = val
@@ -886,13 +891,17 @@ func (p *Video) SetTitle(val string) {
 
 var fieldIDToName_Video = map[int16]string{
 	1: "video_id",
-	2: "author_id",
+	2: "author",
 	3: "play_url",
 	4: "cover_url",
 	5: "favorite_count",
 	6: "comment_count",
 	7: "is_favorite",
 	8: "title",
+}
+
+func (p *Video) IsSetAuthor() bool {
+	return p.Author != nil
 }
 
 func (p *Video) Read(iprot thrift.TProtocol) (err error) {
@@ -925,7 +934,7 @@ func (p *Video) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1034,10 +1043,9 @@ func (p *Video) ReadField1(iprot thrift.TProtocol) error {
 }
 
 func (p *Video) ReadField2(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI64(); err != nil {
+	p.Author = NewUser()
+	if err := p.Author.Read(iprot); err != nil {
 		return err
-	} else {
-		p.AuthorId = v
 	}
 	return nil
 }
@@ -1171,10 +1179,10 @@ WriteFieldEndError:
 }
 
 func (p *Video) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("author_id", thrift.I64, 2); err != nil {
+	if err = oprot.WriteFieldBegin("author", thrift.STRUCT, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.AuthorId); err != nil {
+	if err := p.Author.Write(oprot); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1305,7 +1313,7 @@ func (p *Video) DeepEqual(ano *Video) bool {
 	if !p.Field1DeepEqual(ano.VideoId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.AuthorId) {
+	if !p.Field2DeepEqual(ano.Author) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.PlayUrl) {
@@ -1336,9 +1344,9 @@ func (p *Video) Field1DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *Video) Field2DeepEqual(src int64) bool {
+func (p *Video) Field2DeepEqual(src *User) bool {
 
-	if p.AuthorId != src {
+	if !p.Author.DeepEqual(src) {
 		return false
 	}
 	return true
