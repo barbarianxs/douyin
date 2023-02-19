@@ -43,4 +43,4 @@ jobs:
           cd cmd/comment && ./build.sh
           cd - && cd cmd/user && ./build.sh
           cd - && cd cmd/relation && ./build.sh
-          
+          cd - && cd cmd/api && go build && go test
