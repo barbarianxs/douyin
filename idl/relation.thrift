@@ -66,12 +66,7 @@ struct RelationFriendListResponse {
 }
 
 
-service RelationService {
-    RelationActionResponse RelationAction (1: RelationActionRequest req)
-    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req)
-    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req)
-    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req)
-}
+
 
 
 struct Message {
@@ -107,9 +102,12 @@ struct MessageActionResponse {
     2: string status_msg
 }
 
-service MessageService{
+service RelationService {
+    RelationActionResponse RelationAction (1: RelationActionRequest req)
+    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req)
+    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req)
+    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req)
     MessageChatResponse MessageChat(1: MessageChatRequest req)               // 消息记录
     MessageActionResponse MessageAction(1: MessageActionRequest req)         // 发送消息
 }
-
 

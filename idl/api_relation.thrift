@@ -70,12 +70,7 @@ struct FriendUser {
     8: i64 msg_type // message消息的类型，0 => 当前请求用户接收的消息， 1 => 当前请求用户发送的消息
 }
 
-service RelationService {
-    RelationActionResponse RelationAction (1: RelationActionRequest req) (api.post="/douyin/relation/action/")
-    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req) (api.get="/douyin/relation/follow/list/")
-    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req) (api.get="/douyin/relation/follower/list/")
-    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req) (api.get="/douyin/relation/friend/list/")
-}
+
 
 
 struct Message {
@@ -111,10 +106,15 @@ struct MessageActionResponse {
     2: string status_msg
 }
 
-service MessageService{
+service RelationService {
+    RelationActionResponse RelationAction (1: RelationActionRequest req) (api.post="/douyin/relation/action/")
+    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req) (api.get="/douyin/relation/follow/list/")
+    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req) (api.get="/douyin/relation/follower/list/")
+    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req) (api.get="/douyin/relation/friend/list/")
     MessageChatResponse MessageChat(1: MessageChatRequest req) (api.get="/douyin/message/chat/")               // 消息记录
     MessageActionResponse MessageAction(1: MessageActionRequest req) (api.post="/douyin/message/action/")         // 发送消息
 }
+
 
 
 
