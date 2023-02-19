@@ -8,12 +8,17 @@ enum ErrCode {
 }
 
 struct User {
-    1: i64 user_id
-    2: string username
+    1: i64 id
+    2: string name
     3: i64 follow_count // 关注总数
     4: i64 follower_count  // 粉丝总数
     5: bool is_follow  // true-已关注，false-未关注
     6: string avatar
+    7: string background_image
+    8: string signature
+    9: string total_favorited
+    10: i64 work_count
+    11: i64 favorite_count
 }
 
 struct RelationActionRequest {

@@ -8,12 +8,17 @@ enum ErrCode {
 }
 
 struct User {
-    1: i64 user_id
-    2: string username
+    1: i64 id
+    2: string name
     3: i64 follow_count // 关注总数
     4: i64 follower_count  // 粉丝总数
     5: bool is_follow  // true-已关注，false-未关注
     6: string avatar
+    7: string background_image
+    8: string signature
+    9: string total_favorited
+    10: i64 work_count
+    11: i64 favorite_count
 }
 
 struct RelationActionRequest {
@@ -52,18 +57,9 @@ struct RelationFriendListRequest {
 struct RelationFriendListResponse {
     1: i32 status_code // 状态码，0-成功，其他值-失败
     2: string status_msg // 返回状态描述
-    3: list<FriendUser> user_list // 用户列表
+    3: list<User> user_list // 用户列表
 }
-struct FriendUser {
-    1: i64 id // 用户id
-    2: string name // 用户名称
-    3: i64 follow_count // 关注总数
-    4: i64 follower_count // 粉丝总数
-    5: bool is_follow // true-已关注，false-未关注
-    6: string avatar // 用户头像Url
-    7: string message // 和该好友的最新聊天消息
-    8: i64 msg_type // message消息的类型，0 => 当前请求用户接收的消息， 1 => 当前请求用户发送的消息
-}
+
 
 service RelationService {
     RelationActionResponse RelationAction (1: RelationActionRequest req)
