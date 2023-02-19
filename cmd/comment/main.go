@@ -6,6 +6,7 @@ import (
 
 	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/comment/commentsrv"
 
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/rpc"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/dal"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/mw"
@@ -21,6 +22,7 @@ import (
 
 func Init() {
 	dal.Init()
+	rpc.Init()
 	// klog init
 	klog.SetLogger(kitexlogrus.NewLogger())
 	klog.SetLevel(klog.LevelInfo)

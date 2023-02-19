@@ -2,10 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/comment/rpc"
 	comment "github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/comment"
+	"github.com/YANGJUNYAN0715/douyin/tree/zhao/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/errno"
 	"github.com/cloudwego/kitex/tool/internal_pkg/log"
 )
@@ -20,12 +23,19 @@ func packErr1(err error) *comment.DouyinCommentActionResponse {
 
 func packErr2(err error) *comment.DouyinCommentListResponse {
 	msg := err.Error()
-	return &comment.DouyinCommentListResponse{StatusCode: errno.CommentError, StatusMsg: &msg}
+	return &comment.DouyinCommentListResponse{StatusCode: errno.SuccessCode, StatusMsg: &msg,
+		CommentList: []*comment.Comment{}}
 }
 
-// TODO rpc
-func getUser(id int) *comment.User {
-	return &comment.User{Id: 1, Name: "dsa", FollowCount: 1, FollowerCount: 1, IsFollow: true}
+func getUser(ctx context.Context, id int, token string) (*comment.User, error) {
+	resp, err := rpc.Info(ctx, &user.DouyinUserRequest{Token: token, UserId: int64(id)})
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+		return nil, err
+	}
+	return &comment.User{Id: resp.Id, Name: resp.Name, FollowCount: resp.FollowCount,
+		FollowerCount: resp.FollowerCount, IsFollow: resp.IsFollow}, nil
 }
 
 // TODO service
@@ -42,8 +52,12 @@ func (s *CommentSrvImpl) CommentAction(ctx context.Context, req *comment.DouyinC
 		if err := db.CreateComment(ctx, cmt); err != nil {
 			return packErr1(err), nil
 		}
+		user, err := getUser(ctx, cmt.UserId, req.Token)
+		if err != nil {
+			return nil, err
+		}
 		return &comment.DouyinCommentActionResponse{StatusCode: errno.SuccessCode,
-			Comment: &comment.Comment{Id: int64(cmt.ID), User: getUser(cmt.UserId), Content: cmt.Content, CreateDate: cmt.CreateTime}}, nil
+			Comment: &comment.Comment{Id: int64(cmt.ID), User: user, Content: cmt.Content, CreateDate: cmt.CreateTime}}, nil
 	} else if req.ActionType == 2 {
 		cmt := &db.Comment{ID: uint(*req.CommentId)}
 		tmp, err := db.SelectComment(ctx, int(cmt.ID))
@@ -56,11 +70,15 @@ func (s *CommentSrvImpl) CommentAction(ctx context.Context, req *comment.DouyinC
 		if err := db.DeleteComment(ctx, cmt); err != nil {
 			return packErr1(err), nil
 		}
+		user, err := getUser(ctx, tmp.UserId, req.Token)
+		if err != nil {
+			return nil, err
+		}
 		return &comment.DouyinCommentActionResponse{StatusCode: errno.SuccessCode,
-			Comment: &comment.Comment{Id: int64(tmp.ID), User: getUser(cmt.UserId), Content: tmp.Content, CreateDate: tmp.CreateTime}}, nil
+			Comment: &comment.Comment{Id: int64(tmp.ID), User: user, Content: tmp.Content, CreateDate: tmp.CreateTime}}, nil
 	} else {
 		msg := "err"
-		return &comment.DouyinCommentActionResponse{StatusCode: errno.ActionTypeErrCode, StatusMsg: &msg}, err.New
+		return &comment.DouyinCommentActionResponse{StatusCode: errno.ActionTypeErrCode, StatusMsg: &msg}, nil
 	}
 }
 
@@ -75,8 +93,13 @@ func (s *CommentSrvImpl) CommentList(ctx context.Context, req *comment.DouyinCom
 	}
 	res := []*comment.Comment{}
 	for _, c := range cmts {
+		fmt.Println("get user , id = ", c.UserId)
+		user, err := getUser(ctx, c.UserId, req.Token)
+		if err != nil {
+			return nil, err
+		}
 		tmp := &comment.Comment{Id: int64(c.ID), Content: c.Content,
-			CreateDate: c.CreateTime, User: getUser(c.UserId)}
+			CreateDate: c.CreateTime, User: user}
 		res = append(res, tmp)
 	}
 	return &comment.DouyinCommentListResponse{StatusCode: errno.SuccessCode, CommentList: res}, nil

@@ -238,10 +238,10 @@ func Info(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	//越权错误
-	if req.UserID != 0 && req.UserID != u.(*api.User).ID {
-		SendResponse(c, errno.BrokenAccessControlErr, nil)
-		return
-	}
+	// if req.UserID != 0 && req.UserID != u.(*api.User).ID {
+	// 	SendResponse(c, errno.BrokenAccessControlErr, nil)
+	// 	return
+	// }
 	if req.UserID == 0 {
 		req.UserID = u.(*api.User).ID
 	}
@@ -283,7 +283,7 @@ func CommentAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	resp, err := rpc.CommentAction(ctx, &comment.DouyinCommentActionRequest{
-		UserId:      req.UserID,
+		UserId:      u.(*api.User).ID,
 		Token:       req.Token,
 		VideoId:     req.VideoID,
 		ActionType:  req.ActionType,
