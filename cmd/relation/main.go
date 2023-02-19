@@ -3,7 +3,7 @@ package main
 import (
 	"net"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/dal"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation/messageservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation/relationservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/mw"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -15,6 +15,7 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
+
 
 func Init() {
 	dal.Init()
@@ -28,17 +29,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	addr, err := net.ResolveTCPAddr(consts.TCP, consts.UserServiceAddr)
+	addr, err := net.ResolveTCPAddr(consts.TCP, consts.RelationServiceAddr)
 	if err != nil {
 		panic(err)
 	}
 	Init()
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(consts.UserServiceName),
+		provider.WithServiceName(consts.RelationServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
-	svr := messageservice.NewServer(new(UserServiceImpl),
+	svr := relationservice.NewServer(new(RelationServiceImpl),
 		server.WithServiceAddr(addr),
 		server.WithRegistry(r),
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
@@ -46,7 +47,7 @@ func main() {
 		server.WithMiddleware(mw.CommonMiddleware),
 		server.WithMiddleware(mw.ServerMiddleware),
 		server.WithSuite(tracing.NewServerSuite()),
-		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.UserServiceName}),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.RelationServiceName}),
 	)
 	err = svr.Run()
 
@@ -54,4 +55,5 @@ func main() {
 		klog.Fatal(err.Error())
 	}
 }
+
 

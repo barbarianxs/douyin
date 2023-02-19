@@ -4901,7 +4901,7 @@ func (p *RelationServiceRelationFriendListResult) field0Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatArgs) FastRead(buf []byte) (int, error) {
+func (p *RelationServiceMessageChatArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -4963,7 +4963,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RelationServiceMessageChatArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -4972,7 +4972,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatArgs) FastReadField1(buf []byte) (int, error) {
+func (p *RelationServiceMessageChatArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageChatRequest()
@@ -4986,11 +4986,11 @@ func (p *MessageServiceMessageChatArgs) FastReadField1(buf []byte) (int, error) 
 }
 
 // for compatibility
-func (p *MessageServiceMessageChatArgs) FastWrite(buf []byte) int {
+func (p *RelationServiceMessageChatArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageChatArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageChatArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageChat_args")
 	if p != nil {
@@ -5001,7 +5001,7 @@ func (p *MessageServiceMessageChatArgs) FastWriteNocopy(buf []byte, binaryWriter
 	return offset
 }
 
-func (p *MessageServiceMessageChatArgs) BLength() int {
+func (p *RelationServiceMessageChatArgs) BLength() int {
 	l := 0
 	l += bthrift.Binary.StructBeginLength("MessageChat_args")
 	if p != nil {
@@ -5012,7 +5012,7 @@ func (p *MessageServiceMessageChatArgs) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageChatArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "req", thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -5020,7 +5020,7 @@ func (p *MessageServiceMessageChatArgs) fastWriteField1(buf []byte, binaryWriter
 	return offset
 }
 
-func (p *MessageServiceMessageChatArgs) field1Length() int {
+func (p *RelationServiceMessageChatArgs) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("req", thrift.STRUCT, 1)
 	l += p.Req.BLength()
@@ -5028,7 +5028,7 @@ func (p *MessageServiceMessageChatArgs) field1Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatResult) FastRead(buf []byte) (int, error) {
+func (p *RelationServiceMessageChatResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -5090,7 +5090,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageChatResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RelationServiceMessageChatResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -5099,7 +5099,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageChatResult) FastReadField0(buf []byte) (int, error) {
+func (p *RelationServiceMessageChatResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageChatResponse()
@@ -5113,11 +5113,11 @@ func (p *MessageServiceMessageChatResult) FastReadField0(buf []byte) (int, error
 }
 
 // for compatibility
-func (p *MessageServiceMessageChatResult) FastWrite(buf []byte) int {
+func (p *RelationServiceMessageChatResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageChatResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageChatResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageChat_result")
 	if p != nil {
@@ -5128,7 +5128,7 @@ func (p *MessageServiceMessageChatResult) FastWriteNocopy(buf []byte, binaryWrit
 	return offset
 }
 
-func (p *MessageServiceMessageChatResult) BLength() int {
+func (p *RelationServiceMessageChatResult) BLength() int {
 	l := 0
 	l += bthrift.Binary.StructBeginLength("MessageChat_result")
 	if p != nil {
@@ -5139,7 +5139,7 @@ func (p *MessageServiceMessageChatResult) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageChatResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageChatResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "success", thrift.STRUCT, 0)
@@ -5149,7 +5149,7 @@ func (p *MessageServiceMessageChatResult) fastWriteField0(buf []byte, binaryWrit
 	return offset
 }
 
-func (p *MessageServiceMessageChatResult) field0Length() int {
+func (p *RelationServiceMessageChatResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += bthrift.Binary.FieldBeginLength("success", thrift.STRUCT, 0)
@@ -5159,7 +5159,7 @@ func (p *MessageServiceMessageChatResult) field0Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionArgs) FastRead(buf []byte) (int, error) {
+func (p *RelationServiceMessageActionArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -5221,7 +5221,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RelationServiceMessageActionArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -5230,7 +5230,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionArgs) FastReadField1(buf []byte) (int, error) {
+func (p *RelationServiceMessageActionArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageActionRequest()
@@ -5244,11 +5244,11 @@ func (p *MessageServiceMessageActionArgs) FastReadField1(buf []byte) (int, error
 }
 
 // for compatibility
-func (p *MessageServiceMessageActionArgs) FastWrite(buf []byte) int {
+func (p *RelationServiceMessageActionArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageActionArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageActionArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageAction_args")
 	if p != nil {
@@ -5259,7 +5259,7 @@ func (p *MessageServiceMessageActionArgs) FastWriteNocopy(buf []byte, binaryWrit
 	return offset
 }
 
-func (p *MessageServiceMessageActionArgs) BLength() int {
+func (p *RelationServiceMessageActionArgs) BLength() int {
 	l := 0
 	l += bthrift.Binary.StructBeginLength("MessageAction_args")
 	if p != nil {
@@ -5270,7 +5270,7 @@ func (p *MessageServiceMessageActionArgs) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageActionArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "req", thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -5278,7 +5278,7 @@ func (p *MessageServiceMessageActionArgs) fastWriteField1(buf []byte, binaryWrit
 	return offset
 }
 
-func (p *MessageServiceMessageActionArgs) field1Length() int {
+func (p *RelationServiceMessageActionArgs) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("req", thrift.STRUCT, 1)
 	l += p.Req.BLength()
@@ -5286,7 +5286,7 @@ func (p *MessageServiceMessageActionArgs) field1Length() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionResult) FastRead(buf []byte) (int, error) {
+func (p *RelationServiceMessageActionResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -5348,7 +5348,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MessageServiceMessageActionResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RelationServiceMessageActionResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -5357,7 +5357,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MessageServiceMessageActionResult) FastReadField0(buf []byte) (int, error) {
+func (p *RelationServiceMessageActionResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewMessageActionResponse()
@@ -5371,11 +5371,11 @@ func (p *MessageServiceMessageActionResult) FastReadField0(buf []byte) (int, err
 }
 
 // for compatibility
-func (p *MessageServiceMessageActionResult) FastWrite(buf []byte) int {
+func (p *RelationServiceMessageActionResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MessageServiceMessageActionResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageActionResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MessageAction_result")
 	if p != nil {
@@ -5386,7 +5386,7 @@ func (p *MessageServiceMessageActionResult) FastWriteNocopy(buf []byte, binaryWr
 	return offset
 }
 
-func (p *MessageServiceMessageActionResult) BLength() int {
+func (p *RelationServiceMessageActionResult) BLength() int {
 	l := 0
 	l += bthrift.Binary.StructBeginLength("MessageAction_result")
 	if p != nil {
@@ -5397,7 +5397,7 @@ func (p *MessageServiceMessageActionResult) BLength() int {
 	return l
 }
 
-func (p *MessageServiceMessageActionResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *RelationServiceMessageActionResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "success", thrift.STRUCT, 0)
@@ -5407,7 +5407,7 @@ func (p *MessageServiceMessageActionResult) fastWriteField0(buf []byte, binaryWr
 	return offset
 }
 
-func (p *MessageServiceMessageActionResult) field0Length() int {
+func (p *RelationServiceMessageActionResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += bthrift.Binary.FieldBeginLength("success", thrift.STRUCT, 0)
@@ -5449,18 +5449,18 @@ func (p *RelationServiceRelationFriendListResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *MessageServiceMessageChatArgs) GetFirstArgument() interface{} {
+func (p *RelationServiceMessageChatArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *MessageServiceMessageChatResult) GetResult() interface{} {
+func (p *RelationServiceMessageChatResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *MessageServiceMessageActionArgs) GetFirstArgument() interface{} {
+func (p *RelationServiceMessageActionArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *MessageServiceMessageActionResult) GetResult() interface{} {
+func (p *RelationServiceMessageActionResult) GetResult() interface{} {
 	return p.Success
 }

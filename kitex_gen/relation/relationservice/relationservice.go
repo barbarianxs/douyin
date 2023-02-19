@@ -23,6 +23,8 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"RelationFollowList":   kitex.NewMethodInfo(relationFollowListHandler, newRelationServiceRelationFollowListArgs, newRelationServiceRelationFollowListResult, false),
 		"RelationFollowerList": kitex.NewMethodInfo(relationFollowerListHandler, newRelationServiceRelationFollowerListArgs, newRelationServiceRelationFollowerListResult, false),
 		"RelationFriendList":   kitex.NewMethodInfo(relationFriendListHandler, newRelationServiceRelationFriendListArgs, newRelationServiceRelationFriendListResult, false),
+		"MessageChat":          kitex.NewMethodInfo(messageChatHandler, newRelationServiceMessageChatArgs, newRelationServiceMessageChatResult, false),
+		"MessageAction":        kitex.NewMethodInfo(messageActionHandler, newRelationServiceMessageActionArgs, newRelationServiceMessageActionResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "relation",
@@ -110,6 +112,42 @@ func newRelationServiceRelationFriendListResult() interface{} {
 	return relation.NewRelationServiceRelationFriendListResult()
 }
 
+func messageChatHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*relation.RelationServiceMessageChatArgs)
+	realResult := result.(*relation.RelationServiceMessageChatResult)
+	success, err := handler.(relation.RelationService).MessageChat(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newRelationServiceMessageChatArgs() interface{} {
+	return relation.NewRelationServiceMessageChatArgs()
+}
+
+func newRelationServiceMessageChatResult() interface{} {
+	return relation.NewRelationServiceMessageChatResult()
+}
+
+func messageActionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*relation.RelationServiceMessageActionArgs)
+	realResult := result.(*relation.RelationServiceMessageActionResult)
+	success, err := handler.(relation.RelationService).MessageAction(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newRelationServiceMessageActionArgs() interface{} {
+	return relation.NewRelationServiceMessageActionArgs()
+}
+
+func newRelationServiceMessageActionResult() interface{} {
+	return relation.NewRelationServiceMessageActionResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -155,6 +193,26 @@ func (p *kClient) RelationFriendList(ctx context.Context, req *relation.Relation
 	_args.Req = req
 	var _result relation.RelationServiceRelationFriendListResult
 	if err = p.c.Call(ctx, "RelationFriendList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) MessageChat(ctx context.Context, req *relation.MessageChatRequest) (r *relation.MessageChatResponse, err error) {
+	var _args relation.RelationServiceMessageChatArgs
+	_args.Req = req
+	var _result relation.RelationServiceMessageChatResult
+	if err = p.c.Call(ctx, "MessageChat", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) MessageAction(ctx context.Context, req *relation.MessageActionRequest) (r *relation.MessageActionResponse, err error) {
+	var _args relation.RelationServiceMessageActionArgs
+	_args.Req = req
+	var _result relation.RelationServiceMessageActionResult
+	if err = p.c.Call(ctx, "MessageAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

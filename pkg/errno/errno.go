@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
 )
 
 type ErrNo struct {
@@ -36,7 +36,7 @@ var (
 	ParamErr               = NewErrNo(int32(user.ErrCode_ParamErrCode), "Wrong Parameter has been given")
 	UserAlreadyExistErr    = NewErrNo(int32(user.ErrCode_UserAlreadyExistErrCode), "User already exists")
 	AuthorizationFailedErr = NewErrNo(int32(user.ErrCode_AuthorizationFailedErrCode), "Authorization failed")
-	MessageIsNullExistErr  = NewErrNo(int32(message.ErrCode_MessageIsNullErrCode ), "Message is Null")
+	MessageIsNullExistErr  = NewErrNo(int32(relation.ErrCode_MessageIsNullErrCode ), "Message is Null")
 )
 
 // ConvertErr convert error to Errno
