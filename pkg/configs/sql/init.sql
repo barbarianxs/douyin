@@ -75,7 +75,7 @@ CREATE TABLE `favorite` (
 ALTER TABLE `video` ADD FOREIGN KEY (`author_id`) REFERENCES `user` (`id`);
 ALTER TABLE `message` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `message` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
-ALTER TABLE `follow` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
-ALTER TABLE `follow` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `relation` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `relation` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `favorite` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `favorite` ADD FOREIGN KEY (`video_id`) REFERENCES `video` (`id`);
