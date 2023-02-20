@@ -58,7 +58,7 @@ CREATE TABLE `relation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Relation update time',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Relation delete time',
   PRIMARY KEY (`id`),
-
+  KEY          `idx_from_user_id` (`user_id`) COMMENT 'Relation index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Relation table';
 
 CREATE TABLE `favorite` (
@@ -69,12 +69,12 @@ CREATE TABLE `favorite` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'follow update time',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'follow delete time',
   PRIMARY KEY (`id`),
-  KEY          `idx_from_user_id` (`user_id`) COMMENT 'favorite index'
+  KEY          `idx_from_user_id` (`user_id`) COMMENT 'Favorite index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Favorite table';
 
 ALTER TABLE `video` ADD FOREIGN KEY (`author_id`) REFERENCES `user` (`id`);
-ALTER TABLE `message` ADD FOREIGN KEY (`from_user_id`) REFERENCES `relation` (`from_user_id`);
-ALTER TABLE `message` ADD FOREIGN KEY (`to_user_id`) REFERENCES `relation` (`to_user_id`);
+ALTER TABLE `message` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `message` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `relation` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `relation` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `favorite` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);

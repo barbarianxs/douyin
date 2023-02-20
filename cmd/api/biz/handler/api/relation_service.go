@@ -283,7 +283,7 @@ func MessageChat(ctx context.Context, c *app.RequestContext) {
 	c.JSON(200, utils.H{
 		"status_code": Err.ErrCode,
 		"status_msg":  Err.ErrMsg,
-		"user_list":   messages,
+		"message_list":  messages,
 	})
 }
 

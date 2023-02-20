@@ -5,6 +5,7 @@ import (
 	"context"
 	// "fmt"
 	"time"
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
@@ -33,7 +34,7 @@ type Message struct {
 	ToUserId   int64  `gorm:"type:varchar(32);not null" json:"to_user_id"`
 	FromUserId int64  `gorm:"type:varchar(32);not null" json:"from_user_id"`
 	Content    string `gorm:"type:varchar(256);not null" json:"content"`
-	// CreatedAt   time.Time             `json:"createAt"`
+	CreatedAt   time.Time             `json:"createAt"`
 	
 	
 }
@@ -116,7 +117,7 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 		}
 
 		// 2.改变 user 表中的 following count
-		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("follow_count", gorm.Expr("follow_count + ?", 1))
+		res := tx.Table(consts.UserTableName).Where("id = ?", uid).Update("follow_count", gorm.Expr("follow_count + ?", 1))
 		if res.Error != nil {
 			return res.Error
 		}
@@ -126,7 +127,7 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 		}
 
 		// 3.改变 user 表中的 follower count
-		res = tx.Table(consts.UserTableName).Where("ID = ?", tid).Update("follower_count", gorm.Expr("follower_count + ?", 1))
+		res = tx.Table(consts.UserTableName).Where("id = ?", tid).Update("follower_count", gorm.Expr("follower_count + ?", 1))
 		if res.Error != nil {
 			return res.Error
 		}
@@ -155,7 +156,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 			return err
 		}
 		// 2.改变 user 表中的 following count
-		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("follow_count", gorm.Expr("follow_count - ?", 1))
+		res := tx.Table(consts.UserTableName).Where("id = ?", uid).Update("follow_count", gorm.Expr("follow_count - ?", 1))
 		if res.Error != nil {
 			return res.Error
 		}
@@ -165,7 +166,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 		}
 
 		// 3.改变 user 表中的 follower count
-		res = tx.Table(consts.UserTableName).Where("ID = ?", tid).Update("follower_count", gorm.Expr("follower_count - ?", 1))
+		res = tx.Table(consts.UserTableName).Where("id = ?", tid).Update("follower_count", gorm.Expr("follower_count - ?", 1))
 		if res.Error != nil {
 			return res.Error
 		}
@@ -233,11 +234,13 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 	LuserIDs :=make([]int64,0)
 	for _,u := range LRelationList{
 		LuserIDs= append(LuserIDs,int64(u.ToUserID))
+		log.Println(LuserIDs)
 	}
 
 	RuserIDs :=make([]int64,0)
 	for _,u := range RRelationList{
 		RuserIDs= append(RuserIDs,int64(u.FromUserID))
+		log.Println(RuserIDs)
 	}
 	userIDs :=make([]int64,0)
 
@@ -250,7 +253,7 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 			userIDs = append(userIDs,v)
 		}
 	}
-	// log.Println(userIDs)
+	log.Println(userIDs)
 	users, err := MGetUsers(ctx,userIDs)
 	if err != nil {
 		return nil, err
