@@ -110,7 +110,7 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作
 		// 1. 新增关注数据
-		err := tx.Create(&Relation{UserID: uid, ToUserID: tid}).Error
+		err := tx.Create(&Relation{FromUserID: uid, ToUserID: tid}).Error
 		if err != nil {
 			return err
 		}
@@ -207,7 +207,7 @@ func RelationFollowerList(ctx context.Context, tid int64) ([]*relation.User, err
 	}
 	userIDs :=make([]int64,0)
 	for _,u := range RelationList{
-		userIDs= append(userIDs,int64(u.UserID))
+		userIDs= append(userIDs,int64(u.FromUserID))
 	}
 	users, err := MGetUsers(ctx,userIDs)
 	if err != nil {
@@ -237,7 +237,7 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 
 	RuserIDs :=make([]int64,0)
 	for _,u := range RRelationList{
-		RuserIDs= append(RuserIDs,int64(u.UserID))
+		RuserIDs= append(RuserIDs,int64(u.FromUserID))
 	}
 	userIDs :=make([]int64,0)
 

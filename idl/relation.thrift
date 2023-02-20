@@ -77,17 +77,18 @@ struct RelationFriendListResponse {
 
 
 struct Message {
-    1:required i64 id                  // 消息id
-    2:required i64 to_user_id          // 该消息接收者的id
-    3:required i64 from_user_id        // 该消息发送者的id
-    4:required string content         // 消息内容
+    1: i64 id                  // 消息id
+    2: i64 to_user_id          // 该消息接收者的id
+    3: i64 from_user_id        // 该消息发送者的id
+    4: string content         // 消息内容
     5:optional i64 create_time      // 消息创建时间
 }
 
 
 struct MessageChatRequest {
-    1:required i64 from_user_id          // 用户id
-    2:required i64 to_user_id        // 对方用户id
+    1: i64 from_user_id          // 用户id
+    2: string token       
+    2: i64 to_user_id        // 对方用户id
 }
 
 struct MessageChatResponse {
@@ -98,10 +99,11 @@ struct MessageChatResponse {
 }
 
 struct MessageActionRequest {
-    1:required i64 from_user_id           // 用户鉴权token
-    2:required i64 to_user_id         // 对方用户id
-    3:required i32 action_type       // 1-发送消息
-    4:required string content                // 消息内容
+    1: i64 from_user_id           // 用户鉴权token
+    2: string token
+    3: i64 to_user_id         // 对方用户id
+    4: i64 action_type       // 1-发送消息
+    5: string content                // 消息内容
 }
 
 struct MessageActionResponse {
