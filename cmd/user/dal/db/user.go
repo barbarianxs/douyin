@@ -17,12 +17,12 @@ type User struct {
 	FollowCount   int64  `json:"follow_count"`
 	FollowerCount int64  `json:"follower_count"`
 	IsFollow      bool   `json:"is_follow"`
-	Avatar string  `json:"avatar"`
-	BackgroundImage string  `json:"background_image"`
-	Signature string  `json:"signature"`
-	TotalFavorited string  `json:"total_favorited"`
-	WorkCount int64  `json:"work_count"`
-	FavoriteCount int64  `json:"favorite_count"`
+	// Avatar string  `json:"avatar"`
+	// BackgroundImage string  `json:"background_image"`
+	// Signature string  `json:"signature"`
+	// TotalFavorited string  `json:"total_favorited"`
+	// WorkCount int64  `json:"work_count"`
+	// FavoriteCount int64  `json:"favorite_count"`
 }
 
 

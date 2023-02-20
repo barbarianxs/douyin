@@ -19,12 +19,12 @@ func User(u *db.User) *user.User {
 		FollowCount: int64(u.FollowCount),
 		FollowerCount: int64(u.FollowerCount),
 		IsFollow: bool(u.IsFollow),
-		Avatar: string(u.Avatar),
-		BackgroundImage: string(u.BackgroundImage),
-		Signature: string(u.Signature),
-		TotalFavorited: string(u.TotalFavorited),
-		WorkCount: int64(u.WorkCount),
-		FavoriteCount: int64(u.FavoriteCount),
+		// Avatar: string(u.Avatar),
+		// BackgroundImage: string(u.BackgroundImage),
+		// Signature: string(u.Signature),
+		// TotalFavorited: string(u.TotalFavorited),
+		// WorkCount: int64(u.WorkCount),
+		// FavoriteCount: int64(u.FavoriteCount),
 		}
 }
 
