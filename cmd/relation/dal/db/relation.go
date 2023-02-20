@@ -81,7 +81,7 @@ func (u *Message) TableName() string {
 func GetRelation(ctx context.Context, uid int64, tid int64) (*Relation, error) {
 	relations := new(Relation)
 
-	if err := DB.WithContext(ctx).First(&relations, "user_id = ? and to_user_id = ?", uid, tid).Error; err != nil {
+	if err := DB.WithContext(ctx).First(&relations, "from_user_id = ? and to_user_id = ?", uid, tid).Error; err != nil {
 		return nil, err
 	}
 	return relations, nil
@@ -116,7 +116,7 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 		}
 
 		// 2.改变 user 表中的 following count
-		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("following_count", gorm.Expr("following_count + ?", 1))
+		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("follow_count", gorm.Expr("follow_count + ?", 1))
 		if res.Error != nil {
 			return res.Error
 		}
@@ -145,7 +145,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作
 		relations := new(Relation)
-		if err := tx.Where("user_id = ? AND to_user_id=?", uid, tid).First(&relations).Error; err != nil {
+		if err := tx.Where("from_user_id = ? AND to_user_id=?", uid, tid).First(&relations).Error; err != nil {
 			return err
 		}
 
@@ -155,7 +155,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 			return err
 		}
 		// 2.改变 user 表中的 following count
-		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("following_count", gorm.Expr("following_count - ?", 1))
+		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("follow_count", gorm.Expr("follow_count - ?", 1))
 		if res.Error != nil {
 			return res.Error
 		}
@@ -182,7 +182,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 // RelationFollowList returns the Following List.
 func RelationFollowList(ctx context.Context, uid int64) ([]*relation.User, error) {
 	var RelationList []*Relation
-	err := DB.WithContext(ctx).Where("user_id = ?", uid).Find(&RelationList).Error
+	err := DB.WithContext(ctx).Where("from_user_id = ?", uid).Find(&RelationList).Error
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func RelationFollowerList(ctx context.Context, tid int64) ([]*relation.User, err
 func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, error) {
 	var LRelationList []*Relation //关注者
 	var RRelationList []*Relation //粉丝
-	err := DB.WithContext(ctx).Where("user_id = ?", id).Find(&LRelationList).Error
+	err := DB.WithContext(ctx).Where("from_user_id = ?", id).Find(&LRelationList).Error
 	if err != nil {
 		return nil, err
 	}

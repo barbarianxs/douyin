@@ -15,7 +15,7 @@ func User(u *db.User) *user.User {
 
 	return &user.User{
 		Id: int64(u.ID), 
-		Name: u.Name,
+		Name: u.Username,
 		FollowCount: int64(u.FollowCount),
 		FollowerCount: int64(u.FollowerCount),
 		IsFollow: bool(u.IsFollow),
