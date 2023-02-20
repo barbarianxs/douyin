@@ -50,16 +50,16 @@ CREATE TABLE `message`
     
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Message table';
 
-CREATE TABLE `follow` (
+CREATE TABLE `relation` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `from_user_id` bigint NOT NULL,
   `to_user_id` bigint NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'follow create time',
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'follow update time',
-  `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'follow delete time',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Relation create time',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Relation update time',
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Relation delete time',
   PRIMARY KEY (`id`),
-  KEY          `idx_from_user_id` (`from_user_id`) COMMENT 'Follower index'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Follow table';
+  KEY          `idx_from_user_id` (`from_user_id`) COMMENT 'Relation index'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Relation table';
 
 CREATE TABLE `favorite` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',

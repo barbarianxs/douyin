@@ -49,7 +49,7 @@ type User struct {
 	FollowerCount  int64     `gorm:"default:0" json:"follower_count"`
 }
 
-type Follow struct {
+type Relation struct {
 	gorm.Model
 	ID         int64     `gorm:"column:id;primary_key;AUTO_INCERMENT"`
 	// FollowTime time.Time `gorm:"column:follow_time;default:CURRENT_TIMESTAMP;NOT NULL"`
@@ -59,13 +59,13 @@ type Follow struct {
 	UpdateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 }
 
-// Relation表 记录关注关系
-// 不设置外键 提高效率 通过程序保证参照完整性
-type Relation struct {
-	gorm.Model
-	UserID   int64  `gorm:"index:idx_userid;not null"`
-	ToUserID int64  `gorm:"index:index:idx_userid_to;not null"`
-}
+// // Relation表 记录关注关系
+// // 不设置外键 提高效率 通过程序保证参照完整性
+// type Relation struct {
+// 	gorm.Model
+// 	UserID   int64  `gorm:"index:idx_userid;not null"`
+// 	ToUserID int64  `gorm:"index:index:idx_userid_to;not null"`
+// }
 
 
 func (u *Relation) TableName() string {
