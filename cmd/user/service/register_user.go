@@ -37,6 +37,7 @@ func (s *RegisterUserService) RegisterUser(req *user.RegisterUserRequest) error 
 	return db.CreateUser(s.ctx, []*db.User{{
 		Username: req.Username,
 		Password: password,
+		IsFollow: true,
 	}})
 }
 

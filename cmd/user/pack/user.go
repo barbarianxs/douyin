@@ -18,7 +18,7 @@ func User(u *db.User) *user.User {
 		Name: u.Username,
 		FollowCount: int64(u.FollowCount),
 		FollowerCount: int64(u.FollowerCount),
-		// IsFollow: bool(u.IsFollow ),
+		IsFollow: bool(u.IsFollow),
 		}
 }
 

@@ -3,7 +3,7 @@
 package router
 
 import (
-	api_user "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/router/api_user"
+	api_user "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/router/api_user"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

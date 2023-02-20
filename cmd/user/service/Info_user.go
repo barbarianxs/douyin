@@ -6,6 +6,7 @@ import (
 	// "crypto/md5"
 	// "fmt"
 	// "io"
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
@@ -36,5 +37,7 @@ func (s *UserInfoService) UserInfo(req *user.UserInfoRequest) (*user.User, error
 	}
 	u := users[0]
 	user_info := pack.User(u)
+	log.Println("***------------------------------------kitex-test---------------------------------------***")
+	// log.Println(user_info)
 	return user_info, nil
 }
