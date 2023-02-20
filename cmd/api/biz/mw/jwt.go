@@ -5,7 +5,7 @@ import (
 	"context"
 	"net/http"
 	"time"
-
+	// "encoding/json"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api_user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
@@ -29,8 +29,11 @@ func InitJWT() {
 		IdentityKey:   consts.IdentityKey,
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {
 			claims := jwt.ExtractClaims(ctx, c)
+			
+			userid := int64(claims[consts.IdentityKey].(float64))
+			// log.Println("^^^^^^^^userid:%v", userid)
 			return &api_user.User{
-				ID: int64(claims[consts.IdentityKey].(float64)),
+				ID: userid,
 			}
 		},
 		PayloadFunc: func(data interface{}) jwt.MapClaims {

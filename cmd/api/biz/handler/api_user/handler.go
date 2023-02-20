@@ -22,3 +22,4 @@ func SendResponse(c *app.RequestContext, err error, data interface{}) {
 		Data:    data,
 	})
 }
+

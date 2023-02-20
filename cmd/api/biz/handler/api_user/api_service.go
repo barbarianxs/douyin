@@ -62,7 +62,7 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 	v, _ := c.Get(consts.IdentityKey)
 	user_info, err := rpc.UserInfo(context.Background(), &user.UserInfoRequest{
 		UserId: v.(*api_user.User).ID,
-		// Token: v.(*api_user.User).Token,
+		Token: req.Token,
 
 	})
 	if err != nil {
