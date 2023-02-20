@@ -3,6 +3,7 @@ package consts
 
 const (
 	MessageTableName   = "message"
+	RelationTableName   = "relation"
 	UserTableName   = "user"
 	VideoTableName   = "video"
 	SecretKey       = "secret key"

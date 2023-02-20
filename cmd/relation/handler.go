@@ -16,25 +16,100 @@ type RelationServiceImpl struct{}
 // RelationAction implements the RelationServiceImpl interface.
 func (s *RelationServiceImpl) RelationAction(ctx context.Context, req *relation.RelationActionRequest) (resp *relation.RelationActionResponse, err error) {
 	// TODO: Your code here...
-	return
+	// TODO: Your code here...
+	resp = new (relation.DouyinRelationActionResponse)
+	// user:= ctx.Value(consts.IdentityKey)
+	// user, _ := ctx.Get(consts.IdentityKey)	
+	// user.id 是在api的rpc中通过解析token获取到的
+	if req.UserId==0 ||req.ToUserId==0{
+		resp = pack.BuildBaseResp(errno.UserIDErr)
+		return resp,nil
+	}
+	if req.UserId ==req.ToUserId{
+		resp = pack.BuildBaseResp(errno.FollowSelfErr)
+		return resp,nil
+	}
+
+	if req.ActionType <1 || req.ActionType >2{
+		resp = pack.BuildBaseResp(errno.ActionTypeErr)
+		return resp,nil
+	}
+
+	err = service.NewRelationActionService(ctx).RelationAction(req)
+
+	if err != nil {
+		resp = pack.BuildBaseResp(err)
+		return resp, nil
+	}
+	resp = pack.BuildBaseResp(errno.Success)
+	
+	return resp, nil
 }
 
 // RelationFollowList implements the RelationServiceImpl interface.
 func (s *RelationServiceImpl) RelationFollowList(ctx context.Context, req *relation.RelationFollowListRequest) (resp *relation.RelationFollowListResponse, err error) {
 	// TODO: Your code here...
-	return
+	resp = new (relation.DouyinRelationFollowListResponse)
+	// user:= ctx.Value(consts.IdentityKey)
+	// user, _ := ctx.Get(consts.IdentityKey)
+	if req.UserId==0 {
+		resp = pack.BuildBaseResp(errno.UserIDErr)
+		return resp,nil
+	}
+	
+	users,err := service.NewRelationListService(ctx).RelationFollowList(req)
+	if err != nil{
+		resp = pack.BuildBaseResp(err)
+		return resp,nil
+	}
+	resp = pack.BuildBaseResp(errno.Success)
+	resp.UserList = users
+	// log.Println("***relation-handler.go***")
+	// log.Println(users)
+	return resp, nil
 }
 
 // RelationFollowerList implements the RelationServiceImpl interface.
 func (s *RelationServiceImpl) RelationFollowerList(ctx context.Context, req *relation.RelationFollowerListRequest) (resp *relation.RelationFollowerListResponse, err error) {
 	// TODO: Your code here...
-	return
+	resp = new (relation.DouyinRelationFollowerListResponse)
+
+	if req.UserId==0 {
+		resp = pack.BuildBaseResp(errno.UserIDErr)
+		return resp,nil
+	}
+	
+
+	users,err := service.NewRelationListService(ctx).RelationFollowerList(req)
+	if err != nil{
+		resp = pack.BuildBaseResp(err)
+		return resp,nil
+	}
+	resp = pack.BuildBaseResp(errno.Success)
+	resp.UserList = users
+
+	return resp, nil
 }
 
 // RelationFriendList implements the RelationServiceImpl interface.
 func (s *RelationServiceImpl) RelationFriendList(ctx context.Context, req *relation.RelationFriendListRequest) (resp *relation.RelationFriendListResponse, err error) {
 	// TODO: Your code here...
-	return
+	resp = new (relation.DouyinRelationFriendListResponse)
+	// user:= ctx.Value(consts.IdentityKey)
+	if req.UserId==0 {
+		resp = pack.BuildBaseResp(errno.UserIDErr)
+		return resp,nil
+	}
+	
+	users,err := service.NewRelationListService(ctx).RelationFriendList(req)
+	if err != nil{
+		resp = pack.BuildBaseResp(err)
+		return resp,nil
+	}
+	resp = pack.BuildBaseResp(errno.Success)
+	resp.UserList = users
+
+	return resp, nil
 }
 
 // MessageChat implements the RelationServiceImpl interface.
