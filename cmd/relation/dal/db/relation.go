@@ -1,38 +1,81 @@
+
 package db
 
-import(
+import (
 	"context"
-	// "log"
+	// "fmt"
+	"time"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	// "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"gorm.io/gorm"
 )
+// type User struct {
+// 	gorm.Model
+// 	ID            int64     `gorm:"column:id;primary_key;AUTO_INCREMENT"`
+// 	Username string `json:"username"`
+// 	Password string `json:"password"`
+// 	Name string `json:"name"`
+// 	FollowCount   int64  `json:"follow_count"`
+// 	FollowerCount int64  `json:"follower_count"`
+// 	IsFollow      bool   `json:"is_follow"`
+// 	// Avatar string  `json:"avatar"`
+// 	// BackgroundImage string  `json:"background_image"`
+// 	// Signature string  `json:"signature"`
+// 	// TotalFavorited string  `json:"total_favorited"`
+// 	// WorkCount int64  `json:"work_count"`
+// 	// FavoriteCount int64  `json:"favorite_count"`
+// }
+
+type Message struct {
+	gorm.Model
+	ToUserId   int64  `gorm:"type:varchar(32);not null" json:"to_user_id"`
+	FromUserId int64  `gorm:"type:varchar(32);not null" json:"from_user_id"`
+	Content    string `gorm:"type:varchar(256);not null" json:"content"`
+	// CreatedAt   time.Time             `json:"createAt"`
+	
+	
+}
 
 // Relation Gorm data structure
 type User struct {
 	gorm.Model
+	ID            int64     `gorm:"column:id;primary_key;AUTO_INCREMENT"`
 	Username       string  `gorm:"index:idx_username,unique;type:varchar(40);not null" json:"username"`
 	Password       string  `gorm:"type:varchar(256);not null" json:"password"`
 	// FavoriteVideos []Video `gorm:"many2many:user_favorite_videos" json:"favorite_videos"`
-	FollowingCount int     `gorm:"default:0" json:"following_count"`
-	FollowerCount  int     `gorm:"default:0" json:"follower_count"`
+	FollowingCount int64     `gorm:"default:0" json:"following_count"`
+	FollowerCount  int64     `gorm:"default:0" json:"follower_count"`
+}
+
+type Follow struct {
+	gorm.Model
+	ID         int64     `gorm:"column:id;primary_key;AUTO_INCERMENT"`
+	FollowTime time.Time `gorm:"column:follow_time;default:CURRENT_TIMESTAMP;NOT NULL"`
+	FromUserID int64     `gorm:"column:from_user_id;NOT NULL"`
+	ToUserID   int64     `gorm:"column:to_user_id;NOT NULL"`
+	CreateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
+	UpdateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 }
 
 // Relation表 记录关注关系
 // 不设置外键 提高效率 通过程序保证参照完整性
 type Relation struct {
 	gorm.Model
-	UserID   int  `gorm:"index:idx_userid;not null"`
-	ToUserID int  `gorm:"index:index:idx_userid_to;not null"`
+	UserID   int64  `gorm:"index:idx_userid;not null"`
+	ToUserID int64  `gorm:"index:index:idx_userid_to;not null"`
 }
 
 
-
-func (u *User) TableName() string {
+func (u *Relation) TableName() string {
 	return consts.RelationTableName
 }
 
+func (u *Message) TableName() string {
+	return consts.MessageTableName
+
+}
 
 // GetRelation get relation info
 func GetRelation(ctx context.Context, uid int64, tid int64) (*Relation, error) {
@@ -43,8 +86,6 @@ func GetRelation(ctx context.Context, uid int64, tid int64) (*Relation, error) {
 	}
 	return relations, nil
 }
-
-
 //根据id获取user
 // MGetUsers multiple get list of user info
 func MGetUsers(ctx context.Context, userIDs []int64) ([]*User, error) {
@@ -58,8 +99,6 @@ func MGetUsers(ctx context.Context, userIDs []int64) ([]*User, error) {
 	}
 	return res, nil
 }
-
-
 // NewAction creates a new Relation
 // uid关注tid，所以uid的关注人数加一，tid的粉丝数加一
 func NewAction(ctx context.Context, uid int64, tid int64) error {
@@ -71,7 +110,7 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作
 		// 1. 新增关注数据
-		err := tx.Create(&Relation{UserID: int(uid), ToUserID: int(tid)}).Error
+		err := tx.Create(&Relation{UserID: uid, ToUserID: tid}).Error
 		if err != nil {
 			return err
 		}
@@ -218,3 +257,38 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 	}
 	return BuildFriendUsers(ctx,id,users)
 }
+
+
+// MGetMessages multiple get list of message info
+func MGetMessages(ctx context.Context, uid int64, toUId int64) ([]*Message, error) {
+	res := make([]*Message, 0)
+	
+	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ?", uid).Where("to_user_id = ?", toUId).Order("id desc").Scan(&res).Error; err != nil{
+		return nil, err
+	}
+
+	// if offset == 0{
+	// 	sort.Slice(res, func(i, j int) bool {
+	// 		return res[i]["id"].(uint32) < res[j]["id"].(uint32)
+	// 	})
+	// }
+	return res, nil
+}
+
+// CreateMessage create message info
+func CreateMessage(ctx context.Context, messages []*Message) error {
+	
+	if err := DB.WithContext(ctx).Create(messages).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// // QueryMessage query list of message info
+// func QueryMessage(ctx context.Context, to_user_id string) ([]*Message, error) {
+// 	res := make([]*Message, 0)
+// 	if err := DB.WithContext(ctx).Where("ToUserId = ?", to_user_id).Find(&res).Error; err != nil {
+// 		return nil, err
+// 	}
+// 	return res, nil
+// }

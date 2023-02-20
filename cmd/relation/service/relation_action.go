@@ -22,7 +22,7 @@ func NewRelationActionService(ctx context.Context) *RelationActionService {
 }
 
 // Register create user info.
-func (s *RelationActionService) RelationAction(req *relation.DouyinRelationActionRequest) error {
+func (s *RelationActionService) RelationAction(req *relation.RelationActionRequest) error {
 	//新建关注
 	if req.ActionType==1{
 		return db.NewAction(s.ctx,req.UserId,req.ToUserId);
