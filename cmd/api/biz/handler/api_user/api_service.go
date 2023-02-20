@@ -4,24 +4,26 @@ package api_user
 
 import (
 	"context"
-	"fmt"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api_user"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	api_user "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/model/api_user"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/common/utils"
-	"path/filepath"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // LoginUser .
 // @router /douyin/user/login/ [POST]
 func LoginUser(ctx context.Context, c *app.RequestContext) {
-	mw.JwtMiddleware.LoginHandler(ctx, c)
+	var err error
+	var req api_user.LoginUserRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(api_user.LoginUserResponse)
+
+	c.JSON(consts.StatusOK, resp)
 }
 
 // RegisterUser .
@@ -30,22 +32,14 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api_user.RegisterUserRequest
 	err = c.BindAndValidate(&req)
-	
 	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
+		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	err = rpc.RegisterUser(context.Background(), &user.RegisterUserRequest{
-		Username: req.Username,
-		Password: req.Password,
+	resp := new(api_user.RegisterUserResponse)
 
-	})
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	SendResponse(c, errno.Success, nil)
+	c.JSON(consts.StatusOK, resp)
 }
 
 // UserInfo .
@@ -54,22 +48,14 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api_user.UserInfoRequest
 	err = c.BindAndValidate(&req)
-	
 	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
+		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	v, _ := c.Get(consts.IdentityKey)
-	user_info, err := rpc.UserInfo(context.Background(), &user.UserInfoRequest{
-		UserId: v.(*api_user.User).ID,
-		Token: req.Token,
 
-	})
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	SendResponse(c, errno.Success, user_info)
+	resp := new(api_user.UserInfoResponse)
+
+	c.JSON(consts.StatusOK, resp)
 }
 
 // PublishAction .
@@ -79,47 +65,13 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	var req api_user.PublishActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	v, _ := c.Get(consts.IdentityKey)
-	video_data, err := c.FormFile("data")
-	
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
+		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	filename := filepath.Base(video_data.Filename)
-	finalName := fmt.Sprintf("%s", filename)
-	video_path := filepath.Join(consts.VideoSavePath, finalName)
+	resp := new(api_user.PublishActionResponse)
 
-	err = c.SaveUploadedFile(video_data, video_path)
-
-	if err != nil {
-		
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	
-	coverPath := "../../../../../../snapshot/"
-	// 获取视频截图
-	snapshotName, err := GetSnapshot(video_path, coverPath, 1)
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-	}
-
-	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
-		UserId:  v.(*api_user.User).ID,
-		Title: req.Title,
-		FileUrl: video_path,
-		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),
-	})
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	SendResponse(c, errno.Success, nil)
+	c.JSON(consts.StatusOK, resp)
 }
 
 // PublishList .
@@ -129,20 +81,11 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 	var req api_user.PublishListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
+		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	v, _ := c.Get(consts.IdentityKey)
-	videos, err := rpc.PublishList(context.Background(), &user.PublishListRequest{
-		UserId:    v.(*api_user.User).ID,
-		
-	})
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
-	SendResponse(c, errno.Success, utils.H{
-		// consts.Total: total,
-		consts.Videos: videos,
-	})
+
+	resp := new(api_user.PublishListResponse)
+
+	c.JSON(consts.StatusOK, resp)
 }

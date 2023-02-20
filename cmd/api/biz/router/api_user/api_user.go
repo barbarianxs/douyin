@@ -3,7 +3,7 @@
 package ApiUser
 
 import (
-	api_user "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/api_user"
+	api_user "github.com/YANGJUNYAN0715/douyin/tree/guo/biz/handler/api_user"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

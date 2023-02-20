@@ -90,7 +90,7 @@ struct PublishListResponse {
 }
 
 
-service ApiService {
+service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login/")
     RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register/")
     UserInfoResponse UserInfo(1: UserInfoRequest req) (api.get="/douyin/user/")
