@@ -88,7 +88,7 @@ struct Message {
 struct MessageChatRequest {
     1: i64 from_user_id          // 用户id
     2: string token       
-    2: i64 to_user_id        // 对方用户id
+    3: i64 to_user_id        // 对方用户id
 }
 
 struct MessageChatResponse {
