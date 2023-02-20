@@ -81,7 +81,7 @@ struct RegisterUserResponse {
 }
 
 struct UserInfoRequest {
-    1: i64 user_id
+    1: string user_id
     2: string token
 }
 
@@ -105,8 +105,9 @@ struct PublishActionResponse {
 }
 
 struct PublishListRequest {
-    1: i64 user_id;
-    2: string token;
+    
+    1: string token;
+    2: string user_id;
 }
 
 struct PublishListResponse {
