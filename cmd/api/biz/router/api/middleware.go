@@ -5,7 +5,7 @@ package Api
 import (
 	"context"
 	"fmt"
-
+	
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -74,7 +74,11 @@ func _messagechatMw() []app.HandlerFunc {
 
 func _publishMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _action0Mw() []app.HandlerFunc {

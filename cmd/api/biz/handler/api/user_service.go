@@ -69,7 +69,7 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	log.Println("***------------------------------------api-service---------------------------------------***")
+	log.Println("***------------------------------------UserInfo-service---------------------------------------***")
 	log.Println(user_info)
 	Err := errno.ConvertErr(errno.Success)
 	c.JSON(200, utils.H{
@@ -82,6 +82,7 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 // PublishAction .
 // @router /douyin/publish/action/ [POST]
 func PublishAction(ctx context.Context, c *app.RequestContext) {
+	log.Println("***------------------------------------PublishAction-service---------------------------------------***")
 	var err error
 	var req api.PublishActionRequest
 	err = c.BindAndValidate(&req)
@@ -96,7 +97,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-
+	log.Println("/////////////////////////////////////////////")
 	filename := filepath.Base(video_data.Filename)
 	finalName := fmt.Sprintf("%s", filename)
 	video_path := filepath.Join(consts.VideoSavePath, finalName)
@@ -128,30 +129,32 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),video_path, req.Title,req.Token)
 	SendResponse(c, errno.Success, nil)
 }
 
 // PublishList .
 // @router /douyin/publish/list/ [GET]
 func PublishList(ctx context.Context, c *app.RequestContext) {
-	// var err error
-	// var req api.PublishListRequest
-	// err = c.BindAndValidate(&req)
-	// if err != nil {
-	// 	SendResponse(c, errno.ConvertErr(err), nil)
-	// 	return
-	// }
-	// v, _ := c.Get(consts.IdentityKey)
-	// videos, err := rpc.PublishList(context.Background(), &user.PublishListRequest{
-	// 	UserId: v.(*api.User).ID,
-	// 	Token: req.Token,
-	// })
-	// if err != nil {
-	// 	SendResponse(c, errno.ConvertErr(err), nil)
-	// 	return
-	// }
-	// SendResponse(c, errno.Success, utils.H{
-	// 	// consts.Total: total,
-	// 	consts.Videos: videos,
-	// })
+	var err error
+	var req api.PublishListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	v, _ := c.Get(consts.IdentityKey)
+	videos, err := rpc.PublishList(context.Background(), &user.PublishListRequest{
+		UserId: v.(*api.User).ID,
+		Token: req.Token,
+
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, utils.H{
+		// consts.Total: total,
+		consts.Videos: videos,
+	})
 }

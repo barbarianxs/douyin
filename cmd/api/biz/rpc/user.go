@@ -4,7 +4,7 @@ package rpc
 
 import (
 	"context"
-
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
@@ -82,6 +82,7 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (*user.User, error
 
 // PublishAction check user info
 func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
+	log.Println("/////////////////////////////////////////////")
 	resp, err := userClient.PublishAction(ctx, req)
 	if err != nil {
 		return err
