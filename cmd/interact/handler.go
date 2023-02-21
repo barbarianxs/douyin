@@ -2,54 +2,58 @@ package main
 
 import (
 	"context"
-	// "fmt"
+	"fmt"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/service"
-
-
-
-
+	"time"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal/db"
+	"github.com/cloudwego/kitex/tool/internal_pkg/log"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	interact "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
+	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/rpc"
 )
 
 // InteractServiceImpl implements the last service interface defined in the IDL.
 type InteractServiceImpl struct{}
 
-// FavoriteServiceImpl implements the last service interface defined in the IDL.
-type FavoriteServiceImpl struct{}
 
 // FavoriteAction implements the FavoriteServiceImpl interface.
-func (s *FavoriteServiceImpl) FavoriteAction(ctx context.Context, req *interact.FavoriteActionRequest) (resp *interact.FavoriteActionResponse, err error) {
+func (s *InteractServiceImpl) FavoriteAction(ctx context.Context, req *interact.FavoriteActionRequest) (resp *interact.FavoriteActionResponse, err error) {
 	resp = new(interact.FavoriteActionResponse)
 
 	if len(req.Token) == 0 || req.VideoId == 0 || req.ActionType == 0 {
-		resp = pack.BuildFavoriteBaseResp(errno.ParamErr)
+		resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 		return resp, nil
 	}
 
 	err = service.NewFavoriteActionService(ctx).FavoriteAction(req)
 	if err != nil {
-		resp = pack.BuildFavoriteBaseResp(err)
+		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
 		return resp, nil
 	}
-	resp = pack.BuildFavoriteBaseResp(errno.Success)
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 	return resp, nil
 	return
 }
 
 // FavoriteList implements the FavoriteServiceImpl interface.
-func (s *FavoriteServiceImpl) FavoriteList(ctx context.Context, req *interact.FavoriteListRequest) (resp *interact.FavoriteListResponse, err error) {
+func (s *InteractServiceImpl) FavoriteList(ctx context.Context, req *interact.FavoriteListRequest) (resp *interact.FavoriteListResponse, err error) {
 	resp = new(interact.FavoriteListResponse)
 
 	if req.UserId == 0 {
-		resp = pack.BuildFavoriteListBaseResp(errno.ParamErr)
+		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
 		return resp, nil
 	}
 
 	videoList, err := service.NewFavoriteListService(ctx).FavoriteList(req)
 	if err != nil {
-		resp = pack.BuildFavoriteListBaseResp(err)
+		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
 		return resp, nil
 	}
 
@@ -58,22 +62,20 @@ func (s *FavoriteServiceImpl) FavoriteList(ctx context.Context, req *interact.Fa
 	return resp, nil
 }
 
-// CommentSrvImpl implements the last service interface defined in the IDL.
-type CommentSrvImpl struct{}
 
 func packErr1(err error) *interact.CommentActionResponse {
 	msg := err.Error()
-	return &interact.CommentActionResponse{StatusCode: errno.CommentError, StatusMsg: &msg}
+	return &interact.CommentActionResponse{StatusCode: errno.CommentError, StatusMsg: msg}
 }
 
 func packErr2(err error) *interact.CommentListResponse {
 	msg := err.Error()
-	return &interact.CommentListResponse{StatusCode: errno.SuccessCode, StatusMsg: &msg,
+	return &interact.CommentListResponse{StatusCode: errno.SuccessCode, StatusMsg: msg,
 		CommentList: []*interact.Comment{}}
 }
 
 func getUser(ctx context.Context, id int, token string) (*interact.User, error) {
-	resp, err := rpc.Info(ctx, &user.UserRequest{Token: token, UserId: int64(id)})
+	resp, err := rpc.Info(ctx, &user.UserInfoRequest{Token: token, UserId: int64(id)})
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
@@ -85,14 +87,14 @@ func getUser(ctx context.Context, id int, token string) (*interact.User, error) 
 
 // TODO service
 // CommentAction implements the CommentSrvImpl interface.
-func (s *CommentSrvImpl) CommentAction(ctx context.Context, req *interact.CommentActionRequest) (resp *interact.CommentActionResponse, err error) {
+func (s *InteractServiceImpl) CommentAction(ctx context.Context, req *interact.CommentActionRequest) (resp *interact.CommentActionResponse, err error) {
 	// TODO: Your code here...
 	log.Info("get interact action req", *req)
 	resp = new(interact.CommentActionResponse)
 
 	//TODO check video id
 	if req.ActionType == 1 {
-		cmt := &db.Comment{UserId: int(req.UserId), Content: *req.CommentText,
+		cmt := &db.Comment{UserId: int(req.UserId), Content: req.CommentText,
 			VideoId: int(req.VideoId), IsValid: true, CreateTime: time.Now().String()}
 		if err := db.CreateComment(ctx, cmt); err != nil {
 			return packErr1(err), nil
@@ -104,7 +106,7 @@ func (s *CommentSrvImpl) CommentAction(ctx context.Context, req *interact.Commen
 		return &interact.CommentActionResponse{StatusCode: errno.SuccessCode,
 			Comment: &interact.Comment{Id: int64(cmt.ID), User: user, Content: cmt.Content, CreateDate: cmt.CreateTime}}, nil
 	} else if req.ActionType == 2 {
-		cmt := &db.Comment{ID: uint(*req.CommentId)}
+		cmt := &db.Comment{ID: uint(req.CommentId)}
 		tmp, err := db.SelectComment(ctx, int(cmt.ID))
 		if err != nil {
 			return packErr1(err), nil
@@ -123,12 +125,12 @@ func (s *CommentSrvImpl) CommentAction(ctx context.Context, req *interact.Commen
 			Comment: &interact.Comment{Id: int64(tmp.ID), User: user, Content: tmp.Content, CreateDate: tmp.CreateTime}}, nil
 	} else {
 		msg := "err"
-		return &interact.CommentActionResponse{StatusCode: errno.ActionTypeErrCode, StatusMsg: &msg}, nil
+		return &interact.CommentActionResponse{StatusCode: errno.ActionTypeErrCode, StatusMsg: msg}, nil
 	}
 }
 
 // CommentList implements the CommentSrvImpl interface.
-func (s *CommentSrvImpl) CommentList(ctx context.Context, req *interact.CommentListRequest) (resp *interact.CommentListResponse, err error) {
+func (s *InteractServiceImpl) CommentList(ctx context.Context, req *interact.CommentListRequest) (resp *interact.CommentListResponse, err error) {
 	log.Info("get interact list req", *req)
 	// TODO: Your code here...
 	resp = new(interact.CommentListResponse)

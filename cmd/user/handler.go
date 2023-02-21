@@ -121,7 +121,6 @@ func (s *UserServiceImpl) PublishAction(ctx context.Context, req *user.PublishAc
 	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 
-
 	return resp, nil
 }
 
@@ -147,5 +146,36 @@ func (s *UserServiceImpl) PublishList(ctx context.Context, req *user.PublishList
 	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 	resp.VideoList = videos_list
 
+	return resp, nil
+}
+
+// GetUserFeed implements the UserServiceImpl interface.
+func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.DouyinFeedResponse, err error) {
+	// TODO: Your code here...
+	// TODO: Your code here...
+	// var uid int64 = 0
+	// if req.Token != "" {
+	// 	claim, err := Jwt.ParseToken(req.Token)
+	// 	if err != nil {
+	// 		resp = pack.BuildVideoResp(errno.Token2UserIdErr)
+	// 		return resp, nil
+	// 	} else {
+	// 		uid = claim.Id
+	// 	}
+	// }
+	//uid = req.Userid
+	// log.Println("--------uid------------")
+	// log.Println(uid)
+	vis, nextTime, err := service.NewGetUserFeedService(ctx).GetUserFeed(req)
+	if err != nil {
+		resp.StatusCode = pack.BuildBaseResp(err).StatusCode
+		resp.StatusMsg = pack.BuildBaseResp(err).StatusMsg
+		return resp, nil
+	}
+
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
+	resp.VideoList = vis
+	resp.NextTime = nextTime
 	return resp, nil
 }

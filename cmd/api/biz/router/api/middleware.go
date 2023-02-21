@@ -44,7 +44,7 @@ func _douyinMw() []app.HandlerFunc {
 	return nil
 }
 
-func _messageMw() []app.HandlerFunc {
+func _commentMw() []app.HandlerFunc {
 	// your code...
 	return []app.HandlerFunc{
 		// use jwt mw
@@ -53,6 +53,62 @@ func _messageMw() []app.HandlerFunc {
 }
 
 func _actionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _comment_ctionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _listMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _commentlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _favoriteMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _action0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _favorite_ctionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _favoritelistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _messageMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _action1Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -80,7 +136,7 @@ func _publishMw() []app.HandlerFunc {
 	}
 }
 
-func _action0Mw() []app.HandlerFunc {
+func _action2Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -90,7 +146,7 @@ func _publish_ctionMw() []app.HandlerFunc {
 	return nil
 }
 
-func _listMw() []app.HandlerFunc {
+func _list1Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -108,7 +164,7 @@ func _relationMw() []app.HandlerFunc {
 	}
 }
 
-func _action1Mw() []app.HandlerFunc {
+func _action3Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -123,7 +179,7 @@ func _followMw() []app.HandlerFunc {
 	return nil
 }
 
-func _list0Mw() []app.HandlerFunc {
+func _list2Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -138,7 +194,7 @@ func _followerMw() []app.HandlerFunc {
 	return nil
 }
 
-func _list1Mw() []app.HandlerFunc {
+func _list3Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -153,7 +209,7 @@ func _friendMw() []app.HandlerFunc {
 	return nil
 }
 
-func _list2Mw() []app.HandlerFunc {
+func _list4Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

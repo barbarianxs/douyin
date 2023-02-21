@@ -9,7 +9,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *user.BaseResp {
+func BuildBaseResp(err error) *interact.BaseResp {
 	if err == nil {
 		return baseResp(errno.Success)
 	}
@@ -23,61 +23,42 @@ func BuildBaseResp(err error) *user.BaseResp {
 	return baseResp(s)
 }
 
-func baseResp(err errno.ErrNo) *user.BaseResp {
-	return &user.BaseResp{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
+func baseResp(err errno.ErrNo) *interact.BaseResp {
+	return &interact.BaseResp{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
 }
-// // BuildLoginResp build baseResp from error
-// func BuildLoginResp(err error) *user.LoginUserResponse {
-// 	if err == nil {
-// 		return LoginResp(errno.Success)
-// 	}
+// BuildFavoriteBaseResp build interact baseResp from error
+func BuildFavoriteBaseResp(err error) *interact.FavoriteActionResponse {
+	if err == nil {
+		return interactbaseResp(errno.Success)
+	}
 
-// 	e := errno.ErrNo{}
-// 	if errors.As(err, &e) {
-// 		return LoginResp(e)
-// 	}
+	e := errno.ErrNo{}
+	if errors.As(err, &e) {
+		return interactbaseResp(e)
+	}
 
-// 	s := errno.ServiceErr.WithMessage(err.Error())
-// 	return LoginResp(s)
-// }
+	s := errno.ServiceErr.WithMessage(err.Error())
+	return interactbaseResp(s)
+}
 
-// func LoginResp(err errno.ErrNo) *user.LoginUserResponse {
-// 	return &user.LoginUserResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
-// }
+func interactbaseResp(err errno.ErrNo) *interact.FavoriteActionResponse {
+	return &interact.FavoriteActionResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
+}
 
-// // BuildRegisterResp build baseResp from error
-// func BuildRegisterResp(err error) *user.RegisterUserResponse {
-// 	if err == nil {
-// 		return RegisterResp(errno.Success)
-// 	}
+func BuildFavoriteListBaseResp(err error) *interact.FavoriteListResponse {
+	if err == nil {
+		return interactListbaseResp(errno.Success)
+	}
 
-// 	e := errno.ErrNo{}
-// 	if errors.As(err, &e) {
-// 		return RegisterResp(e)
-// 	}
+	e := errno.ErrNo{}
+	if errors.As(err, &e) {
+		return interactListbaseResp(e)
+	}
 
-// 	s := errno.ServiceErr.WithMessage(err.Error())
-// 	return RegisterResp(s)
-// }
+	s := errno.ServiceErr.WithMessage(err.Error())
+	return interactListbaseResp(s)
+}
 
-// func RegisterResp(err errno.ErrNo) *user.RegisterUserResponse {
-// 	return &user.RegisterUserResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
-// }
-// // BuildUserInfoResp build baseResp from error
-// func BuildUserInfoResp(err error) *user.UserInfoResponse {
-// 	if err == nil {
-// 		return UserInfoResp(errno.Success)
-// 	}
-
-// 	e := errno.ErrNo{}
-// 	if errors.As(err, &e) {
-// 		return UserInfoResp(e)
-// 	}
-
-// 	s := errno.ServiceErr.WithMessage(err.Error())
-// 	return UserInfoResp(s)
-// }
-
-// func UserInfoResp(err errno.ErrNo) *user.UserInfoResponse {
-// 	return &user.UserInfoResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
-// }
+func interactListbaseResp(err errno.ErrNo) *interact.FavoriteListResponse {
+	return &interact.FavoriteListResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
+}

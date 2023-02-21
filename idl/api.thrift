@@ -186,12 +186,34 @@ struct MessageActionResponse {
     2: string status_msg
 }
 
+struct douyin_feed_request {
+    1: i64 latest_time; // 可选参数，限制返回视频的最新投稿时间戳，精确到秒，不填表示当前时间
+    2: string token; // 可选参数，登录用户设置
+}
+
+// 例如当前请求的latest_time为9:00，那么返回的视频列表时间戳为[8:55,7:40, 6:30, 6:00]
+// 所有这些视频中，最早发布的是 6:00的视频，那么6:00作为下一次请求时的latest_time
+// 那么下次请求返回的视频时间戳就会小于6:00
+struct douyin_feed_response {
+    1: i32 status_code; // 状态码，0-成功，其他值-失败
+    2: string status_msg; // 返回状态描述
+    3: list<Video> video_list; // 视频列表
+    4: i64 next_time; // 本次返回的视频中，发布最早的时间，作为下次请求时的latest_time
+}
+
+struct video_id_request{
+    1:i64 video_id ;
+    2:i64 search_id ;
+}
+
+
 service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login/")
     RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register/")
     UserInfoResponse UserInfo(1: UserInfoRequest req) (api.get="/douyin/user/")
     PublishActionResponse PublishAction(1: PublishActionRequest req) (api.post="/douyin/publish/action/");
     PublishListResponse PublishList(1: PublishListRequest req) (api.get="/douyin/publish/list/");
+    douyin_feed_response GetUserFeed (1:douyin_feed_request req)(api.get="/douyin/feed/")
 }
 
 service RelationService {
@@ -201,4 +223,71 @@ service RelationService {
     RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req) (api.get="/douyin/relation/friend/list/")
     MessageChatResponse MessageChat(1: MessageChatRequest req) (api.get="/douyin/message/chat/")               // 消息记录
     MessageActionResponse MessageAction(1: MessageActionRequest req) (api.post="/douyin/message/action/")         // 发送消息
+}
+struct FavoriteActionRequest {
+    1: i64 user_id
+    2: string token // 用户鉴权token
+    3: i64 video_id  // 视频id
+    4: i32 action_type   // 1-点赞，2-取消点赞
+}
+
+struct FavoriteActionResponse {
+    1: i32 status_code   // 状态码，0-成功，其他值-失败
+    2: string status_msg // 返回状态描述
+}
+
+struct FavoriteListRequest {
+     1: i64 user_id //用户id
+     2: string token //用户鉴权token
+ }
+
+struct FavoriteListResponse {
+    1: i32 status_code //状态码，0-成功，其他值失败
+    2:  string status_msg //返回状态描述
+    3: list<Video> video_list //用户点赞视频列表
+}
+
+
+struct CommentActionRequest {
+    1: i64 user_id  // 用户id
+    2: string token  // 用户鉴权token
+    3: i64 video_id  // 视频id
+    4: i32 action_type  // 1-发布评论，2-删除评论
+    5:  string comment_text  // 用户填写的评论内容，在action_type=1的时候使用
+    6:  i64 comment_id  // 要删除的评论id，在action_type=2的时候使用
+}
+
+struct CommentActionResponse {
+    1: i32 status_code  // 状态码，0-成功，其他值-失败
+    2:  string status_msg  // 返回状态描述
+    3:  Comment comment  // 评论成功返回评论内容，不需要重新拉取整个列表
+}
+
+struct CommentListRequest {
+    1: string token  // 用户鉴权token
+    2: i64 video_id  // 视频id
+}
+
+struct CommentListResponse {
+    1: i32 status_code  // 状态码，0-成功，其他值-失败
+    2:  string status_msg  // 返回状态描述
+    3: list<Comment> comment_list  // 评论列表
+}
+
+
+
+struct Comment {
+    1: i64 id  // 视频评论id
+    2: User user // 评论用户信息
+    3: string content  // 评论内容
+    4: string create_date  // 评论发布日期，格式 mm-dd
+}
+
+service InteractService {
+    
+    FavoriteActionResponse FavoriteAction(1:FavoriteActionRequest req) (api.post="/douyin/favorite/action/") // 用户点赞
+    FavoriteListResponse FavoriteList(1:FavoriteListRequest req) (api.get="/douyin/favorite/list/")// 用户点赞列表
+
+    CommentActionResponse CommentAction(1: CommentActionRequest req) (api.post="/douyin/comment/action/") //评论操作
+    CommentListResponse CommentList(1: CommentListRequest req) (api.get="/douyin/comment/list/") //返回评论列表
 }
