@@ -6,6 +6,7 @@ import (
 	// "crypto/md5"
 	// "fmt"
 	// "io"
+	// "log"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
@@ -30,6 +31,6 @@ func (s *PublishListService) PublishList(req *user.PublishListRequest) ([]*user.
 	users, err := db.QueryUserInfo(s.ctx, req.UserId)
 	u := users[0]
 	videos := pack.Videos(videoModels, u)
-	
+	// log.Println(videos[0].PlayUrl)
 	return videos, nil
 }
