@@ -42,6 +42,7 @@ CREATE TABLE `message`
     `from_user_id` bigint NOT NULL COMMENT 'FromUserID',
     `to_user_id` bigint NOT NULL COMMENT 'ToUserID',
     `content`    TEXT NULL COMMENT 'Content',
+    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Message create_time',
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Message create time',
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Message update time',
     `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Message delete time',
@@ -54,12 +55,12 @@ CREATE TABLE `relation` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `from_user_id` bigint NOT NULL,
   `to_user_id` bigint NOT NULL,
-  
+  -- `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Relation create time',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Relation update time',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Relation delete time',
   PRIMARY KEY (`id`),
-  KEY          `idx_from_user_id` (`user_id`) COMMENT 'Relation index'
+  KEY          `idx_from_user_id` (`from_user_id`) COMMENT 'Relation index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Relation table';
 
 CREATE TABLE `favorite` (

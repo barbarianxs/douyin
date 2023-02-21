@@ -5,7 +5,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/service"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
-
+	"log"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
@@ -158,8 +158,8 @@ func (s *RelationServiceImpl) MessageChat(ctx context.Context, req *relation.Mes
 	}
 
 	resp.Messages = messages
-	resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
-	resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 	return resp, nil
 }
 
@@ -174,13 +174,15 @@ func (s *RelationServiceImpl) MessageAction(ctx context.Context, req *relation.M
 		return resp, nil
 	}
 
-	err = service.NewActionMsgService(ctx).MGetActionMsg(req)
+	err = service.NewActionMsgService(ctx).ActionMsg(req)
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
 		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
+		log.Println(resp.StatusCode, "---------------******************----------", resp.StatusMsg)
 		return resp, nil
 	}
-	resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
-	resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
+	
 	return resp, nil
 }

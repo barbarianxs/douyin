@@ -305,12 +305,16 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 	err = rpc.MessageAction(context.Background(), &relation.MessageActionRequest{
 		FromUserId:  v.(*api.User).ID,
 		Token: req.Token,
+		ToUserId: req.ToUserID,
 		ActionType: req.ActionType,
 		Content: req.Content,
+
 	})
+	log.Println("hz----------------------------", req.ToUserID)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+	// log.Println("hz----------------------------", req.ToUserID)
 	SendResponse(c, errno.Success, nil)
 }

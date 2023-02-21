@@ -34,7 +34,7 @@ type Message struct {
 	ToUserId   int64  `gorm:"type:varchar(32);not null" json:"to_user_id"`
 	FromUserId int64  `gorm:"type:varchar(32);not null" json:"from_user_id"`
 	Content    string `gorm:"type:varchar(256);not null" json:"content"`
-	CreateTime   time.Time             `json:"createAt"`
+	CreateTime   time.Time   `gorm:"column:create_time;default:null " json:"create_time"`
 	
 	
 }
@@ -56,7 +56,7 @@ type Relation struct {
 	// FollowTime time.Time `gorm:"column:follow_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 	FromUserID int64     `gorm:"column:from_user_id;NOT NULL"`
 	ToUserID   int64     `gorm:"column:to_user_id;NOT NULL"`
-	CreateAt time.Time `gorm:"column:created_at;default:CURRENT_TIMESTAMP;NOT NULL"`
+	// CreateTime int64  `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 	// UpdateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 }
 
@@ -266,10 +266,11 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 func MGetMessages(ctx context.Context, uid int64, toUId int64) ([]*Message, error) {
 	res := make([]*Message, 0)
 	
-	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ?", uid).Where("to_user_id = ?", toUId).Order("id desc").Scan(&res).Error; err != nil{
+	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ? AND to_user_id = ? Or from_user_id = ? AND to_user_id = ?", uid, toUId, toUId, uid).Order("id desc").Scan(&res).Error; err != nil{
 		return nil, err
 	}
-
+	
+	// log.Println(":::::::::::::::::::::::::::::::", res)
 	// if offset == 0{
 	// 	sort.Slice(res, func(i, j int) bool {
 	// 		return res[i]["id"].(uint32) < res[j]["id"].(uint32)
@@ -279,11 +280,13 @@ func MGetMessages(ctx context.Context, uid int64, toUId int64) ([]*Message, erro
 }
 
 // CreateMessage create message info
-func CreateMessage(ctx context.Context, messages []*Message) error {
-	
-	if err := DB.WithContext(ctx).Create(messages).Error; err != nil {
+func CreateMessage(ctx context.Context, message *Message) error {
+	log.Println(message)
+	if err := DB.WithContext(ctx).Create(message).Error; err != nil {
+		log.Println(err)
 		return err
 	}
+	log.Println("++++++++++++++++++++++++++++++",message)
 	return nil
 }
 

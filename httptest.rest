@@ -5,7 +5,7 @@ POST http://{{host}}/douyin/user/register
 Content-Type: application/json
 
 {
-    "username":"lorain",
+    "username":"123",
     "password":"123456"
 }
 ### 
@@ -14,7 +14,7 @@ POST http://{{host}}/douyin/user/login
 Content-Type: application/json
 
 {
-    "username":"lorain",
+    "username":"123",
     "password":"123456"
 }
 ### 
@@ -25,7 +25,7 @@ Authorization: Bearer {{token}}
 ###
 
 GET http://{{host}}/douyin/message/chat/
-?to_user_id=2
+?to_user_id=1
 Authorization: Bearer {{token}}
 ###
 POST  http://{{host}}/douyin/message/action/
@@ -33,9 +33,9 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "to_user_id":2,
+    "to_user_id":1,
     "action_type":1,
-    "content":"shou dao"
+    "content":"hello"
 }
 ###
 POST  http://{{host}}/douyin/publish/action/
