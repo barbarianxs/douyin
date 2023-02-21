@@ -6,7 +6,6 @@ import (
 	api "github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/api/biz/handler/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
-
 /*
  This file will register all the routes of the services in the master idl.
  And it will update automatically when you use the "update" command for the idl.
@@ -19,6 +18,10 @@ func Register(r *server.Hertz) {
 	root := r.Group("/", rootMw()...)
 	{
 		_douyin := root.Group("/douyin", _douyinMw()...)
+		{
+			_feed := _douyin.Group("/feed", _feedMw()...)
+			_feed.GET("/", append(_getuserfeedMw(), api.GetUserFeed)...)
+		}
 		{
 			_user := _douyin.Group("/user", _userMw()...)
 			_user.GET("/", append(_getuserbyidMw(), api.GetUserById)...)

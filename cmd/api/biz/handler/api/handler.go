@@ -36,6 +36,9 @@ func SendResponse(c *app.RequestContext, err error, data interface{}) {
 		Data:    data,
 	})
 }
+func SendResponse2(c *app.RequestContext, response interface{}) {
+	c.JSON(consts.StatusOK, response)
+}
 
 type UserParam struct {
 	UserId int64  `json:"user_id,omitempty"` // 用户id

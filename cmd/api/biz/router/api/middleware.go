@@ -49,6 +49,24 @@ func _douyinMw() []app.HandlerFunc {
 	return nil
 }
 
+func _feedMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+	return nil
+}
+
+func _getuserfeedMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+	return nil
+}
+
 func _userMw() []app.HandlerFunc {
 	// your code...
 	return nil
@@ -56,10 +74,6 @@ func _userMw() []app.HandlerFunc {
 
 func _getuserbyidMw() []app.HandlerFunc {
 	// your code...
-	return []app.HandlerFunc{
-		// use jwt mw
-		mw.JwtMiddleware.MiddlewareFunc(),
-	}
 	return nil
 }
 
