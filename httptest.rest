@@ -50,6 +50,7 @@ Content-Type: application/json
 GET  http://{{host}}/douyin/publish/list/
 Authorization: Bearer {{token}}
 Content-Type: application/json
+
 ###
 POST  http://{{host}}/douyin/relation/action/?token={{token}}&to_user_id=1&action_type=1
 Authorization: Bearer {{token}}
