@@ -1045,16 +1045,22 @@ func (p *Video) String() string {
 
 type Message struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	ID         int64  `thrift:"id,1" form:"id" json:"id" query:"id"`
 	ToUserID   int64  `thrift:"to_user_id,2" form:"to_user_id" json:"to_user_id" query:"to_user_id"`
 	FromUserID int64  `thrift:"from_user_id,3" form:"from_user_id" json:"from_user_id" query:"from_user_id"`
 	Content    string `thrift:"content,4" form:"content" json:"content" query:"content"`
+<<<<<<< HEAD
 =======
 	ID         int64  `thrift:"id,1,required" form:"id,required" json:"id,required" query:"id,required"`
 	ToUserID   int64  `thrift:"to_user_id,2,required" form:"to_user_id,required" json:"to_user_id,required" query:"to_user_id,required"`
 	FromUserID int64  `thrift:"from_user_id,3,required" form:"from_user_id,required" json:"from_user_id,required" query:"from_user_id,required"`
 	Content    string `thrift:"content,4,required" form:"content,required" json:"content,required" query:"content,required"`
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	CreateTime *int64 `thrift:"create_time,5,optional" form:"create_time" json:"create_time,omitempty" query:"create_time"`
 }
 
@@ -1104,12 +1110,15 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	var issetID bool = false
 	var issetToUserID bool = false
 	var issetFromUserID bool = false
 	var issetContent bool = false
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -1131,9 +1140,12 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				issetID = true
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -1145,9 +1157,12 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				issetToUserID = true
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -1159,9 +1174,12 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				issetFromUserID = true
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -1173,9 +1191,12 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				issetContent = true
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -1206,6 +1227,7 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	if !issetID {
 		fieldId = 1
@@ -1227,6 +1249,8 @@ func (p *Message) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return nil
 ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -1242,10 +1266,13 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 RequiredFieldNotSetError:
 	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_Message[fieldId]))
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *Message) ReadField1(iprot thrift.TProtocol) error {
@@ -3230,6 +3257,7 @@ func (p *UserInfoResponse) String() string {
 type PublishActionRequest struct {
 	UserID int64  `thrift:"user_id,1" form:"user_id" json:"user_id" query:"user_id"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Token  string `thrift:"token,2" json:"token" query:"token"`
 	Data   []byte `thrift:"data,3" json:"data" query:"data"`
 	Title  string `thrift:"title,4" json:"title" query:"data"`
@@ -3238,6 +3266,11 @@ type PublishActionRequest struct {
 	Data   []byte `thrift:"data,3" form:"data" json:"data" query:"data"`
 	Title  string `thrift:"title,4" form:"title" json:"title" query:"title"`
 >>>>>>> origin/guo
+=======
+	Token  string `thrift:"token,2" json:"token" query:"token"`
+	Data   []byte `thrift:"data,3" json:"data" query:"data"`
+	Title  string `thrift:"title,4" json:"title" query:"data"`
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func NewPublishActionRequest() *PublishActionRequest {
@@ -3693,18 +3726,24 @@ func (p *PublishActionResponse) String() string {
 
 type PublishListRequest struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Token  string `thrift:"token,1" form:"token" json:"token" query:"token"`
 	UserID int64  `thrift:"user_id,2" form:"user_id" json:"user_id" query:"user_id"`
 =======
 	UserID int64  `thrift:"user_id,1" form:"user_id" json:"user_id" query:"user_id"`
 	Token  string `thrift:"token,2" form:"token" json:"token" query:"token"`
 >>>>>>> origin/guo
+=======
+	Token  string `thrift:"token,1" form:"token" json:"token" query:"token"`
+	UserID int64  `thrift:"user_id,2" form:"user_id" json:"user_id" query:"user_id"`
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func NewPublishListRequest() *PublishListRequest {
 	return &PublishListRequest{}
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (p *PublishListRequest) GetToken() (v string) {
 	return p.Token
@@ -3721,14 +3760,25 @@ var fieldIDToName_PublishListRequest = map[int16]string{
 	1: "token",
 	2: "user_id",
 =======
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *PublishListRequest) GetToken() (v string) {
 	return p.Token
 }
 
+func (p *PublishListRequest) GetUserID() (v int64) {
+	return p.UserID
+}
+
 var fieldIDToName_PublishListRequest = map[int16]string{
+<<<<<<< HEAD
 	1: "user_id",
 	2: "token",
 >>>>>>> origin/guo
+=======
+	1: "token",
+	2: "user_id",
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *PublishListRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -3752,10 +3802,14 @@ func (p *PublishListRequest) Read(iprot thrift.TProtocol) (err error) {
 		switch fieldId {
 		case 1:
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if fieldTypeId == thrift.STRING {
 =======
 			if fieldTypeId == thrift.I64 {
 >>>>>>> origin/guo
+=======
+			if fieldTypeId == thrift.STRING {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -3766,10 +3820,14 @@ func (p *PublishListRequest) Read(iprot thrift.TProtocol) (err error) {
 			}
 		case 2:
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if fieldTypeId == thrift.I64 {
 =======
 			if fieldTypeId == thrift.STRING {
 >>>>>>> origin/guo
+=======
+			if fieldTypeId == thrift.I64 {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -3810,6 +3868,7 @@ ReadStructEndError:
 
 func (p *PublishListRequest) ReadField1(iprot thrift.TProtocol) error {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3820,11 +3879,18 @@ func (p *PublishListRequest) ReadField1(iprot thrift.TProtocol) error {
 	} else {
 		p.UserID = v
 >>>>>>> origin/guo
+=======
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Token = v
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	}
 	return nil
 }
 
 func (p *PublishListRequest) ReadField2(iprot thrift.TProtocol) error {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
@@ -3836,6 +3902,12 @@ func (p *PublishListRequest) ReadField2(iprot thrift.TProtocol) error {
 	} else {
 		p.Token = v
 >>>>>>> origin/guo
+=======
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.UserID = v
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	}
 	return nil
 }
@@ -3875,6 +3947,7 @@ WriteStructEndError:
 
 func (p *PublishListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3885,6 +3958,12 @@ func (p *PublishListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteI64(p.UserID); err != nil {
 >>>>>>> origin/guo
+=======
+	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Token); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3899,6 +3978,7 @@ WriteFieldEndError:
 
 func (p *PublishListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3909,6 +3989,12 @@ func (p *PublishListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteString(p.Token); err != nil {
 >>>>>>> origin/guo
+=======
+	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.UserID); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5929,6 +6015,7 @@ func (p *RelationFriendListResponse) String() string {
 
 type MessageChatRequest struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	FromUserID int64  `thrift:"from_user_id,1" form:"from_user_id" json:"from_user_id" query:"from_user_id"`
 	Token      string `thrift:"token,2" form:"token" json:"token" query:"token"`
 	ToUserID   int64  `thrift:"to_user_id,3" form:"to_user_id" json:"to_user_id" query:"to_user_id"`
@@ -5936,6 +6023,11 @@ type MessageChatRequest struct {
 	FromUserID int64 `thrift:"from_user_id,1,required" form:"from_user_id,required" json:"from_user_id,required" query:"from_user_id,required"`
 	ToUserID   int64 `thrift:"to_user_id,2,required" form:"to_user_id,required" json:"to_user_id,required" query:"to_user_id,required"`
 >>>>>>> origin/guo
+=======
+	FromUserID int64  `thrift:"from_user_id,1" form:"from_user_id" json:"from_user_id" query:"from_user_id"`
+	Token      string `thrift:"token,2" form:"token" json:"token" query:"token"`
+	ToUserID   int64  `thrift:"to_user_id,3" form:"to_user_id" json:"to_user_id" query:"to_user_id"`
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func NewMessageChatRequest() *MessageChatRequest {
@@ -5947,12 +6039,18 @@ func (p *MessageChatRequest) GetFromUserID() (v int64) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatRequest) GetToken() (v string) {
 	return p.Token
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatRequest) GetToUserID() (v int64) {
 	return p.ToUserID
 }
@@ -5960,11 +6058,16 @@ func (p *MessageChatRequest) GetToUserID() (v int64) {
 var fieldIDToName_MessageChatRequest = map[int16]string{
 	1: "from_user_id",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	2: "token",
 	3: "to_user_id",
 =======
 	2: "to_user_id",
 >>>>>>> origin/guo
+=======
+	2: "token",
+	3: "to_user_id",
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -5972,10 +6075,13 @@ func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	var issetFromUserID bool = false
 	var issetToUserID bool = false
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -5997,15 +6103,19 @@ func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				issetFromUserID = true
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
 				}
 			}
 		case 2:
+<<<<<<< HEAD
 <<<<<<< HEAD
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
@@ -6028,6 +6138,22 @@ func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
 				}
 				issetToUserID = true
 >>>>>>> origin/guo
+=======
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 3:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -6048,6 +6174,7 @@ func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	if !issetFromUserID {
 		fieldId = 1
@@ -6059,6 +6186,8 @@ func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return nil
 ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -6074,10 +6203,13 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 RequiredFieldNotSetError:
 	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_MessageChatRequest[fieldId]))
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *MessageChatRequest) ReadField1(iprot thrift.TProtocol) error {
@@ -6091,6 +6223,9 @@ func (p *MessageChatRequest) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *MessageChatRequest) ReadField2(iprot thrift.TProtocol) error {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6100,8 +6235,11 @@ func (p *MessageChatRequest) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *MessageChatRequest) ReadField3(iprot thrift.TProtocol) error {
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -6125,12 +6263,18 @@ func (p *MessageChatRequest) Write(oprot thrift.TProtocol) (err error) {
 			goto WriteFieldError
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
 			goto WriteFieldError
 		}
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
@@ -6169,6 +6313,7 @@ WriteFieldEndError:
 
 func (p *MessageChatRequest) writeField2(oprot thrift.TProtocol) (err error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6179,6 +6324,12 @@ func (p *MessageChatRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteI64(p.ToUserID); err != nil {
 >>>>>>> origin/guo
+=======
+	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Token); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -6192,6 +6343,9 @@ WriteFieldEndError:
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("to_user_id", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
@@ -6209,8 +6363,11 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatRequest) String() string {
 	if p == nil {
 		return "<nil>"
@@ -6223,9 +6380,13 @@ type MessageChatResponse struct {
 	StatusMsg  string     `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 	Messages   []*Message `thrift:"messages,3" form:"messages" json:"messages" query:"messages"`
 <<<<<<< HEAD
+<<<<<<< HEAD
 	CreateTime int64      `thrift:"create_time,4" form:"create_time" json:"create_time" query:"create_time"`
 =======
 >>>>>>> origin/guo
+=======
+	CreateTime int64      `thrift:"create_time,4" form:"create_time" json:"create_time" query:"create_time"`
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func NewMessageChatResponse() *MessageChatResponse {
@@ -6245,20 +6406,30 @@ func (p *MessageChatResponse) GetMessages() (v []*Message) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatResponse) GetCreateTime() (v int64) {
 	return p.CreateTime
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 var fieldIDToName_MessageChatResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "messages",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	4: "create_time",
 =======
 >>>>>>> origin/guo
+=======
+	4: "create_time",
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *MessageChatResponse) Read(iprot thrift.TProtocol) (err error) {
@@ -6311,6 +6482,9 @@ func (p *MessageChatResponse) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		case 4:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField4(iprot); err != nil {
@@ -6321,8 +6495,11 @@ func (p *MessageChatResponse) Read(iprot thrift.TProtocol) (err error) {
 					goto SkipFieldError
 				}
 			}
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		default:
 			if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
@@ -6392,6 +6569,9 @@ func (p *MessageChatResponse) ReadField3(iprot thrift.TProtocol) error {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatResponse) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
@@ -6401,8 +6581,11 @@ func (p *MessageChatResponse) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("MessageChatResponse"); err != nil {
@@ -6422,12 +6605,18 @@ func (p *MessageChatResponse) Write(oprot thrift.TProtocol) (err error) {
 			goto WriteFieldError
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if err = p.writeField4(oprot); err != nil {
 			fieldId = 4
 			goto WriteFieldError
 		}
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
@@ -6507,6 +6696,9 @@ WriteFieldEndError:
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatResponse) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("create_time", thrift.I64, 4); err != nil {
 		goto WriteFieldBeginError
@@ -6524,8 +6716,11 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageChatResponse) String() string {
 	if p == nil {
 		return "<nil>"
@@ -6535,17 +6730,23 @@ func (p *MessageChatResponse) String() string {
 
 type MessageActionRequest struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	FromUserID int64  `thrift:"from_user_id,1" form:"from_user_id" json:"from_user_id" query:"from_user_id"`
 	Token      string `thrift:"token,2" form:"token" json:"token" query:"token"`
 	ToUserID   int64  `thrift:"to_user_id,3" form:"to_user_id" json:"to_user_id" query:"to_user_id"`
 	ActionType int64  `thrift:"action_type,4" form:"action_type" json:"action_type" query:"action_type"`
 	Content    string `thrift:"content,5" form:"content" json:"content" query:"content"`
+<<<<<<< HEAD
 =======
 	FromUserID int64  `thrift:"from_user_id,1,required" form:"from_user_id,required" json:"from_user_id,required" query:"from_user_id,required"`
 	ToUserID   int64  `thrift:"to_user_id,2,required" form:"to_user_id,required" json:"to_user_id,required" query:"to_user_id,required"`
 	ActionType int32  `thrift:"action_type,3,required" form:"action_type,required" json:"action_type,required" query:"action_type,required"`
 	Content    string `thrift:"content,4,required" form:"content,required" json:"content,required" query:"content,required"`
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func NewMessageActionRequest() *MessageActionRequest {
@@ -6557,21 +6758,31 @@ func (p *MessageActionRequest) GetFromUserID() (v int64) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageActionRequest) GetToUserID() (v int64) {
 	return p.ToUserID
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (p *MessageActionRequest) GetActionType() (v int64) {
 =======
 func (p *MessageActionRequest) GetActionType() (v int32) {
 >>>>>>> origin/guo
+=======
+func (p *MessageActionRequest) GetActionType() (v int64) {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return p.ActionType
 }
 
@@ -6582,15 +6793,21 @@ func (p *MessageActionRequest) GetContent() (v string) {
 var fieldIDToName_MessageActionRequest = map[int16]string{
 	1: "from_user_id",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	2: "token",
 	3: "to_user_id",
 	4: "action_type",
 	5: "content",
+<<<<<<< HEAD
 =======
 	2: "to_user_id",
 	3: "action_type",
 	4: "content",
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -6598,12 +6815,15 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	var issetFromUserID bool = false
 	var issetToUserID bool = false
 	var issetActionType bool = false
 	var issetContent bool = false
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -6625,15 +6845,19 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 					goto ReadFieldError
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				issetFromUserID = true
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
 				}
 			}
 		case 2:
+<<<<<<< HEAD
 <<<<<<< HEAD
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
@@ -6646,12 +6870,19 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 				}
 				issetToUserID = true
 >>>>>>> origin/guo
+=======
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
 				}
 			}
 		case 3:
+<<<<<<< HEAD
 <<<<<<< HEAD
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField3(iprot); err != nil {
@@ -6664,12 +6895,19 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 				}
 				issetActionType = true
 >>>>>>> origin/guo
+=======
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
 				}
 			}
 		case 4:
+<<<<<<< HEAD
 <<<<<<< HEAD
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField4(iprot); err != nil {
@@ -6692,6 +6930,22 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 				}
 				issetContent = true
 >>>>>>> origin/guo
+=======
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -6711,6 +6965,7 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	if !issetFromUserID {
@@ -6733,6 +6988,8 @@ func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return nil
 ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -6748,10 +7005,13 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 RequiredFieldNotSetError:
 	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_MessageActionRequest[fieldId]))
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (p *MessageActionRequest) ReadField1(iprot thrift.TProtocol) error {
@@ -6765,6 +7025,9 @@ func (p *MessageActionRequest) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *MessageActionRequest) ReadField2(iprot thrift.TProtocol) error {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6774,8 +7037,11 @@ func (p *MessageActionRequest) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *MessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -6785,12 +7051,17 @@ func (p *MessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (p *MessageActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 =======
 func (p *MessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 >>>>>>> origin/guo
+=======
+func (p *MessageActionRequest) ReadField4(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	} else {
 		p.ActionType = v
@@ -6799,10 +7070,14 @@ func (p *MessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (p *MessageActionRequest) ReadField5(iprot thrift.TProtocol) error {
 =======
 func (p *MessageActionRequest) ReadField4(iprot thrift.TProtocol) error {
 >>>>>>> origin/guo
+=======
+func (p *MessageActionRequest) ReadField5(iprot thrift.TProtocol) error {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6834,12 +7109,18 @@ func (p *MessageActionRequest) Write(oprot thrift.TProtocol) (err error) {
 			goto WriteFieldError
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if err = p.writeField5(oprot); err != nil {
 			fieldId = 5
 			goto WriteFieldError
 		}
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
@@ -6878,6 +7159,7 @@ WriteFieldEndError:
 
 func (p *MessageActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6888,6 +7170,12 @@ func (p *MessageActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteI64(p.ToUserID); err != nil {
 >>>>>>> origin/guo
+=======
+	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Token); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -6902,6 +7190,7 @@ WriteFieldEndError:
 
 func (p *MessageActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err = oprot.WriteFieldBegin("to_user_id", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6912,6 +7201,12 @@ func (p *MessageActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteI32(p.ActionType); err != nil {
 >>>>>>> origin/guo
+=======
+	if err = oprot.WriteFieldBegin("to_user_id", thrift.I64, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.ToUserID); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -6926,6 +7221,7 @@ WriteFieldEndError:
 
 func (p *MessageActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if err = oprot.WriteFieldBegin("action_type", thrift.I64, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6936,6 +7232,12 @@ func (p *MessageActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteString(p.Content); err != nil {
 >>>>>>> origin/guo
+=======
+	if err = oprot.WriteFieldBegin("action_type", thrift.I64, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.ActionType); err != nil {
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -6949,6 +7251,9 @@ WriteFieldEndError:
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageActionRequest) writeField5(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("content", thrift.STRING, 5); err != nil {
 		goto WriteFieldBeginError
@@ -6966,8 +7271,11 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> origin/guo
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *MessageActionRequest) String() string {
 	if p == nil {
 		return "<nil>"

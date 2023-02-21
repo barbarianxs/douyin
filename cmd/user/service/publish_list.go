@@ -7,9 +7,13 @@ import (
 	// "fmt"
 	// "io"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// "log"
 =======
 >>>>>>> origin/guo
+=======
+	// "log"
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
@@ -35,9 +39,13 @@ func (s *PublishListService) PublishList(req *user.PublishListRequest) ([]*user.
 	u := users[0]
 	videos := pack.Videos(videoModels, u)
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// log.Println(videos[0].PlayUrl)
 =======
 	
 >>>>>>> origin/guo
+=======
+	// log.Println(videos[0].PlayUrl)
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return videos, nil
 }

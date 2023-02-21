@@ -1,10 +1,13 @@
 namespace go interact
 
+<<<<<<< HEAD
 struct BaseResp {
     1: i32 status_code
     2: string status_msg
     3: i64 service_time
 }
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 struct FavoriteActionRequest {
     1: i64 user_id
     2: string token // 用户鉴权token

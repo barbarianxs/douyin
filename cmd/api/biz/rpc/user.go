@@ -5,10 +5,14 @@ package rpc
 import (
 	"context"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"log"
 =======
 
 >>>>>>> origin/guo
+=======
+	"log"
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
@@ -87,9 +91,13 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (*user.User, error
 // PublishAction check user info
 func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	log.Println("")
 =======
 >>>>>>> origin/guo
+=======
+	log.Println("===============================================================================")
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	resp, err := userClient.PublishAction(ctx, req)
 	if err != nil {
 		return err

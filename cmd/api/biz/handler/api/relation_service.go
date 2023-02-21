@@ -260,6 +260,9 @@ func RelationFriendList(ctx context.Context, c *app.RequestContext) {
 // @router /douyin/message/chat/ [GET]
 func MessageChat(ctx context.Context, c *app.RequestContext) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	var err error
 	var req api.MessageChatRequest
 	err = c.BindAndValidate(&req)
@@ -273,6 +276,7 @@ func MessageChat(ctx context.Context, c *app.RequestContext) {
 		FromUserId: v.(*api.User).ID,
 		Token: req.Token,
 		ToUserId: req.ToUserID,
+<<<<<<< HEAD
 
 	})
 	if err != nil {
@@ -299,12 +303,30 @@ func MessageChat(ctx context.Context, c *app.RequestContext) {
 
 	// c.JSON(200, resp)
 >>>>>>> origin/guo
+=======
+
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	// SendResponse(c, errno.Success, nil)
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(200, utils.H{
+		"status_code": Err.ErrCode,
+		"status_msg":  Err.ErrMsg,
+		"message_list":  messages,
+	})
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 // MessageAction .
 // @router /douyin/message/action/ [POST]
 func MessageAction(ctx context.Context, c *app.RequestContext) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	var err error
 	var req api.MessageActionRequest
 	err = c.BindAndValidate(&req)
@@ -323,6 +345,7 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 		ToUserId: req.ToUserID,
 		ActionType: req.ActionType,
 		Content: req.Content,
+<<<<<<< HEAD
 
 	})
 	log.Println("hz----------------------------", req.ToUserID)
@@ -345,4 +368,15 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 
 	// c.JSON(200, resp)
 >>>>>>> origin/guo
+=======
+
+	})
+	log.Println("hz----------------------------", req.ToUserID)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	// log.Println("hz----------------------------", req.ToUserID)
+	SendResponse(c, errno.Success, nil)
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }

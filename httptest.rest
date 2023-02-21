@@ -26,10 +26,14 @@ Authorization: Bearer {{token}}
 
 GET http://{{host}}/douyin/message/chat/
 <<<<<<< HEAD
+<<<<<<< HEAD
 ?to_user_id=1
 =======
 ?to_user_id=2
 >>>>>>> origin/guo
+=======
+?to_user_id=1
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 Authorization: Bearer {{token}}
 ###
 POST  http://{{host}}/douyin/message/action/
@@ -37,6 +41,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
     "to_user_id":1,
     "action_type":1,
@@ -46,6 +51,11 @@ Content-Type: application/json
     "action_type":1,
     "content":"shou dao"
 >>>>>>> origin/guo
+=======
+    "to_user_id":1,
+    "action_type":1,
+    "content":"hello"
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 ###
 POST  http://{{host}}/douyin/publish/action/
@@ -61,9 +71,16 @@ GET  http://{{host}}/douyin/publish/list/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 <<<<<<< HEAD
+<<<<<<< HEAD
 ###
 POST  http://{{host}}/douyin/relation/action/?token={{token}}&to_user_id=1&action_type=1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 =======
 >>>>>>> origin/guo
+=======
+###
+POST  http://{{host}}/douyin/relation/action/?token={{token}}&to_user_id=1&action_type=1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a

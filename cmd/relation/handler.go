@@ -6,10 +6,14 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/service"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"log"
 =======
 
 >>>>>>> origin/guo
+=======
+	"log"
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 )
@@ -163,12 +167,17 @@ func (s *RelationServiceImpl) MessageChat(ctx context.Context, req *relation.Mes
 
 	resp.Messages = messages
 <<<<<<< HEAD
+<<<<<<< HEAD
 	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 =======
 	resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
 >>>>>>> origin/guo
+=======
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return resp, nil
 }
 
@@ -184,6 +193,7 @@ func (s *RelationServiceImpl) MessageAction(ctx context.Context, req *relation.M
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	err = service.NewActionMsgService(ctx).ActionMsg(req)
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
@@ -196,13 +206,23 @@ func (s *RelationServiceImpl) MessageAction(ctx context.Context, req *relation.M
 	
 =======
 	err = service.NewActionMsgService(ctx).MGetActionMsg(req)
+=======
+	err = service.NewActionMsgService(ctx).ActionMsg(req)
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
 		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
+		log.Println(resp.StatusCode, "---------------******************----------", resp.StatusMsg)
 		return resp, nil
 	}
+<<<<<<< HEAD
 	resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
 >>>>>>> origin/guo
+=======
+	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
+	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
+	
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return resp, nil
 }

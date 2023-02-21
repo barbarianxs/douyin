@@ -6,10 +6,14 @@ import (
 	"context"
 	"fmt"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 =======
 
 >>>>>>> origin/guo
+=======
+	
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -20,10 +24,14 @@ import (
 	"github.com/hertz-contrib/gzip"
 	"github.com/hertz-contrib/requestid"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// "go.opentelemetry.io/otel/trace"
 =======
 	"go.opentelemetry.io/otel/trace"
 >>>>>>> origin/guo
+=======
+	// "go.opentelemetry.io/otel/trace"
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 )
 
 func rootMw() []app.HandlerFunc {
@@ -41,6 +49,7 @@ func rootMw() []app.HandlerFunc {
 		)),
 		// use requestid mw
 <<<<<<< HEAD
+<<<<<<< HEAD
 		requestid.New(),
 =======
 		requestid.New(
@@ -50,6 +59,9 @@ func rootMw() []app.HandlerFunc {
 			}),
 		),
 >>>>>>> origin/guo
+=======
+		requestid.New(),
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		// use gzip mw
 		gzip.Gzip(gzip.DefaultCompression),
 		
@@ -175,7 +187,10 @@ func _publishMw() []app.HandlerFunc {
 func _action2Mw() []app.HandlerFunc {
 =======
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _action0Mw() []app.HandlerFunc {

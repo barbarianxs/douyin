@@ -16,10 +16,14 @@ func User(u *db.User) *user.User {
 	return &user.User{
 		Id: int64(u.ID), 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Name: u.Username,
 =======
 		Name: u.Name,
 >>>>>>> origin/guo
+=======
+		Name: u.Username,
+>>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		FollowCount: int64(u.FollowCount),
 		FollowerCount: int64(u.FollowerCount),
 		IsFollow: bool(u.IsFollow),
