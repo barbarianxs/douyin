@@ -121,6 +121,10 @@ func (s *UserServiceImpl) PublishAction(ctx context.Context, req *user.PublishAc
 	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/guo
 	return resp, nil
 }
 
@@ -148,6 +152,7 @@ func (s *UserServiceImpl) PublishList(ctx context.Context, req *user.PublishList
 
 	return resp, nil
 }
+<<<<<<< HEAD
 
 // GetUserFeed implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.DouyinFeedResponse, err error) {
@@ -179,3 +184,5 @@ func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.DouyinFeedR
 	resp.NextTime = nextTime
 	return resp, nil
 }
+=======
+>>>>>>> origin/guo

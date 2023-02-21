@@ -38,10 +38,17 @@ struct Video {
 }
 
 struct Message {
+<<<<<<< HEAD
     1: i64 id                  // 消息id
     2: i64 to_user_id          // 该消息接收者的id
     3: i64 from_user_id        // 该消息发送者的id
     4: string content         // 消息内容
+=======
+    1:required i64 id                  // 消息id
+    2:required i64 to_user_id          // 该消息接收者的id
+    3:required i64 from_user_id        // 该消息发送者的id
+    4:required string content         // 消息内容
+>>>>>>> origin/guo
     5:optional i64 create_time      // 消息创建时间
 }
 
@@ -94,9 +101,15 @@ struct UserInfoResponse {
 
 struct PublishActionRequest {
     1: i64 user_id;
+<<<<<<< HEAD
     2: string token(api.query="token");
     3: binary data(api.query="data");
     4: string title(api.query="data");
+=======
+    2: string token;
+    3: binary data;
+    4: string title;
+>>>>>>> origin/guo
 }
 
 struct PublishActionResponse {
@@ -105,9 +118,14 @@ struct PublishActionResponse {
 }
 
 struct PublishListRequest {
+<<<<<<< HEAD
     
     1: string token;
     2: i64 user_id;
+=======
+    1: i64 user_id;
+    2: string token;
+>>>>>>> origin/guo
 }
 
 struct PublishListResponse {
@@ -159,20 +177,29 @@ struct RelationFriendListResponse {
 }
 
 struct MessageChatRequest {
+<<<<<<< HEAD
     1: i64 from_user_id          // 用户id
     2: string token       
     3: i64 to_user_id        // 对方用户id
+=======
+    1:required i64 from_user_id          // 用户id
+    2:required i64 to_user_id        // 对方用户id
+>>>>>>> origin/guo
 }
 
 struct MessageChatResponse {
     1: i32 status_code
     2: string status_msg
     3: list<Message> messages
+<<<<<<< HEAD
     4: i64 create_time
+=======
+>>>>>>> origin/guo
     
 }
 
 struct MessageActionRequest {
+<<<<<<< HEAD
     1: i64 from_user_id           // 用户鉴权token
     2: string token
     3: i64 to_user_id         // 对方用户id
@@ -181,11 +208,20 @@ struct MessageActionRequest {
 }
 
 
+=======
+    1:required i64 from_user_id           // 用户鉴权token
+    2:required i64 to_user_id         // 对方用户id
+    3:required i32 action_type       // 1-发送消息
+    4:required string content                // 消息内容
+}
+
+>>>>>>> origin/guo
 struct MessageActionResponse {
     1: i32 status_code
     2: string status_msg
 }
 
+<<<<<<< HEAD
 struct douyin_feed_request {
     1: i64 latest_time; // 可选参数，限制返回视频的最新投稿时间戳，精确到秒，不填表示当前时间
     2: string token; // 可选参数，登录用户设置
@@ -207,13 +243,18 @@ struct video_id_request{
 }
 
 
+=======
+>>>>>>> origin/guo
 service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req) (api.post="/douyin/user/login/")
     RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register/")
     UserInfoResponse UserInfo(1: UserInfoRequest req) (api.get="/douyin/user/")
     PublishActionResponse PublishAction(1: PublishActionRequest req) (api.post="/douyin/publish/action/");
     PublishListResponse PublishList(1: PublishListRequest req) (api.get="/douyin/publish/list/");
+<<<<<<< HEAD
     douyin_feed_response GetUserFeed (1:douyin_feed_request req)(api.get="/douyin/feed/")
+=======
+>>>>>>> origin/guo
 }
 
 service RelationService {
@@ -224,6 +265,7 @@ service RelationService {
     MessageChatResponse MessageChat(1: MessageChatRequest req) (api.get="/douyin/message/chat/")               // 消息记录
     MessageActionResponse MessageAction(1: MessageActionRequest req) (api.post="/douyin/message/action/")         // 发送消息
 }
+<<<<<<< HEAD
 struct FavoriteActionRequest {
     1: i64 user_id
     2: string token // 用户鉴权token
@@ -291,3 +333,5 @@ service InteractService {
     CommentActionResponse CommentAction(1: CommentActionRequest req) (api.post="/douyin/comment/action/") //评论操作
     CommentListResponse CommentList(1: CommentListRequest req) (api.get="/douyin/comment/list/") //返回评论列表
 }
+=======
+>>>>>>> origin/guo

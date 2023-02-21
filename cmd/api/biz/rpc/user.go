@@ -4,7 +4,11 @@ package rpc
 
 import (
 	"context"
+<<<<<<< HEAD
 	"log"
+=======
+
+>>>>>>> origin/guo
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user/userservice"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
@@ -82,7 +86,10 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (*user.User, error
 
 // PublishAction check user info
 func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
+<<<<<<< HEAD
 	log.Println("")
+=======
+>>>>>>> origin/guo
 	resp, err := userClient.PublishAction(ctx, req)
 	if err != nil {
 		return err
@@ -103,6 +110,7 @@ func PublishList(ctx context.Context, req *user.PublishListRequest) ([]*user.Vid
 		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return resp.VideoList, nil
+<<<<<<< HEAD
 }
 // GetUserFeed query list of note info
 func GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.DouyinFeedResponse, err error) {
@@ -114,4 +122,6 @@ func GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.D
 		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return resp, nil
+=======
+>>>>>>> origin/guo
 }

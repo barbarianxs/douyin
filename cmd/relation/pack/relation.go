@@ -17,8 +17,12 @@ func Message(u *db.Message) *relation.Message {
 		FromUserId: u.FromUserId,
 		ToUserId:   u.ToUserId,
 		Content:    u.Content,
+<<<<<<< HEAD
 		CreateTime: u.CreateTime.Unix(),
 
+=======
+		// CreateTime: u.CreatedAt.Unix(),
+>>>>>>> origin/guo
 	}
 }
 

@@ -85,6 +85,7 @@ func (p *PublishListRequest) IsValid() error {
 func (p *PublishListResponse) IsValid() error {
 	return nil
 }
+<<<<<<< HEAD
 func (p *DouyinFeedRequest) IsValid() error {
 	return nil
 }
@@ -94,3 +95,5 @@ func (p *DouyinFeedResponse) IsValid() error {
 func (p *VideoIdRequest) IsValid() error {
 	return nil
 }
+=======
+>>>>>>> origin/guo

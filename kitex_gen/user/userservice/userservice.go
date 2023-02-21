@@ -25,7 +25,10 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"UserInfo":      kitex.NewMethodInfo(userInfoHandler, newUserServiceUserInfoArgs, newUserServiceUserInfoResult, false),
 		"PublishAction": kitex.NewMethodInfo(publishActionHandler, newUserServicePublishActionArgs, newUserServicePublishActionResult, false),
 		"PublishList":   kitex.NewMethodInfo(publishListHandler, newUserServicePublishListArgs, newUserServicePublishListResult, false),
+<<<<<<< HEAD
 		"GetUserFeed":   kitex.NewMethodInfo(getUserFeedHandler, newUserServiceGetUserFeedArgs, newUserServiceGetUserFeedResult, false),
+=======
+>>>>>>> origin/guo
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -149,6 +152,7 @@ func newUserServicePublishListResult() interface{} {
 	return user.NewUserServicePublishListResult()
 }
 
+<<<<<<< HEAD
 func getUserFeedHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*user.UserServiceGetUserFeedArgs)
 	realResult := result.(*user.UserServiceGetUserFeedResult)
@@ -167,6 +171,8 @@ func newUserServiceGetUserFeedResult() interface{} {
 	return user.NewUserServiceGetUserFeedResult()
 }
 
+=======
+>>>>>>> origin/guo
 type kClient struct {
 	c client.Client
 }
@@ -236,6 +242,7 @@ func (p *kClient) PublishList(ctx context.Context, req *user.PublishListRequest)
 	}
 	return _result.GetSuccess(), nil
 }
+<<<<<<< HEAD
 
 func (p *kClient) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (r *user.DouyinFeedResponse, err error) {
 	var _args user.UserServiceGetUserFeedArgs
@@ -246,3 +253,5 @@ func (p *kClient) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) 
 	}
 	return _result.GetSuccess(), nil
 }
+=======
+>>>>>>> origin/guo

@@ -25,6 +25,10 @@ func NewPublishActionService(ctx context.Context) *PublishActionService {
 func (s *PublishActionService) PublishAction(req *user.PublishActionRequest) error{
 	
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> origin/guo
 	VideoModel := &db.Video{
 		AuthorID:   req.UserId,
 		PlayUrl:  req.FileUrl,

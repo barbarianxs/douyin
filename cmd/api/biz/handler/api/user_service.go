@@ -69,7 +69,11 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+<<<<<<< HEAD
 	log.Println("***------------------------------------UserInfo-service---------------------------------------***")
+=======
+	log.Println("***------------------------------------api-service---------------------------------------***")
+>>>>>>> origin/guo
 	log.Println(user_info)
 	Err := errno.ConvertErr(errno.Success)
 	c.JSON(200, utils.H{
@@ -82,7 +86,10 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 // PublishAction .
 // @router /douyin/publish/action/ [POST]
 func PublishAction(ctx context.Context, c *app.RequestContext) {
+<<<<<<< HEAD
 	log.Println("***------------------------------------PublishAction-service---------------------------------------***")
+=======
+>>>>>>> origin/guo
 	var err error
 	var req api.PublishActionRequest
 	err = c.BindAndValidate(&req)
@@ -97,7 +104,11 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+<<<<<<< HEAD
 	log.Println("/////////////////////////////////////////////")
+=======
+
+>>>>>>> origin/guo
 	filename := filepath.Base(video_data.Filename)
 	finalName := fmt.Sprintf("%s", filename)
 	video_path := filepath.Join(consts.VideoSavePath, finalName)
@@ -110,7 +121,11 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	
+<<<<<<< HEAD
 	coverPath := "https://douyin-test-guo.oss-cn-hangzhou.aliyuncs.com/img/"
+=======
+	coverPath := "../../../../../../snapshot/"
+>>>>>>> origin/guo
 	// 获取视频截图
 	snapshotName, err := GetSnapshot(video_path, coverPath, 1)
 	if err != nil {
@@ -119,9 +134,13 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  v.(*api.User).ID,
+<<<<<<< HEAD
 		Token: req.Token,
 		Title: req.Title,
 		
+=======
+		Title: req.Title,
+>>>>>>> origin/guo
 		FileUrl: video_path,
 		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),
 	})
@@ -129,7 +148,10 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+<<<<<<< HEAD
 	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),video_path, req.Title,req.Token)
+=======
+>>>>>>> origin/guo
 	SendResponse(c, errno.Success, nil)
 }
 
@@ -145,6 +167,7 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 	}
 	v, _ := c.Get(consts.IdentityKey)
 	videos, err := rpc.PublishList(context.Background(), &user.PublishListRequest{
+<<<<<<< HEAD
 		UserId: v.(*api.User).ID,
 		Token: req.Token,
 
@@ -167,10 +190,16 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.UserInfoRequest
 	err = c.BindAndValidate(&req)
+=======
+		UserId:    v.(*api.User).ID,
+		
+	})
+>>>>>>> origin/guo
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
+<<<<<<< HEAD
 	//从token中获取id
 	u, _ := c.Get(consts.IdentityKey)
 	
@@ -206,3 +235,10 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	})
 	return
 }
+=======
+	SendResponse(c, errno.Success, utils.H{
+		// consts.Total: total,
+		consts.Videos: videos,
+	})
+}
+>>>>>>> origin/guo

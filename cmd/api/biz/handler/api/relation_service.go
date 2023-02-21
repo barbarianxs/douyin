@@ -259,6 +259,7 @@ func RelationFriendList(ctx context.Context, c *app.RequestContext) {
 // MessageChat .
 // @router /douyin/message/chat/ [GET]
 func MessageChat(ctx context.Context, c *app.RequestContext) {
+<<<<<<< HEAD
 	var err error
 	var req api.MessageChatRequest
 	err = c.BindAndValidate(&req)
@@ -285,11 +286,25 @@ func MessageChat(ctx context.Context, c *app.RequestContext) {
 		"status_msg":  Err.ErrMsg,
 		"message_list":  messages,
 	})
+=======
+	// var err error
+	// var req api.MessageChatRequest
+	// err = c.BindAndValidate(&req)
+	// if err != nil {
+	// 	c.String(consts.StatusBadRequest, err.Error())
+	// 	return
+	// }
+
+	// resp := new(api.MessageChatResponse)
+
+	// c.JSON(200, resp)
+>>>>>>> origin/guo
 }
 
 // MessageAction .
 // @router /douyin/message/action/ [POST]
 func MessageAction(ctx context.Context, c *app.RequestContext) {
+<<<<<<< HEAD
 	var err error
 	var req api.MessageActionRequest
 	err = c.BindAndValidate(&req)
@@ -317,4 +332,17 @@ func MessageAction(ctx context.Context, c *app.RequestContext) {
 	}
 	// log.Println("hz----------------------------", req.ToUserID)
 	SendResponse(c, errno.Success, nil)
+=======
+	// var err error
+	// var req api.MessageActionRequest
+	// err = c.BindAndValidate(&req)
+	// if err != nil {
+	// 	c.String(consts.StatusBadRequest, err.Error())
+	// 	return
+	// }
+
+	// resp := new(api.MessageActionResponse)
+
+	// c.JSON(200, resp)
+>>>>>>> origin/guo
 }

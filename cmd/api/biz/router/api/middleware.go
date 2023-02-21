@@ -5,7 +5,11 @@ package Api
 import (
 	"context"
 	"fmt"
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> origin/guo
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -15,7 +19,11 @@ import (
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/hertz-contrib/gzip"
 	"github.com/hertz-contrib/requestid"
+<<<<<<< HEAD
 	// "go.opentelemetry.io/otel/trace"
+=======
+	"go.opentelemetry.io/otel/trace"
+>>>>>>> origin/guo
 )
 
 func rootMw() []app.HandlerFunc {
@@ -32,7 +40,16 @@ func rootMw() []app.HandlerFunc {
 			},
 		)),
 		// use requestid mw
+<<<<<<< HEAD
 		requestid.New(),
+=======
+		requestid.New(
+			requestid.WithGenerator(func(ctx context.Context, c *app.RequestContext) string {
+				traceID := trace.SpanFromContext(ctx).SpanContext().TraceID().String()
+				return traceID
+			}),
+		),
+>>>>>>> origin/guo
 		// use gzip mw
 		gzip.Gzip(gzip.DefaultCompression),
 		
@@ -44,6 +61,7 @@ func _douyinMw() []app.HandlerFunc {
 	return nil
 }
 
+<<<<<<< HEAD
 func _commentMw() []app.HandlerFunc {
 	// your code...
 	return []app.HandlerFunc{
@@ -110,6 +128,8 @@ func _getuserfeedMw() []app.HandlerFunc {
 	return nil
 }
 
+=======
+>>>>>>> origin/guo
 func _messageMw() []app.HandlerFunc {
 	// your code...
 	return []app.HandlerFunc{
@@ -118,7 +138,11 @@ func _messageMw() []app.HandlerFunc {
 	}
 }
 
+<<<<<<< HEAD
 func _action1Mw() []app.HandlerFunc {
+=======
+func _actionMw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }
@@ -139,6 +163,7 @@ func _messagechatMw() []app.HandlerFunc {
 }
 
 func _publishMw() []app.HandlerFunc {
+<<<<<<< HEAD
 	// your coreturn []app.HandlerFunc{
 		// use jwt mw
 		return []app.HandlerFunc{
@@ -148,6 +173,13 @@ func _publishMw() []app.HandlerFunc {
 }
 
 func _action2Mw() []app.HandlerFunc {
+=======
+	// your code...
+	return nil
+}
+
+func _action0Mw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }
@@ -157,7 +189,11 @@ func _publish_ctionMw() []app.HandlerFunc {
 	return nil
 }
 
+<<<<<<< HEAD
 func _list1Mw() []app.HandlerFunc {
+=======
+func _listMw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }
@@ -175,7 +211,11 @@ func _relationMw() []app.HandlerFunc {
 	}
 }
 
+<<<<<<< HEAD
 func _action3Mw() []app.HandlerFunc {
+=======
+func _action1Mw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }
@@ -190,7 +230,11 @@ func _followMw() []app.HandlerFunc {
 	return nil
 }
 
+<<<<<<< HEAD
 func _list2Mw() []app.HandlerFunc {
+=======
+func _list0Mw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }
@@ -205,7 +249,11 @@ func _followerMw() []app.HandlerFunc {
 	return nil
 }
 
+<<<<<<< HEAD
 func _list3Mw() []app.HandlerFunc {
+=======
+func _list1Mw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }
@@ -220,7 +268,11 @@ func _friendMw() []app.HandlerFunc {
 	return nil
 }
 
+<<<<<<< HEAD
 func _list4Mw() []app.HandlerFunc {
+=======
+func _list2Mw() []app.HandlerFunc {
+>>>>>>> origin/guo
 	// your code...
 	return nil
 }

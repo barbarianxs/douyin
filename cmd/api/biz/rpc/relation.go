@@ -96,6 +96,7 @@ func RelationFriendList(ctx context.Context, req *relation.RelationFriendListReq
 	}
 	return resp.UserList, nil
 }
+<<<<<<< HEAD
 
 
 
@@ -123,3 +124,5 @@ func MessageAction(ctx context.Context, req *relation.MessageActionRequest) erro
 	}
 	return nil
 }
+=======
+>>>>>>> origin/guo

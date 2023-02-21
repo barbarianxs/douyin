@@ -1,4 +1,4 @@
-namespace go relation
+namespace go api_relation
 enum ErrCode {
     SuccessCode                = 0
     ServiceErrCode             = 90001
@@ -7,11 +7,6 @@ enum ErrCode {
     AuthorizationFailedErrCode = 90004
 }
 
-struct BaseResp {
-    1: i32 status_code
-    2: string status_msg
-    3: i64 service_time
-}
 struct User {
     1: i64 id
     2: string name
@@ -20,18 +15,6 @@ struct User {
     5: bool is_follow  // true-已关注，false-未关注
 
 }
-
-struct FriendUser {
-    1: i64 id // 用户id
-    2: string name // 用户名称
-    3: i64 follow_count // 关注总数
-    4: i64 follower_count // 粉丝总数
-    5: bool is_follow // true-已关注，false-未关注
-    6: string avatar // 用户头像Url
-    7: string message // 和该好友的最新聊天消息
-    8: i64 msg_type // message消息的类型，0 => 当前请求用户接收的消息， 1 => 当前请求用户发送的消息
-}
-
 
 struct RelationActionRequest {
     1: i64 user_id // 用户id
@@ -71,54 +54,38 @@ struct RelationFriendListResponse {
     2: string status_msg // 返回状态描述
     3: list<FriendUser> user_list // 用户列表
 }
-
+struct FriendUser {
+    1: i64 id // 用户id
+    2: string name // 用户名称
+    3: i64 follow_count // 关注总数
+    4: i64 follower_count // 粉丝总数
+    5: bool is_follow // true-已关注，false-未关注
+    6: string avatar // 用户头像Url
+    7: string message // 和该好友的最新聊天消息
+    8: i64 msg_type // message消息的类型，0 => 当前请求用户接收的消息， 1 => 当前请求用户发送的消息
+}
 
 
 
 
 struct Message {
-<<<<<<< HEAD
-    1: i64 id                  // 消息id
-    2: i64 to_user_id          // 该消息接收者的id
-    3: i64 from_user_id        // 该消息发送者的id
-    4: string content         // 消息内容
-    5: i64 create_time      // 消息创建时间
-=======
     1:required i64 id                  // 消息id
     2:required i64 to_user_id          // 该消息接收者的id
     3:required i64 from_user_id        // 该消息发送者的id
     4:required string content         // 消息内容
     5:optional i64 create_time      // 消息创建时间
->>>>>>> origin/guo
 }
 
 
 struct MessageChatRequest {
-<<<<<<< HEAD
-    1: i64 from_user_id          // 用户id
-    2: string token       
-    3: i64 to_user_id        // 对方用户id
-=======
     1:required i64 from_user_id          // 用户id
     2:required i64 to_user_id        // 对方用户id
->>>>>>> origin/guo
 }
 
 struct MessageChatResponse {
     1: i32 status_code
     2: string status_msg
     3: list<Message> messages
-<<<<<<< HEAD
-    4: i64 create_time
-}
-
-struct MessageActionRequest {
-    1: i64 from_user_id           // 用户鉴权token
-    2: string token
-    3: i64 to_user_id         // 对方用户id
-    4: i64 action_type       // 1-发送消息
-    5: string content                // 消息内容
-=======
     
 }
 
@@ -127,7 +94,6 @@ struct MessageActionRequest {
     2:required i64 to_user_id         // 对方用户id
     3:required i32 action_type       // 1-发送消息
     4:required string content                // 消息内容
->>>>>>> origin/guo
 }
 
 struct MessageActionResponse {
@@ -136,11 +102,14 @@ struct MessageActionResponse {
 }
 
 service RelationService {
-    RelationActionResponse RelationAction (1: RelationActionRequest req)
-    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req)
-    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req)
-    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req)
-    MessageChatResponse MessageChat(1: MessageChatRequest req)               // 消息记录
-    MessageActionResponse MessageAction(1: MessageActionRequest req)         // 发送消息
+    RelationActionResponse RelationAction (1: RelationActionRequest req) (api.post="/douyin/relation/action/")
+    RelationFollowListResponse RelationFollowList (1: RelationFollowListRequest req) (api.get="/douyin/relation/follow/list/")
+    RelationFollowerListResponse RelationFollowerList (1: RelationFollowerListRequest req) (api.get="/douyin/relation/follower/list/")
+    RelationFriendListResponse RelationFriendList (1: RelationFriendListRequest req) (api.get="/douyin/relation/friend/list/")
+    MessageChatResponse MessageChat(1: MessageChatRequest req) (api.get="/douyin/message/chat/")               // 消息记录
+    MessageActionResponse MessageAction(1: MessageActionRequest req) (api.post="/douyin/message/action/")         // 发送消息
 }
+
+
+
 

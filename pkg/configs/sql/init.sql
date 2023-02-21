@@ -24,8 +24,13 @@ CREATE TABLE `video` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `author_id` bigint NOT NULL,
   `publish_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+<<<<<<< HEAD
   `play_url` varchar(128) NOT NULL,
   `cover_url` varchar(128) NOT NULL,
+=======
+  `file_path` varchar(128) NOT NULL,
+  `cover_path` varchar(128) NOT NULL,
+>>>>>>> origin/guo
   `favorite_count` bigint DEFAULT 0,
   `comment_count` bigint DEFAULT 0,
   `title` varchar(20) NOT NULL,
@@ -42,7 +47,10 @@ CREATE TABLE `message`
     `from_user_id` bigint NOT NULL COMMENT 'FromUserID',
     `to_user_id` bigint NOT NULL COMMENT 'ToUserID',
     `content`    TEXT NULL COMMENT 'Content',
+<<<<<<< HEAD
     `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Message create_time',
+=======
+>>>>>>> origin/guo
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Message create time',
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Message update time',
     `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Message delete time',
@@ -51,6 +59,7 @@ CREATE TABLE `message`
     
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Message table';
 
+<<<<<<< HEAD
 CREATE TABLE `relation` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `from_user_id` bigint NOT NULL,
@@ -62,6 +71,18 @@ CREATE TABLE `relation` (
   PRIMARY KEY (`id`),
   KEY          `idx_from_user_id` (`from_user_id`) COMMENT 'Relation index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Relation table';
+=======
+CREATE TABLE `follow` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `from_user_id` bigint NOT NULL,
+  `to_user_id` bigint NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'follow create time',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'follow update time',
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'follow delete time',
+  PRIMARY KEY (`id`),
+  KEY          `idx_from_user_id` (`from_user_id`) COMMENT 'Follower index'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Follow table';
+>>>>>>> origin/guo
 
 CREATE TABLE `favorite` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
@@ -71,13 +92,24 @@ CREATE TABLE `favorite` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'follow update time',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'follow delete time',
   PRIMARY KEY (`id`),
+<<<<<<< HEAD
   KEY          `idx_from_user_id` (`user_id`) COMMENT 'Favorite index'
+=======
+  KEY          `idx_from_user_id` (`user_id`) COMMENT 'favorite index'
+>>>>>>> origin/guo
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Favorite table';
 
 ALTER TABLE `video` ADD FOREIGN KEY (`author_id`) REFERENCES `user` (`id`);
 ALTER TABLE `message` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `message` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
+<<<<<<< HEAD
 ALTER TABLE `relation` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `relation` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `favorite` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `favorite` ADD FOREIGN KEY (`video_id`) REFERENCES `video` (`id`);
+=======
+ALTER TABLE `follow` ADD FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `follow` ADD FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `favorite` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `favorite` ADD FOREIGN KEY (`video_id`) REFERENCES `video` (`id`);
+>>>>>>> origin/guo
