@@ -110,7 +110,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	
-	coverPath := "../../../../../../snapshot/"
+	coverPath := "https://douyin-test-guo.oss-cn-hangzhou.aliyuncs.com/img/"
 	// 获取视频截图
 	snapshotName, err := GetSnapshot(video_path, coverPath, 1)
 	if err != nil {
