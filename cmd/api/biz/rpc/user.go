@@ -82,7 +82,7 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (*user.User, error
 
 // PublishAction check user info
 func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
-	log.Println("===============================================================================")
+	log.Println("")
 	resp, err := userClient.PublishAction(ctx, req)
 	if err != nil {
 		return err
@@ -103,4 +103,15 @@ func PublishList(ctx context.Context, req *user.PublishListRequest) ([]*user.Vid
 		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return resp.VideoList, nil
+}
+// GetUserFeed query list of note info
+func GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.DouyinFeedResponse, err error) {
+	resp, err = userClient.GetUserFeed(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
+	}
+	return resp, nil
 }

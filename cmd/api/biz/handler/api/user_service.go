@@ -160,3 +160,49 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 		"video_list":   videos,
 	})
 }
+
+// GetUserFeed .
+// @router /douyin/feed/ [GET]
+func GetUserFeed(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.UserInfoRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	//从token中获取id
+	u, _ := c.Get(consts.IdentityKey)
+	
+	if u == nil {
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
+	//越权错误
+	if req.UserID != 0 && req.UserID != u.(*api.User).ID {
+		SendResponse(c, errno.BrokenAccessControlErr, nil)
+		return
+	}
+	if req.UserID == 0 {
+		req.UserID = u.(*api.User).ID
+	}
+
+	log.Println("-------req.UserID-----")
+	log.Println(req.UserID)
+	
+	feedresponse,err := rpc.GetUserFeed(ctx,&user.DouyinFeedRequest{
+		UserId: u.(*api.User).ID,
+		// LatestTime: req.LatestTime,
+		Token:  req.Token,
+	})
+	//
+	//SendResponse2(c, feedresponse)
+	Err := errno.ConvertErr(errno.Success)
+	c.JSON(consts.StatusOK, utils.H{
+		"status_code": Err.ErrCode,
+		"status_msg":  Err.ErrMsg,
+		"next_time": feedresponse.NextTime,
+    	"video_list": feedresponse.VideoList,
+	})
+	return
+}

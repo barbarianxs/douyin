@@ -100,6 +100,16 @@ func _favoritelistMw() []app.HandlerFunc {
 	return nil
 }
 
+func _feedMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getuserfeedMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
 func _messageMw() []app.HandlerFunc {
 	// your code...
 	return []app.HandlerFunc{
@@ -129,11 +139,12 @@ func _messagechatMw() []app.HandlerFunc {
 }
 
 func _publishMw() []app.HandlerFunc {
-	// your code...
-	return []app.HandlerFunc{
+	// your coreturn []app.HandlerFunc{
 		// use jwt mw
-		mw.JwtMiddleware.MiddlewareFunc(),
-	}
+		return []app.HandlerFunc{
+			// use jwt mw
+			mw.JwtMiddleware.MiddlewareFunc(),
+		}
 }
 
 func _action2Mw() []app.HandlerFunc {
