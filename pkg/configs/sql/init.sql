@@ -54,6 +54,7 @@ CREATE TABLE `relation` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `from_user_id` bigint NOT NULL,
   `to_user_id` bigint NOT NULL,
+  
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Relation create time',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Relation update time',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT 'Relation delete time',

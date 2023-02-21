@@ -1,7 +1,7 @@
 package pack
 
 import (
-	"time"
+	// "time"
 
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
@@ -17,7 +17,8 @@ func Message(u *db.Message) *relation.Message {
 		FromUserId: u.FromUserId,
 		ToUserId:   u.ToUserId,
 		Content:    u.Content,
-		CreateTime: u.CreatedAt.Unix(),
+		CreateTime: u.CreateAt.Unix(),
+		
 	}
 }
 

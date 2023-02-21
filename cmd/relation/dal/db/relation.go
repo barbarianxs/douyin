@@ -34,7 +34,7 @@ type Message struct {
 	ToUserId   int64  `gorm:"type:varchar(32);not null" json:"to_user_id"`
 	FromUserId int64  `gorm:"type:varchar(32);not null" json:"from_user_id"`
 	Content    string `gorm:"type:varchar(256);not null" json:"content"`
-	CreatedAt   time.Time             `json:"createAt"`
+	CreateTime   time.Time             `json:"createAt"`
 	
 	
 }
@@ -56,8 +56,8 @@ type Relation struct {
 	// FollowTime time.Time `gorm:"column:follow_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 	FromUserID int64     `gorm:"column:from_user_id;NOT NULL"`
 	ToUserID   int64     `gorm:"column:to_user_id;NOT NULL"`
-	CreateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
-	UpdateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
+	CreateAt time.Time `gorm:"column:created_at;default:CURRENT_TIMESTAMP;NOT NULL"`
+	// UpdateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 }
 
 // // Relation表 记录关注关系
