@@ -1,0 +1,56 @@
+###
+@host = 127.0.0.1:8080
+
+POST http://{{host}}/douyin/user/register
+Content-Type: application/json
+
+{
+    "username":"lorain",
+    "password":"123456"
+}
+### 
+# @name loginAdmin
+POST http://{{host}}/douyin/user/login
+Content-Type: application/json
+
+{
+    "username":"lorain",
+    "password":"123456"
+}
+### 
+@token = {{loginAdmin.response.body.$.token}}
+GET http://{{host}}/douyin/user/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+GET http://{{host}}/douyin/message/chat/
+?to_user_id=1
+Authorization: Bearer {{token}}
+###
+POST  http://{{host}}/douyin/message/action/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "to_user_id":1,
+    "action_type":1,
+    "content":"hello"
+}
+###
+POST  http://{{host}}/douyin/publish/action/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+//    "data":.......,
+
+}
+###
+GET  http://{{host}}/douyin/publish/list/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+###
+POST  http://{{host}}/douyin/relation/action/?token={{token}}&to_user_id=1&action_type=1
+Authorization: Bearer {{token}}
+Content-Type: application/json
