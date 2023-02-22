@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/pack"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/service"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/relation/pack"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/relation/service"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
 	"log"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 )
 
 // RelationServiceImpl implements the last service interface defined in the IDL.

@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 	// "time"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/dal/db"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/message/pack"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/relation/dal/db"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/cmd/message/pack"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
 )
 type ActionMsgService struct {
 	ctx context.Context

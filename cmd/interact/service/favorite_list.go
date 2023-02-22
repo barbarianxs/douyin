@@ -3,11 +3,11 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/pack"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/jwt"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/pack"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/pkg/jwt"
 	"sync"
 )
 
@@ -20,7 +20,7 @@ func NewFavoriteListService(ctx context.Context) *FavoriteListService {
 	return &FavoriteListService{ctx: ctx}
 }
 
-// FavoriteList get video information that users guoke
+// FavoriteList get video information that users mainke
 func (s *FavoriteListService) FavoriteList(req *interact.FavoriteListRequest) ([]*interact.Video, error) {
 	//获取用户id
 	// Jwt := jwt.NewJWT([]byte(consts.SecretKey))

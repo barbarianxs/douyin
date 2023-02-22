@@ -3,10 +3,10 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/jwt"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/pkg/jwt"
 )
 
 type FavoriteActionService struct {
@@ -18,7 +18,7 @@ func NewFavoriteActionService(ctx context.Context) *FavoriteActionService {
 	return &FavoriteActionService{ctx: ctx}
 }
 
-// FavoriteAction implement the guoke and unguoke operations
+// FavoriteAction implement the mainke and unmainke operations
 func (s *FavoriteActionService) FavoriteAction(req *interact.FavoriteActionRequest) error {
 	// Jwt := jwt.NewJWT([]byte(consts.SecretKey))
 	// claim, err := Jwt.ParseToken(req.Token)

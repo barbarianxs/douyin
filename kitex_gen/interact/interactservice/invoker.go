@@ -3,7 +3,7 @@
 package interactservice
 
 import (
-	interact "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
+	interact "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
 	server "github.com/cloudwego/kitex/server"
 )
 

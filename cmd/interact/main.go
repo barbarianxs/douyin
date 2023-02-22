@@ -2,10 +2,10 @@ package main
 
 import (
 	"net"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact/interactservice"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/dal"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact/interactservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/mw"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"

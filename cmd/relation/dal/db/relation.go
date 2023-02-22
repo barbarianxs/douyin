@@ -6,10 +6,10 @@ import (
 	// "fmt"
 	"time"
 	"log"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/cmd/user/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 	"gorm.io/gorm"
 )
 // type User struct {

@@ -5,14 +5,14 @@ package api
 import (
 	"context"
 	"fmt"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/model/api"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/mw"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/model/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/rpc"
 	"log"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/message"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/message"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"path/filepath"
@@ -110,7 +110,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	
-	coverPath := "https://douyin-test-guo.oss-cn-hangzhou.aliyuncs.com/img/"
+	coverPath := "https://douyin-test-main.oss-cn-hangzhou.aliyuncs.com/img/"
 	// 获取视频截图
 	snapshotName, err := GetSnapshot(video_path, coverPath, 1)
 	if err != nil {
@@ -164,8 +164,9 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 // GetUserFeed .
 // @router /douyin/feed/ [GET]
 func GetUserFeed(ctx context.Context, c *app.RequestContext) {
+	log.Println("*********************************************feed*****************************************")
 	var err error
-	var req api.UserInfoRequest
+	var req api.DouyinFeedRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
@@ -174,26 +175,26 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	//从token中获取id
 	u, _ := c.Get(consts.IdentityKey)
 	
-	if u == nil {
-		SendResponse(c, errno.Token2UserIdErr, nil)
-		return
-	}
+	// if u == nil {
+	// 	SendResponse(c, errno.Token2UserIdErr, nil)
+	// 	return
+	// }
 	//越权错误
-	if req.UserID != 0 && req.UserID != u.(*api.User).ID {
-		SendResponse(c, errno.BrokenAccessControlErr, nil)
-		return
-	}
-	if req.UserID == 0 {
-		req.UserID = u.(*api.User).ID
-	}
+	// if req.UserID != 0 && req.UserID != u.(*api.User).ID {
+	// 	SendResponse(c, errno.BrokenAccessControlErr, nil)
+	// 	return
+	// }
+	// if req.UserID == 0 {
+	// 	req.UserID = u.(*api.User).ID
+	// }
 
 	log.Println("-------req.UserID-----")
 	log.Println(req.UserID)
 	
 	feedresponse,err := rpc.GetUserFeed(ctx,&user.DouyinFeedRequest{
 		UserId: u.(*api.User).ID,
-		// LatestTime: req.LatestTime,
-		Token:  req.Token,
+		LatestTime: req.LatestTime,
+		// Token:  req.Token,
 	})
 	//
 	//SendResponse2(c, feedresponse)

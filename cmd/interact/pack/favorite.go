@@ -1,8 +1,8 @@
 package pack
 
 import (
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
 )
 
 // VideoList pack video list info

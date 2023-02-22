@@ -4,7 +4,7 @@ package db
 import (
 	"context"
 	"fmt"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
 	"gorm.io/gorm"
 )
 

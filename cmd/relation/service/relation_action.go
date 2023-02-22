@@ -7,9 +7,9 @@ import (
 	// "fmt"
 	// "io"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/relation/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 )
 
 type RelationActionService struct {

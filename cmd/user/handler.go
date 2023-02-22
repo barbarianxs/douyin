@@ -3,13 +3,13 @@ package main
 import (
 	"context"
 	// "fmt"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/user/pack"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/user/service"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.

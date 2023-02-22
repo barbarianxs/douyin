@@ -2,10 +2,10 @@ package main
 
 import (
 	"net"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/dal"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation/relationservice"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/mw"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/relation/dal"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation/relationservice"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/mw"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"

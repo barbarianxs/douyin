@@ -1,4 +1,4 @@
-module github.com/YANGJUNYAN0715/douyin/tree/guo
+module github.com/YANGJUNYAN0715/douyin/tree/main
 
 go 1.18
 

@@ -6,10 +6,10 @@ import (
 	// "crypto/md5"
 	// "fmt"
 	// "io"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/cmd/user/pack"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/user/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 )
 
 type PublishActionService struct {

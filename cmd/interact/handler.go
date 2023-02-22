@@ -3,15 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/pack"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/service"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/pack"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/service"
 	"time"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/dal/db"
 	"github.com/cloudwego/kitex/tool/internal_pkg/log"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
-	interact "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/rpc"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
+	interact "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/interact/rpc"
 )
 
 // InteractServiceImpl implements the last service interface defined in the IDL.

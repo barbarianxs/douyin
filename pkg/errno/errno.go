@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
 )
 const (
 	SuccessCode                = 0

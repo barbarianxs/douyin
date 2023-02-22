@@ -3,8 +3,8 @@ package pack
 import (
 	// "time"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/relation/dal/db"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/relation/dal/db"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
 )
 
 // Message pack message info

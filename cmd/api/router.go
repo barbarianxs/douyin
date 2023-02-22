@@ -4,9 +4,9 @@ package main
 
 import (
 	"context"
-	handler "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/api/biz/handler/api"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	handler "github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/handler"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/handler/api"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

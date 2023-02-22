@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 	
 	//"github.com/YANGJUNYAN0715/douyin/tree/zhao/cmd/user/dal/db"
 	//"gorm.io/gorm"

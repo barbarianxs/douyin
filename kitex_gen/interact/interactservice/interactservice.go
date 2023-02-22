@@ -4,7 +4,7 @@ package interactservice
 
 import (
 	"context"
-	interact "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
+	interact "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 )

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	// "gorm.io/gorm"
-	// "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/user"
+	// "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 )
 
 // Video Gorm Data Structures

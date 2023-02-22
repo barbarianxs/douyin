@@ -5,8 +5,8 @@ import (
 	"errors"
 	// "time"
 
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/errno"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/errno"
 )
 // BuildBaseResp build baseResp from error
 func BuildBaseResp(err error) *interact.BaseResp {

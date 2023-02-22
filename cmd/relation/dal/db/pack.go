@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
 	// "log"
 )
 

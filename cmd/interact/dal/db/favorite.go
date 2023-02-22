@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
+	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/gorm"
 	"time"
@@ -33,7 +33,7 @@ func QueryFavoriteByIds(ctx context.Context, currentId int64, videoIds []int64) 
 	return favoriteMap, nil
 }
 
-// CreateFavorite add a record to the favorite table through a transaction, and add the number of video guokes
+// CreateFavorite add a record to the favorite table through a transaction, and add the number of video mainkes
 func CreateFavorite(ctx context.Context, favorite *Favorite, videoId int64) error {
 	DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		err := tx.Table("video").Where("id = ?", videoId).Update("favorite_count", gorm.Expr("favorite_count + ?", 1)).Error
@@ -53,7 +53,7 @@ func CreateFavorite(ctx context.Context, favorite *Favorite, videoId int64) erro
 	return nil
 }
 
-// DeleteFavorite Delete a record in the favorite table and reduce the number of video guokes
+// DeleteFavorite Delete a record in the favorite table and reduce the number of video mainkes
 func DeleteFavorite(ctx context.Context, currentId int64, videoId int64) error {
 	DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		var favorite *Favorite
@@ -253,7 +253,7 @@ func Delete(ctx context.Context, currentId int64, toUserId int64) error {
 
 		err = tx.Table("relation").Where("user_id = ? AND to_user_id = ?", currentId, toUserId).Delete(&relationRaw).Error
 		if err != nil {
-			klog.Error("delete relation record faguo " + err.Error())
+			klog.Error("delete relation record famain " + err.Error())
 			return err
 		}
 		return nil

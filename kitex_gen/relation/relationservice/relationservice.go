@@ -4,7 +4,7 @@ package relationservice
 
 import (
 	"context"
-	relation "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
+	relation "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/relation"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 )
