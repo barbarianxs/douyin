@@ -36,7 +36,7 @@ func MGetVideos(ctx context.Context, limit int, latestTime int64) ([]*Video, err
 	}
 	conn := DB.WithContext(ctx)
 
-	if err := conn.Limit(limit).Order("update_time desc").Find(&videos, "update_time < ?", time.UnixMilli(latestTime)).Error; err != nil {
+	if err := conn.Limit(limit).Order("update_at desc").Find(&videos, "update_at < ?", time.UnixMilli(latestTime)).Error; err != nil {
 		return nil, err
 	}
 	return videos, nil

@@ -27,7 +27,8 @@ func NewGetUserFeedService(ctx context.Context) *GetUserFeedService {
 }
 
 // get user info.
-func (s *GetUserFeedService) GetUserFeed(req *user.DouyinFeedRequest) (vis []*user.Video, nextTime int64, err error) {
+func (s *GetUserFeedService) GetUserFeed(req *user.FeedRequest) (vis []*user.Video, nextTime int64, err error) {
+	log("----------------------kitex feed--------------------------------------")
 	videos, err := db.MGetVideos(s.ctx, LIMIT, req.LatestTime)
 	log.Println("-------------req.LatestTime----------")
 	log.Println(req.LatestTime)

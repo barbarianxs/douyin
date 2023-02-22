@@ -16,6 +16,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"path/filepath"
+	"time"
 )
 
 // LoginUser .
@@ -165,7 +166,7 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 // @router /douyin/feed/ [GET]
 func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.UserInfoRequest
+	var req api.FeedRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
@@ -174,26 +175,40 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	//从token中获取id
 	u, _ := c.Get(consts.IdentityKey)
 	
-	if u == nil {
-		SendResponse(c, errno.Token2UserIdErr, nil)
-		return
-	}
+	// if u == nil {
+	// 	SendResponse(c, errno.Token2UserIdErr, nil)
+	// 	return
+	// }
 	//越权错误
-	if req.UserID != 0 && req.UserID != u.(*api.User).ID {
-		SendResponse(c, errno.BrokenAccessControlErr, nil)
-		return
+	// if req.UserID != 0 && req.UserID != u.(*api.User).ID {
+	// 	SendResponse(c, errno.BrokenAccessControlErr, nil)
+	// 	return
+	// }
+	// if req.UserID == 0 {
+	// 	req.UserID = u.(*api.User).ID
+	// }
+	var user_id int64
+	var token string
+	var latest_time int64
+	user_id = 0
+	if req.Token !=""{
+		user_id = u.(*api.User).ID
+		token = req.Token
 	}
-	if req.UserID == 0 {
-		req.UserID = u.(*api.User).ID
-	}
+	if req.LatestTime == 0{
+		latest_time = time.Now().UnixMilli()
 
+	}else {
+		latest_time = req.LatestTime
+		
+	}
 	log.Println("-------req.UserID-----")
-	log.Println(req.UserID)
+	log.Println(user_id, "--------------------------", token, "--------------------------", latest_time)
 	
-	feedresponse,err := rpc.GetUserFeed(ctx,&user.DouyinFeedRequest{
-		UserId: u.(*api.User).ID,
-		// LatestTime: req.LatestTime,
-		Token:  req.Token,
+	video_list, next_time,err := rpc.GetUserFeed(ctx,&user.FeedRequest{
+		UserId: user_id,
+		LatestTime: latest_time,
+		// Token:  token,
 	})
 	//
 	//SendResponse2(c, feedresponse)
@@ -201,8 +216,9 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, utils.H{
 		"status_code": Err.ErrCode,
 		"status_msg":  Err.ErrMsg,
-		"next_time": feedresponse.NextTime,
-    	"video_list": feedresponse.VideoList,
+		"video_list": video_list,
+		"next_time": next_time,
+    	
 	})
 	return
 }
