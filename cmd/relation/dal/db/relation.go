@@ -5,14 +5,7 @@ import (
 	"context"
 	// "fmt"
 	"time"
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"log"
-=======
->>>>>>> origin/guo
-=======
-	"log"
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/dal/db"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/relation"
@@ -41,15 +34,7 @@ type Message struct {
 	ToUserId   int64  `gorm:"type:varchar(32);not null" json:"to_user_id"`
 	FromUserId int64  `gorm:"type:varchar(32);not null" json:"from_user_id"`
 	Content    string `gorm:"type:varchar(256);not null" json:"content"`
-<<<<<<< HEAD
-<<<<<<< HEAD
 	CreateTime   time.Time   `gorm:"column:create_time;default:null " json:"create_time"`
-=======
-	// CreatedAt   time.Time             `json:"createAt"`
->>>>>>> origin/guo
-=======
-	CreateTime   time.Time   `gorm:"column:create_time;default:null " json:"create_time"`
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	
 	
 }
@@ -65,8 +50,6 @@ type User struct {
 	FollowerCount  int64     `gorm:"default:0" json:"follower_count"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 type Relation struct {
 	gorm.Model
 	ID         int64     `gorm:"column:id;primary_key;AUTO_INCERMENT"`
@@ -84,38 +67,6 @@ type Relation struct {
 // 	UserID   int64  `gorm:"index:idx_userid;not null"`
 // 	ToUserID int64  `gorm:"index:index:idx_userid_to;not null"`
 // }
-=======
-type Follow struct {
-=======
-type Relation struct {
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
-	gorm.Model
-	ID         int64     `gorm:"column:id;primary_key;AUTO_INCERMENT"`
-	// FollowTime time.Time `gorm:"column:follow_time;default:CURRENT_TIMESTAMP;NOT NULL"`
-	FromUserID int64     `gorm:"column:from_user_id;NOT NULL"`
-	ToUserID   int64     `gorm:"column:to_user_id;NOT NULL"`
-	// CreateTime int64  `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
-	// UpdateTime time.Time `gorm:"column:create_time;default:CURRENT_TIMESTAMP;NOT NULL"`
-}
-
-<<<<<<< HEAD
-// Relation表 记录关注关系
-// 不设置外键 提高效率 通过程序保证参照完整性
-type Relation struct {
-	gorm.Model
-	UserID   int64  `gorm:"index:idx_userid;not null"`
-	ToUserID int64  `gorm:"index:index:idx_userid_to;not null"`
-}
->>>>>>> origin/guo
-=======
-// // Relation表 记录关注关系
-// // 不设置外键 提高效率 通过程序保证参照完整性
-// type Relation struct {
-// 	gorm.Model
-// 	UserID   int64  `gorm:"index:idx_userid;not null"`
-// 	ToUserID int64  `gorm:"index:index:idx_userid_to;not null"`
-// }
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 
 func (u *Relation) TableName() string {
@@ -131,15 +82,7 @@ func (u *Message) TableName() string {
 func GetRelation(ctx context.Context, uid int64, tid int64) (*Relation, error) {
 	relations := new(Relation)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	if err := DB.WithContext(ctx).First(&relations, "from_user_id = ? and to_user_id = ?", uid, tid).Error; err != nil {
-=======
-	if err := DB.WithContext(ctx).First(&relations, "user_id = ? and to_user_id = ?", uid, tid).Error; err != nil {
->>>>>>> origin/guo
-=======
-	if err := DB.WithContext(ctx).First(&relations, "from_user_id = ? and to_user_id = ?", uid, tid).Error; err != nil {
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		return nil, err
 	}
 	return relations, nil
@@ -168,29 +111,13 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作
 		// 1. 新增关注数据
-<<<<<<< HEAD
-<<<<<<< HEAD
 		err := tx.Create(&Relation{FromUserID: uid, ToUserID: tid}).Error
-=======
-		err := tx.Create(&Relation{UserID: uid, ToUserID: tid}).Error
->>>>>>> origin/guo
-=======
-		err := tx.Create(&Relation{FromUserID: uid, ToUserID: tid}).Error
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if err != nil {
 			return err
 		}
 
 		// 2.改变 user 表中的 following count
-<<<<<<< HEAD
-<<<<<<< HEAD
 		res := tx.Table(consts.UserTableName).Where("id = ?", uid).Update("follow_count", gorm.Expr("follow_count + ?", 1))
-=======
-		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("following_count", gorm.Expr("following_count + ?", 1))
->>>>>>> origin/guo
-=======
-		res := tx.Table(consts.UserTableName).Where("id = ?", uid).Update("follow_count", gorm.Expr("follow_count + ?", 1))
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if res.Error != nil {
 			return res.Error
 		}
@@ -200,15 +127,7 @@ func NewAction(ctx context.Context, uid int64, tid int64) error {
 		}
 
 		// 3.改变 user 表中的 follower count
-<<<<<<< HEAD
-<<<<<<< HEAD
 		res = tx.Table(consts.UserTableName).Where("id = ?", tid).Update("follower_count", gorm.Expr("follower_count + ?", 1))
-=======
-		res = tx.Table(consts.UserTableName).Where("ID = ?", tid).Update("follower_count", gorm.Expr("follower_count + ?", 1))
->>>>>>> origin/guo
-=======
-		res = tx.Table(consts.UserTableName).Where("id = ?", tid).Update("follower_count", gorm.Expr("follower_count + ?", 1))
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if res.Error != nil {
 			return res.Error
 		}
@@ -227,15 +146,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作
 		relations := new(Relation)
-<<<<<<< HEAD
-<<<<<<< HEAD
 		if err := tx.Where("from_user_id = ? AND to_user_id=?", uid, tid).First(&relations).Error; err != nil {
-=======
-		if err := tx.Where("user_id = ? AND to_user_id=?", uid, tid).First(&relations).Error; err != nil {
->>>>>>> origin/guo
-=======
-		if err := tx.Where("from_user_id = ? AND to_user_id=?", uid, tid).First(&relations).Error; err != nil {
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			return err
 		}
 
@@ -245,15 +156,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 			return err
 		}
 		// 2.改变 user 表中的 following count
-<<<<<<< HEAD
-<<<<<<< HEAD
 		res := tx.Table(consts.UserTableName).Where("id = ?", uid).Update("follow_count", gorm.Expr("follow_count - ?", 1))
-=======
-		res := tx.Table(consts.UserTableName).Where("ID = ?", uid).Update("following_count", gorm.Expr("following_count - ?", 1))
->>>>>>> origin/guo
-=======
-		res := tx.Table(consts.UserTableName).Where("id = ?", uid).Update("follow_count", gorm.Expr("follow_count - ?", 1))
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if res.Error != nil {
 			return res.Error
 		}
@@ -263,15 +166,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 		}
 
 		// 3.改变 user 表中的 follower count
-<<<<<<< HEAD
-<<<<<<< HEAD
 		res = tx.Table(consts.UserTableName).Where("id = ?", tid).Update("follower_count", gorm.Expr("follower_count - ?", 1))
-=======
-		res = tx.Table(consts.UserTableName).Where("ID = ?", tid).Update("follower_count", gorm.Expr("follower_count - ?", 1))
->>>>>>> origin/guo
-=======
-		res = tx.Table(consts.UserTableName).Where("id = ?", tid).Update("follower_count", gorm.Expr("follower_count - ?", 1))
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 		if res.Error != nil {
 			return res.Error
 		}
@@ -288,15 +183,7 @@ func DelAction(ctx context.Context, uid int64, tid int64) error {
 // RelationFollowList returns the Following List.
 func RelationFollowList(ctx context.Context, uid int64) ([]*relation.User, error) {
 	var RelationList []*Relation
-<<<<<<< HEAD
-<<<<<<< HEAD
 	err := DB.WithContext(ctx).Where("from_user_id = ?", uid).Find(&RelationList).Error
-=======
-	err := DB.WithContext(ctx).Where("user_id = ?", uid).Find(&RelationList).Error
->>>>>>> origin/guo
-=======
-	err := DB.WithContext(ctx).Where("from_user_id = ?", uid).Find(&RelationList).Error
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if err != nil {
 		return nil, err
 	}
@@ -321,15 +208,7 @@ func RelationFollowerList(ctx context.Context, tid int64) ([]*relation.User, err
 	}
 	userIDs :=make([]int64,0)
 	for _,u := range RelationList{
-<<<<<<< HEAD
-<<<<<<< HEAD
 		userIDs= append(userIDs,int64(u.FromUserID))
-=======
-		userIDs= append(userIDs,int64(u.UserID))
->>>>>>> origin/guo
-=======
-		userIDs= append(userIDs,int64(u.FromUserID))
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	}
 	users, err := MGetUsers(ctx,userIDs)
 	if err != nil {
@@ -343,15 +222,7 @@ func RelationFollowerList(ctx context.Context, tid int64) ([]*relation.User, err
 func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, error) {
 	var LRelationList []*Relation //关注者
 	var RRelationList []*Relation //粉丝
-<<<<<<< HEAD
-<<<<<<< HEAD
 	err := DB.WithContext(ctx).Where("from_user_id = ?", id).Find(&LRelationList).Error
-=======
-	err := DB.WithContext(ctx).Where("user_id = ?", id).Find(&LRelationList).Error
->>>>>>> origin/guo
-=======
-	err := DB.WithContext(ctx).Where("from_user_id = ?", id).Find(&LRelationList).Error
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	if err != nil {
 		return nil, err
 	}
@@ -363,29 +234,13 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 	LuserIDs :=make([]int64,0)
 	for _,u := range LRelationList{
 		LuserIDs= append(LuserIDs,int64(u.ToUserID))
-<<<<<<< HEAD
-<<<<<<< HEAD
 		log.Println(LuserIDs)
-=======
->>>>>>> origin/guo
-=======
-		log.Println(LuserIDs)
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	}
 
 	RuserIDs :=make([]int64,0)
 	for _,u := range RRelationList{
-<<<<<<< HEAD
-<<<<<<< HEAD
 		RuserIDs= append(RuserIDs,int64(u.FromUserID))
 		log.Println(RuserIDs)
-=======
-		RuserIDs= append(RuserIDs,int64(u.UserID))
->>>>>>> origin/guo
-=======
-		RuserIDs= append(RuserIDs,int64(u.FromUserID))
-		log.Println(RuserIDs)
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	}
 	userIDs :=make([]int64,0)
 
@@ -398,15 +253,7 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 			userIDs = append(userIDs,v)
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 	log.Println(userIDs)
-=======
-	// log.Println(userIDs)
->>>>>>> origin/guo
-=======
-	log.Println(userIDs)
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	users, err := MGetUsers(ctx,userIDs)
 	if err != nil {
 		return nil, err
@@ -419,26 +266,11 @@ func RelationFriendList(ctx context.Context, id int64) ([]*relation.FriendUser, 
 func MGetMessages(ctx context.Context, uid int64, toUId int64) ([]*Message, error) {
 	res := make([]*Message, 0)
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
 	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ? AND to_user_id = ? Or from_user_id = ? AND to_user_id = ?", uid, toUId, toUId, uid).Order("id desc").Scan(&res).Error; err != nil{
 		return nil, err
 	}
 	
 	// log.Println(":::::::::::::::::::::::::::::::", res)
-=======
-	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ?", uid).Where("to_user_id = ?", toUId).Order("id desc").Scan(&res).Error; err != nil{
-		return nil, err
-	}
-
->>>>>>> origin/guo
-=======
-	if err := DB.WithContext(ctx).Model(&Message{}).Where("from_user_id = ? AND to_user_id = ? Or from_user_id = ? AND to_user_id = ?", uid, toUId, toUId, uid).Order("id desc").Scan(&res).Error; err != nil{
-		return nil, err
-	}
-	
-	// log.Println(":::::::::::::::::::::::::::::::", res)
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	// if offset == 0{
 	// 	sort.Slice(res, func(i, j int) bool {
 	// 		return res[i]["id"].(uint32) < res[j]["id"].(uint32)
@@ -448,30 +280,13 @@ func MGetMessages(ctx context.Context, uid int64, toUId int64) ([]*Message, erro
 }
 
 // CreateMessage create message info
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func CreateMessage(ctx context.Context, message *Message) error {
 	log.Println(message)
 	if err := DB.WithContext(ctx).Create(message).Error; err != nil {
 		log.Println(err)
-<<<<<<< HEAD
 		return err
 	}
 	log.Println("++++++++++++++++++++++++++++++",message)
-=======
-func CreateMessage(ctx context.Context, messages []*Message) error {
-	
-	if err := DB.WithContext(ctx).Create(messages).Error; err != nil {
-		return err
-	}
->>>>>>> origin/guo
-=======
-		return err
-	}
-	log.Println("++++++++++++++++++++++++++++++",message)
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	return nil
 }
 

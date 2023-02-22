@@ -23,7 +23,6 @@ var (
 	_ = bthrift.BinaryWriter(nil)
 )
 
-<<<<<<< HEAD
 func (p *BaseResp) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
@@ -250,8 +249,6 @@ func (p *BaseResp) field3Length() int {
 	return l
 }
 
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *FavoriteActionRequest) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int

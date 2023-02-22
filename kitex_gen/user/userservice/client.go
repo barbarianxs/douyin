@@ -17,10 +17,7 @@ type Client interface {
 	UserInfo(ctx context.Context, req *user.UserInfoRequest, callOptions ...callopt.Option) (r *user.UserInfoResponse, err error)
 	PublishAction(ctx context.Context, req *user.PublishActionRequest, callOptions ...callopt.Option) (r *user.PublishActionResponse, err error)
 	PublishList(ctx context.Context, req *user.PublishListRequest, callOptions ...callopt.Option) (r *user.PublishListResponse, err error)
-<<<<<<< HEAD
 	GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest, callOptions ...callopt.Option) (r *user.DouyinFeedResponse, err error)
-=======
->>>>>>> origin/guo
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -81,11 +78,8 @@ func (p *kUserServiceClient) PublishList(ctx context.Context, req *user.PublishL
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.PublishList(ctx, req)
 }
-<<<<<<< HEAD
 
 func (p *kUserServiceClient) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest, callOptions ...callopt.Option) (r *user.DouyinFeedResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserFeed(ctx, req)
 }
-=======
->>>>>>> origin/guo

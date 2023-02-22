@@ -96,10 +96,6 @@ func RelationFriendList(ctx context.Context, req *relation.RelationFriendListReq
 	}
 	return resp.UserList, nil
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 
 
 
@@ -126,10 +122,4 @@ func MessageAction(ctx context.Context, req *relation.MessageActionRequest) erro
 		return errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
 	return nil
-<<<<<<< HEAD
 }
-=======
->>>>>>> origin/guo
-=======
-}
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a

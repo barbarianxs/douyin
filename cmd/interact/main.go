@@ -1,7 +1,6 @@
 package main
 
 import (
-<<<<<<< HEAD
 	"net"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/interact/dal"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact/interactservice"
@@ -55,18 +54,3 @@ func main() {
 	}
 }
 
-=======
-	interact "github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact/interact/interact/interactservice"
-	"log"
-)
-
-func main() {
-	svr := interact.NewServer(new(InteractServiceImpl))
-
-	err := svr.Run()
-
-	if err != nil {
-		log.Println(err.Error())
-	}
-}
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a

@@ -20,7 +20,6 @@ func Register(r *server.Hertz) {
 	{
 		_douyin := root.Group("/douyin", _douyinMw()...)
 		{
-<<<<<<< HEAD
 			_comment := _douyin.Group("/comment", _commentMw()...)
 			{
 				_action := _comment.Group("/action", _actionMw()...)
@@ -51,12 +50,6 @@ func Register(r *server.Hertz) {
 			{
 				_action1 := _message.Group("/action", _action1Mw()...)
 				_action1.POST("/", append(_message_ctionMw(), api.MessageAction)...)
-=======
-			_message := _douyin.Group("/message", _messageMw()...)
-			{
-				_action := _message.Group("/action", _actionMw()...)
-				_action.POST("/", append(_message_ctionMw(), api.MessageAction)...)
->>>>>>> origin/guo
 			}
 			{
 				_chat := _message.Group("/chat", _chatMw()...)
@@ -66,68 +59,39 @@ func Register(r *server.Hertz) {
 		{
 			_publish := _douyin.Group("/publish", _publishMw()...)
 			{
-<<<<<<< HEAD
 				_action2 := _publish.Group("/action", _action2Mw()...)
 				_action2.POST("/", append(_publish_ctionMw(), api.PublishAction)...)
 			}
 			{
 				_list1 := _publish.Group("/list", _list1Mw()...)
 				_list1.GET("/", append(_publishlistMw(), api.PublishList)...)
-=======
-				_action0 := _publish.Group("/action", _action0Mw()...)
-				_action0.POST("/", append(_publish_ctionMw(), api.PublishAction)...)
-			}
-			{
-				_list := _publish.Group("/list", _listMw()...)
-				_list.GET("/", append(_publishlistMw(), api.PublishList)...)
->>>>>>> origin/guo
 			}
 		}
 		{
 			_relation := _douyin.Group("/relation", _relationMw()...)
 			{
-<<<<<<< HEAD
 				_action3 := _relation.Group("/action", _action3Mw()...)
 				_action3.POST("/", append(_relation_ctionMw(), api.RelationAction)...)
-=======
-				_action1 := _relation.Group("/action", _action1Mw()...)
-				_action1.POST("/", append(_relation_ctionMw(), api.RelationAction)...)
->>>>>>> origin/guo
 			}
 			{
 				_follow := _relation.Group("/follow", _followMw()...)
 				{
-<<<<<<< HEAD
 					_list2 := _follow.Group("/list", _list2Mw()...)
 					_list2.GET("/", append(_relationfollowlistMw(), api.RelationFollowList)...)
-=======
-					_list0 := _follow.Group("/list", _list0Mw()...)
-					_list0.GET("/", append(_relationfollowlistMw(), api.RelationFollowList)...)
->>>>>>> origin/guo
 				}
 			}
 			{
 				_follower := _relation.Group("/follower", _followerMw()...)
 				{
-<<<<<<< HEAD
 					_list3 := _follower.Group("/list", _list3Mw()...)
 					_list3.GET("/", append(_relationfollowerlistMw(), api.RelationFollowerList)...)
-=======
-					_list1 := _follower.Group("/list", _list1Mw()...)
-					_list1.GET("/", append(_relationfollowerlistMw(), api.RelationFollowerList)...)
->>>>>>> origin/guo
 				}
 			}
 			{
 				_friend := _relation.Group("/friend", _friendMw()...)
 				{
-<<<<<<< HEAD
 					_list4 := _friend.Group("/list", _list4Mw()...)
 					_list4.GET("/", append(_relationfriendlistMw(), api.RelationFriendList)...)
-=======
-					_list2 := _friend.Group("/list", _list2Mw()...)
-					_list2.GET("/", append(_relationfriendlistMw(), api.RelationFriendList)...)
->>>>>>> origin/guo
 				}
 			}
 		}

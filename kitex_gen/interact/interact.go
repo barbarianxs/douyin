@@ -9,7 +9,6 @@ import (
 	"strings"
 )
 
-<<<<<<< HEAD
 type BaseResp struct {
 	StatusCode  int32  `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
 	StatusMsg   string `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
@@ -292,8 +291,6 @@ func (p *BaseResp) Field3DeepEqual(src int64) bool {
 	return true
 }
 
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 type FavoriteActionRequest struct {
 	UserId     int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
 	Token      string `thrift:"token,2" frugal:"2,default,string" json:"token"`

@@ -2,11 +2,7 @@ package db
 
 import (
 	"context"
-<<<<<<< HEAD
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-=======
-	"github.com/YANGJUNYAN0715/douyin/tree/li/pkg/consts"
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/gorm"
 	"time"
@@ -37,11 +33,7 @@ func QueryFavoriteByIds(ctx context.Context, currentId int64, videoIds []int64) 
 	return favoriteMap, nil
 }
 
-<<<<<<< HEAD
 // CreateFavorite add a record to the favorite table through a transaction, and add the number of video guokes
-=======
-// CreateFavorite add a record to the favorite table through a transaction, and add the number of video likes
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func CreateFavorite(ctx context.Context, favorite *Favorite, videoId int64) error {
 	DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		err := tx.Table("video").Where("id = ?", videoId).Update("favorite_count", gorm.Expr("favorite_count + ?", 1)).Error
@@ -61,11 +53,7 @@ func CreateFavorite(ctx context.Context, favorite *Favorite, videoId int64) erro
 	return nil
 }
 
-<<<<<<< HEAD
 // DeleteFavorite Delete a record in the favorite table and reduce the number of video guokes
-=======
-// DeleteFavorite Delete a record in the favorite table and reduce the number of video likes
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func DeleteFavorite(ctx context.Context, currentId int64, videoId int64) error {
 	DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		var favorite *Favorite
@@ -141,18 +129,12 @@ func QueryVideoByVideoIds(ctx context.Context, videoIds []int64) ([]*Video, erro
 
 type User struct {
 	gorm.Model
-<<<<<<< HEAD
 	Username string `json:"username"`
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 	Name          string `gorm:"column:name;index:idx_username,unique;type:varchar(32);not null"`
 	Password      string `gorm:"column:password;type:varchar(32);not null"`
 	FollowCount   int64  `gorm:"column:follow_count;default:0"`
 	FollowerCount int64  `gorm:"column:follower_count;default:0"`
-<<<<<<< HEAD
 	IsFollow      bool   `json:"is_follow"`
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 }
 
 func (User) TableName() string {
@@ -271,11 +253,7 @@ func Delete(ctx context.Context, currentId int64, toUserId int64) error {
 
 		err = tx.Table("relation").Where("user_id = ? AND to_user_id = ?", currentId, toUserId).Delete(&relationRaw).Error
 		if err != nil {
-<<<<<<< HEAD
 			klog.Error("delete relation record faguo " + err.Error())
-=======
-			klog.Error("delete relation record fali " + err.Error())
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 			return err
 		}
 		return nil

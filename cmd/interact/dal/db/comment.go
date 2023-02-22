@@ -2,11 +2,7 @@ package db
 
 import (
 	"context"
-<<<<<<< HEAD
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
-=======
-	"github.com/YANGJUNYAN0715/douyin/tree/zhao/pkg/consts"
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 )
 
 type Comment struct {

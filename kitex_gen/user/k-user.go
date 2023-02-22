@@ -3896,7 +3896,6 @@ func (p *PublishListResponse) field3Length() int {
 	return l
 }
 
-<<<<<<< HEAD
 func (p *DouyinFeedRequest) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
@@ -4598,8 +4597,6 @@ func (p *VideoIdRequest) field2Length() int {
 	return l
 }
 
-=======
->>>>>>> origin/guo
 func (p *UserServiceLoginUserArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
@@ -6148,7 +6145,6 @@ func (p *UserServicePublishListResult) field0Length() int {
 	return l
 }
 
-<<<<<<< HEAD
 func (p *UserServiceGetUserFeedArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
@@ -6407,8 +6403,6 @@ func (p *UserServiceGetUserFeedResult) field0Length() int {
 	return l
 }
 
-=======
->>>>>>> origin/guo
 func (p *UserServiceLoginUserArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
@@ -6456,7 +6450,6 @@ func (p *UserServicePublishListArgs) GetFirstArgument() interface{} {
 func (p *UserServicePublishListResult) GetResult() interface{} {
 	return p.Success
 }
-<<<<<<< HEAD
 
 func (p *UserServiceGetUserFeedArgs) GetFirstArgument() interface{} {
 	return p.Req
@@ -6465,5 +6458,3 @@ func (p *UserServiceGetUserFeedArgs) GetFirstArgument() interface{} {
 func (p *UserServiceGetUserFeedResult) GetResult() interface{} {
 	return p.Success
 }
-=======
->>>>>>> origin/guo

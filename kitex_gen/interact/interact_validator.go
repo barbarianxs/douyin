@@ -21,12 +21,9 @@ var (
 	_ = time.Nanosecond
 )
 
-<<<<<<< HEAD
 func (p *BaseResp) IsValid() error {
 	return nil
 }
-=======
->>>>>>> 2f592bb30236c8349ec8e629984207ec905ef48a
 func (p *FavoriteActionRequest) IsValid() error {
 	return nil
 }

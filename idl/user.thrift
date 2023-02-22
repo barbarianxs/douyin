@@ -113,7 +113,6 @@ struct PublishListResponse {
     3: list<Video> video_list;
 }
 
-<<<<<<< HEAD
 
 
 struct douyin_feed_request {
@@ -141,8 +140,6 @@ struct video_id_request{
 
 
 
-=======
->>>>>>> origin/guo
 service UserService {
     LoginUserResponse LoginUser(1: LoginUserRequest req)
     LogoutUserResponse LogoutUser(1: LogoutUserRequest req)
@@ -150,8 +147,5 @@ service UserService {
     UserInfoResponse UserInfo(1: UserInfoRequest req)
     PublishActionResponse PublishAction(1: PublishActionRequest req)
     PublishListResponse PublishList(1: PublishListRequest req)
-<<<<<<< HEAD
     douyin_feed_response GetUserFeed (1:douyin_feed_request req)
-=======
->>>>>>> origin/guo
 }
