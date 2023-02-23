@@ -31,7 +31,11 @@ func (s *GetUserFeedService) GetUserFeed(req *user.FeedRequest) (vis []*user.Vid
 	videos, err := db.MGetVideos(s.ctx, LIMIT, req.LatestTime)
 	log.Println("-------------req.LatestTime----------")
 	log.Println(req.LatestTime)
-	log.Println(videos[0])
+
+
+	log.Println(videos)
+
+
 	if err != nil {
 		return vis, nextTime, err
 	}

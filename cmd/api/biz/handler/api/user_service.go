@@ -9,6 +9,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/rpc"
 	"log"
+	"time"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 	// "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/message"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
@@ -164,7 +165,7 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 // GetUserFeed .
 // @router /douyin/feed/ [GET]
 func GetUserFeed(ctx context.Context, c *app.RequestContext) {
-	log.Println("*********************************************feed*****************************************")
+	log.Println("-------------------------------------------------hertz feed----------------------------------------------------")
 	var err error
 	var req api.FeedRequest
 	err = c.BindAndValidate(&req)
@@ -187,23 +188,38 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	// if req.UserID == 0 {
 	// 	req.UserID = u.(*api.User).ID
 	// }
+	var user_id int64
+	var token string
+	var latest_time int64
+	user_id = 0
+	if req.Token !=""{
+		user_id = u.(*api.User).ID
+		token = req.Token
+	}
+	if req.LatestTime == 0{
+		latest_time = time.Now().UnixMilli()
 
+	}else {
+		latest_time = req.LatestTime
+		
+	}
 	log.Println("-------req.UserID-----")
-	log.Println(req.UserID)
+	log.Println(user_id, "--------------------------", token, "--------------------------", latest_time)
 	
-	feedresponse,err := rpc.GetUserFeed(ctx,&user.FeedRequest{
-		UserId: u.(*api.User).ID,
-		LatestTime: req.LatestTime,
-		// Token:  req.Token,
+	feed, err := rpc.GetUserFeed(ctx,&user.FeedRequest{
+		UserId: user_id,
+		LatestTime: latest_time,
+		// Token:  token,
 	})
-	//
+	log.Println(feed, "---+++++++++++++++++++++++++++++++++++++++----feed--+++++++++++++++++++++++++---")
 	//SendResponse2(c, feedresponse)
 	Err := errno.ConvertErr(errno.Success)
-	c.JSON(consts.StatusOK, utils.H{
+	c.JSON(200, utils.H{
 		"status_code": Err.ErrCode,
 		"status_msg":  Err.ErrMsg,
-		"next_time": feedresponse.NextTime,
-    	"video_list": feedresponse.VideoList,
+		"video_list": feed.VideoList,
+		"next_time": feed.NextTime,
+    	
 	})
-	return
+	
 }

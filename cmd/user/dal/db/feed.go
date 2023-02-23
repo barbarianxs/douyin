@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 	"time"
-
+	"log"
 	// "gorm.io/gorm"
 	// "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 )
@@ -29,7 +29,7 @@ import (
 // MGetVideoss multiple get list of videos info
 func MGetVideos(ctx context.Context, limit int, latestTime int64) ([]*Video, error) {
 	videos := make([]*Video, 0)
-
+	log.Println("++++++++++++++++++++++++",latestTime,"++++++++++++++++++++++++")
 	if latestTime == 0 {
 		cur_time := int64(time.Now().UnixMilli())
 		latestTime = cur_time

@@ -166,6 +166,7 @@ func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.FeedRequest
 	//uid = req.Userid
 	// log.Println("--------uid------------")
 	// log.Println(uid)
+	resp = new(user.FeedResponse)
 	vis, nextTime, err := service.NewGetUserFeedService(ctx).GetUserFeed(req)
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(err).StatusCode
