@@ -72,7 +72,7 @@ struct CommentListRequest {
 }
 struct CommentListResponse {
     1: i32 status_code  // 状态码，0-成功，其他值-失败
-    2:  string status_msg  // 返回状态描述
+    2: string status_msg  // 返回状态描述
     3: list<Comment> comment_list  // 评论列表
 }
 

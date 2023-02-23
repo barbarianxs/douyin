@@ -63,12 +63,12 @@ func interactListbaseResp(err errno.ErrNo) *interact.FavoriteListResponse {
 	return &interact.FavoriteListResponse{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
 }
 
-func packErr1(err error) *interact.CommentActionResponse {
+func Err1(err error) *interact.CommentActionResponse {
 	msg := err.Error()
 	return &interact.CommentActionResponse{StatusCode: errno.CommentError, StatusMsg: msg}
 }
 
-func packErr2(err error) *interact.CommentListResponse {
+func Err2(err error) *interact.CommentListResponse {
 	msg := err.Error()
 	return &interact.CommentListResponse{StatusCode: errno.SuccessCode, StatusMsg: msg,
 		CommentList: []*interact.Comment{}}

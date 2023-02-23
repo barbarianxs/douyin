@@ -66,3 +66,19 @@ func Videos(vs []*db.Video, author *db.User) []*interact.Video {
 	return videos
 }
 
+
+// Comment pack interact info
+func Comment(c *db.Comment, u *db.User) *interact.Comment {
+	if u == nil {
+		return nil
+	}
+
+	return &interact.Comment{
+		Id: int64(c.ID), 
+		User: User(u),
+		// VideoId: int64(c.VideoId),
+		Content: string(c.Content),
+		CreateDate: string(c.CreateDate),
+		
+		}
+}

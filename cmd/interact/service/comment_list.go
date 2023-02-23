@@ -11,6 +11,7 @@ import (
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/jwt"
 	"sync"
 	"log"
+	"fmt"
 )
 
 type CommentListService struct {
@@ -24,12 +25,12 @@ func NewCommentListService(ctx context.Context) *CommentListService {
 
 // CommentList get video information that users guoke
 func (s *CommentListService) CommentList(req *interact.CommentListRequest) ([]*interact.Video, error) {
-	log.Info("get interact list req", *req)
+	// log.QueryUserInfo("get interact list req", *req)
 	// TODO: Your code here...
-	resp = new(interact.CommentListResponse)
+	
 	cmts, err := db.QueryComments(s.ctx, int64(req.VideoId))
 	if err != nil {
-		return packErr2(err), nil
+		return nil, err
 	}
 	res := []*interact.Comment{}
 	for _, c := range cmts {
@@ -38,8 +39,9 @@ func (s *CommentListService) CommentList(req *interact.CommentListRequest) ([]*i
 		if err != nil {
 			return nil, err
 		}
-		tmp := &interact.Comment{Id: int64(c.ID), Content: c.Content,
-			CreateDate: c.CreateDate, User: user}
+		// tmp := &interact.Comment{Id: int64(c.ID), Content: c.Content,
+		// 	CreateDate: c.CreateDate, User: user}
+		tmp :=	pcak.Comment(c, user)
 		res = append(res, tmp)
 	}
 	return &interact.CommentListResponse{StatusCode: errno.SuccessCode, CommentList: res}, nil

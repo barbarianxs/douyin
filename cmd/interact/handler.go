@@ -66,7 +66,7 @@ func (s *InteractServiceImpl) CommentAction(ctx context.Context, req *interact.C
 	resp = new(interact.CommentActionResponse)
 
 
-	comment, err = service.NewCommentActionService(ctx).CommentAction(req)
+	comment, err := service.NewCommentActionService(ctx).CommentAction(req)
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(errno.ParamErr).StatusCode
 		resp.StatusMsg = pack.BuildBaseResp(errno.ParamErr).StatusMsg
