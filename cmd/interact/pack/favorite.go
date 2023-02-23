@@ -9,7 +9,7 @@ import (
 func VideoList(currentId int64, videoData []*db.Video, userMap map[int64]*db.User, favoriteMap map[int64]*db.Favorite, relationMap map[int64]*db.Relation) []*interact.Video {
 	videoList := make([]*interact.Video, 0)
 	for _, video := range videoData {
-		videoUser, ok := userMap[video.UserId]
+		videoUser, ok := userMap[video.AuthorID]
 		if !ok {
 			videoUser = &db.User{
 				Name:          "未知用户",
@@ -27,7 +27,7 @@ func VideoList(currentId int64, videoData []*db.Video, userMap map[int64]*db.Use
 			if ok {
 				isFavorite = true
 			}
-			_, ok = relationMap[video.UserId]
+			_, ok = relationMap[video.AuthorID]
 			if ok {
 				isFollow = true
 			}

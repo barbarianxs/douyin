@@ -7,6 +7,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/kitex_gen/interact"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/jwt"
+	"log"
 )
 
 type FavoriteActionService struct {
@@ -26,8 +27,9 @@ func (s *FavoriteActionService) FavoriteAction(req *interact.FavoriteActionReque
 	// 	return err
 	// }
 	// req.UserId := claim.Id
-
+	log.Println("------------------------",req.VideoId,"-----------------------")
 	videos, err := db.QueryVideoByVideoIds(s.ctx, []int64{req.VideoId})
+	log.Println("------------------------",videos[0],"-----------------------")
 	if err != nil {
 		return err
 	}

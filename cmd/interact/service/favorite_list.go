@@ -9,6 +9,7 @@ import (
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	// "github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/jwt"
 	"sync"
+	"log"
 )
 
 type FavoriteListService struct {
@@ -25,7 +26,7 @@ func (s *FavoriteListService) FavoriteList(req *interact.FavoriteListRequest) ([
 	//获取用户id
 	// Jwt := jwt.NewJWT([]byte(consts.SecretKey))
 	// req.UserId, _ := Jwt.CheckToken(req.Token)
-
+	log.Println("1===============================",req.UserId,"==================================")
 	//检查用户是否存在
 	user, err := db.QueryUserByIds(s.ctx, []int64{req.UserId})
 	if err != nil {
@@ -40,19 +41,19 @@ func (s *FavoriteListService) FavoriteList(req *interact.FavoriteListRequest) ([
 	if err != nil {
 		return nil, err
 	}
-
+	log.Println("2===============================",videoIds[0],"==================================")
 	//获取点赞视频的信息
 	videoData, err := db.QueryVideoByVideoIds(s.ctx, videoIds)
 	if err != nil {
 		return nil, err
 	}
-
+	log.Println("3===============================",videoData,"==================================")
 	//获取点赞视频的用户id号
 	userIds := make([]int64, 0)
 	for _, video := range videoData {
-		userIds = append(userIds, video.UserId)
+		userIds = append(userIds, video.AuthorID)
 	}
-
+	log.Println("4===============================",userIds,"==================================")
 	//获取点赞视频的用户信息
 	users, err := db.QueryUserByIds(s.ctx, userIds)
 	if err != nil {
@@ -100,7 +101,7 @@ func (s *FavoriteListService) FavoriteList(req *interact.FavoriteListRequest) ([
 		}
 
 	}
-
+	log.Println("4===============================",userIds,"==================================")
 	videoList := pack.VideoList(req.UserId, videoData, userMap, interactMap, relationMap)
 	return videoList, nil
 

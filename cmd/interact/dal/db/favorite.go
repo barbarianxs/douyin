@@ -5,7 +5,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/gorm"
-	"time"
+	// "time"
 )
 
 type Favorite struct {
@@ -14,10 +14,12 @@ type Favorite struct {
 	VideoId int64 `gorm:"column:video_id;not null;index:idx_videoid"`
 }
 
-func (Favorite) TableName() string {
-	return "favorite"
+// func (Favorite) TableName() string {
+// 	return "favorite"
+// }
+func (f *Favorite) TableName() string {
+	return consts.FavoriteTableName
 }
-
 // 根据当前用户id和视频id获取点赞信息
 func QueryFavoriteByIds(ctx context.Context, currentId int64, videoIds []int64) (map[int64]*Favorite, error) {
 	var favorites []*Favorite
@@ -88,45 +90,6 @@ func QueryFavoriteById(ctx context.Context, userId int64) ([]int64, error) {
 	return videoIds, nil
 }
 
-// Video Gorm Data Structures
-type Video struct {
-	gorm.Model
-	UserId        int64     `gorm:"column:user_id;not null;index:idx_userid"`
-	Title         string    `gorm:"column:title;type:varchar(128);not null"`
-	PlayUrl       string    `gorm:"column:play_url;varchar(128);not null"`
-	CoverUrl      string    `gorm:"column:cover_url;varchar(128);not null"`
-	FavoriteCount int64     `gorm:"column:favorite_count;default:0"`
-	CommentCount  int64     `gorm:"column:comment_count;default:0"`
-	UpdatedAt     time.Time `gorm:"column:update_time;not null;index:idx_update"`
-}
-
-func (v *Video) TableName() string {
-	return consts.VideoTableName
-}
-
-// QueryVideoByLatestTime query video info by latest create Time
-func QueryVideoByLatestTime(ctx context.Context, latestTime int64) ([]*Video, error) {
-	var videos []*Video
-	time := time.UnixMilli(latestTime)
-	err := DB.WithContext(ctx).Limit(30).Order("update_time desc").Where("update_time < ?", time).Find(&videos).Error
-	if err != nil {
-		klog.Error("QueryVideoByLatestTime find video error " + err.Error())
-		return videos, err
-	}
-	return videos, nil
-}
-
-// QueryVideoByVideoIds query video info by video ids
-func QueryVideoByVideoIds(ctx context.Context, videoIds []int64) ([]*Video, error) {
-	var videos []*Video
-	err := DB.WithContext(ctx).Where("id in (?)", videoIds).Find(&videos).Error
-	if err != nil {
-		klog.Error("QueryVideoByVideoIds error " + err.Error())
-		return nil, err
-	}
-	return videos, nil
-}
-
 type User struct {
 	gorm.Model
 	Username string `json:"username"`
@@ -193,7 +156,7 @@ func (Relation) TableName() string {
 // 根据当前用户id和目标用户id获取关注信息
 func QueryRelationByIds(ctx context.Context, currentId int64, userIds []int64) (map[int64]*Relation, error) {
 	var relations []*Relation
-	err := DB.WithContext(ctx).Where("user_id = ? AND to_user_id IN ?", currentId, userIds).Find(&relations).Error
+	err := DB.WithContext(ctx).Where("from_user_id = ? AND to_user_id IN ?", currentId, userIds).Find(&relations).Error
 	if err != nil {
 		klog.Error("query relation by ids " + err.Error())
 		return nil, err
