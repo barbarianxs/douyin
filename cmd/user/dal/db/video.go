@@ -4,7 +4,7 @@ package db
 import (
 	"context"
 	// "fmt"
-	// "time"
+	"time"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/pkg/consts"
 	"gorm.io/gorm"
 )
@@ -18,6 +18,8 @@ type Video struct {
 	FavoriteCount int64     `gorm:"column:favorite_count;default:0"`
 	CommentCount  int64     `gorm:"column:comment_count;default:0"`
 	Title         string    `gorm:"column:title;NOT NULL"`
+	IsFavorite bool  `gorm:"column:is_favorite;default:0"`
+	UpdatedAt   time.Time   `gorm:"column:updated_at;default:null " json:"updated_at"`
 }
 
 func (v *Video) TableName() string {
@@ -45,3 +47,4 @@ func CreateVideo(ctx context.Context, videos []*Video) error {
 	}
 	return nil
 }
+

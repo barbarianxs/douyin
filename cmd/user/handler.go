@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	// "fmt"
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/pack"
 	"github.com/YANGJUNYAN0715/douyin/tree/guo/cmd/user/service"
 
@@ -166,7 +167,13 @@ func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.FeedRequest
 	//uid = req.Userid
 	// log.Println("--------uid------------")
 	// log.Println(uid)
+	resp = new(user.FeedResponse)
+
+	
 	vis, nextTime, err := service.NewGetUserFeedService(ctx).GetUserFeed(req)
+	log.Println("返回值查看：----------------------------------------")
+	log.Println(vis[0])
+	log.Println(nextTime)
 	if err != nil {
 		resp.StatusCode = pack.BuildBaseResp(err).StatusCode
 		resp.StatusMsg = pack.BuildBaseResp(err).StatusMsg
@@ -175,6 +182,7 @@ func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.FeedRequest
 
 	resp.StatusCode = pack.BuildBaseResp(errno.Success).StatusCode
 	resp.StatusMsg = pack.BuildBaseResp(errno.Success).StatusMsg
+
 	resp.VideoList = vis
 	resp.NextTime = nextTime
 	return resp, nil

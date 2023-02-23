@@ -165,6 +165,7 @@ func PublishList(ctx context.Context, c *app.RequestContext) {
 // GetUserFeed .
 // @router /douyin/feed/ [GET]
 func GetUserFeed(ctx context.Context, c *app.RequestContext) {
+	log.Println("-------------------------------------------------hertz feed----------------------------------------------------")
 	var err error
 	var req api.FeedRequest
 	err = c.BindAndValidate(&req)
@@ -205,20 +206,20 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	log.Println("-------req.UserID-----")
 	log.Println(user_id, "--------------------------", token, "--------------------------", latest_time)
 	
-	video_list, next_time,err := rpc.GetUserFeed(ctx,&user.FeedRequest{
+	feed, err := rpc.GetUserFeed(ctx,&user.FeedRequest{
 		UserId: user_id,
 		LatestTime: latest_time,
 		// Token:  token,
 	})
-	//
+	log.Println(feed, "---+++++++++++++++++++++++++++++++++++++++----feed--+++++++++++++++++++++++++---")
 	//SendResponse2(c, feedresponse)
 	Err := errno.ConvertErr(errno.Success)
-	c.JSON(consts.StatusOK, utils.H{
+	c.JSON(200, utils.H{
 		"status_code": Err.ErrCode,
 		"status_msg":  Err.ErrMsg,
-		"video_list": video_list,
-		"next_time": next_time,
+		"video_list": feed.VideoList,
+		"next_time": feed.NextTime,
     	
 	})
-	return
+	
 }

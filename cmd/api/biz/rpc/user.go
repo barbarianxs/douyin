@@ -113,5 +113,5 @@ func GetUserFeed(ctx context.Context, req *user.FeedRequest) (resp *user.FeedRes
 	if resp.StatusCode != 0 {
 		return nil, errno.NewErrNo(resp.StatusCode, resp.StatusMsg)
 	}
-	return resp.VideoList, resp.NextTime, nil
+	return resp, nil
 }
