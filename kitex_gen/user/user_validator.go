@@ -85,10 +85,10 @@ func (p *PublishListRequest) IsValid() error {
 func (p *PublishListResponse) IsValid() error {
 	return nil
 }
-func (p *DouyinFeedRequest) IsValid() error {
+func (p *FeedRequest) IsValid() error {
 	return nil
 }
-func (p *DouyinFeedResponse) IsValid() error {
+func (p *FeedResponse) IsValid() error {
 	return nil
 }
 func (p *VideoIdRequest) IsValid() error {

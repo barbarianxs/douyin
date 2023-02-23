@@ -150,7 +150,7 @@ func (s *UserServiceImpl) PublishList(ctx context.Context, req *user.PublishList
 }
 
 // GetUserFeed implements the UserServiceImpl interface.
-func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.DouyinFeedResponse, err error) {
+func (s *UserServiceImpl) GetUserFeed(ctx context.Context, req *user.FeedRequest) (resp *user.FeedResponse, err error) {
 	// TODO: Your code here...
 	// TODO: Your code here...
 	// var uid int64 = 0

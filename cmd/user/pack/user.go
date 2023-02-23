@@ -6,7 +6,6 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 	
 )
-
 // User pack user info
 func User(u *db.User) *user.User {
 	if u == nil {
@@ -52,6 +51,8 @@ func Video(v *db.Video, author *db.User) *user.Video {
 		CoverUrl: string(v.CoverUrl),
 		FavoriteCount: int64(v.FavoriteCount),
 		CommentCount: int64(v.CommentCount),
+		IsFavorite: bool(v.IsFavorite),
+		Title: string(v.Title),
 		}
 }
 
@@ -65,3 +66,4 @@ func Videos(vs []*db.Video, author *db.User) []*user.Video {
 	}
 	return videos
 }
+

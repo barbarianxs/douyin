@@ -4916,48 +4916,48 @@ func (p *PublishListResponse) Field3DeepEqual(src []*Video) bool {
 	return true
 }
 
-type DouyinFeedRequest struct {
+type FeedRequest struct {
 	LatestTime int64  `thrift:"latest_time,1" frugal:"1,default,i64" json:"latest_time"`
-	UserId     int64  `thrift:"user_id,2" frugal:"2,default,i64" json:"user_id"`
-	Token      string `thrift:"token,3" frugal:"3,default,string" json:"token"`
+	Token      string `thrift:"token,2" frugal:"2,default,string" json:"token"`
+	UserId     int64  `thrift:"user_id,3" frugal:"3,default,i64" json:"user_id"`
 }
 
-func NewDouyinFeedRequest() *DouyinFeedRequest {
-	return &DouyinFeedRequest{}
+func NewFeedRequest() *FeedRequest {
+	return &FeedRequest{}
 }
 
-func (p *DouyinFeedRequest) InitDefault() {
-	*p = DouyinFeedRequest{}
+func (p *FeedRequest) InitDefault() {
+	*p = FeedRequest{}
 }
 
-func (p *DouyinFeedRequest) GetLatestTime() (v int64) {
+func (p *FeedRequest) GetLatestTime() (v int64) {
 	return p.LatestTime
 }
 
-func (p *DouyinFeedRequest) GetUserId() (v int64) {
-	return p.UserId
-}
-
-func (p *DouyinFeedRequest) GetToken() (v string) {
+func (p *FeedRequest) GetToken() (v string) {
 	return p.Token
 }
-func (p *DouyinFeedRequest) SetLatestTime(val int64) {
+
+func (p *FeedRequest) GetUserId() (v int64) {
+	return p.UserId
+}
+func (p *FeedRequest) SetLatestTime(val int64) {
 	p.LatestTime = val
 }
-func (p *DouyinFeedRequest) SetUserId(val int64) {
-	p.UserId = val
-}
-func (p *DouyinFeedRequest) SetToken(val string) {
+func (p *FeedRequest) SetToken(val string) {
 	p.Token = val
 }
-
-var fieldIDToName_DouyinFeedRequest = map[int16]string{
-	1: "latest_time",
-	2: "user_id",
-	3: "token",
+func (p *FeedRequest) SetUserId(val int64) {
+	p.UserId = val
 }
 
-func (p *DouyinFeedRequest) Read(iprot thrift.TProtocol) (err error) {
+var fieldIDToName_FeedRequest = map[int16]string{
+	1: "latest_time",
+	2: "token",
+	3: "user_id",
+}
+
+func (p *FeedRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4987,7 +4987,7 @@ func (p *DouyinFeedRequest) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -4997,7 +4997,7 @@ func (p *DouyinFeedRequest) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5026,7 +5026,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_FeedRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5036,7 +5036,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *FeedRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -5045,16 +5045,7 @@ func (p *DouyinFeedRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedRequest) ReadField2(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI64(); err != nil {
-		return err
-	} else {
-		p.UserId = v
-	}
-	return nil
-}
-
-func (p *DouyinFeedRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *FeedRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5063,9 +5054,18 @@ func (p *DouyinFeedRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *FeedRequest) ReadField3(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.UserId = v
+	}
+	return nil
+}
+
+func (p *FeedRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_feed_request"); err != nil {
+	if err = oprot.WriteStructBegin("FeedRequest"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5100,7 +5100,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *FeedRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("latest_time", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5117,11 +5117,11 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 2); err != nil {
+func (p *FeedRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.UserId); err != nil {
+	if err := oprot.WriteString(p.Token); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5134,11 +5134,11 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("token", thrift.STRING, 3); err != nil {
+func (p *FeedRequest) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Token); err != nil {
+	if err := oprot.WriteI64(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5151,14 +5151,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) String() string {
+func (p *FeedRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFeedRequest(%+v)", *p)
+	return fmt.Sprintf("FeedRequest(%+v)", *p)
 }
 
-func (p *DouyinFeedRequest) DeepEqual(ano *DouyinFeedRequest) bool {
+func (p *FeedRequest) DeepEqual(ano *FeedRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -5167,88 +5167,88 @@ func (p *DouyinFeedRequest) DeepEqual(ano *DouyinFeedRequest) bool {
 	if !p.Field1DeepEqual(ano.LatestTime) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.UserId) {
+	if !p.Field2DeepEqual(ano.Token) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Token) {
+	if !p.Field3DeepEqual(ano.UserId) {
 		return false
 	}
 	return true
 }
 
-func (p *DouyinFeedRequest) Field1DeepEqual(src int64) bool {
+func (p *FeedRequest) Field1DeepEqual(src int64) bool {
 
 	if p.LatestTime != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinFeedRequest) Field2DeepEqual(src int64) bool {
-
-	if p.UserId != src {
-		return false
-	}
-	return true
-}
-func (p *DouyinFeedRequest) Field3DeepEqual(src string) bool {
+func (p *FeedRequest) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.Token, src) != 0 {
 		return false
 	}
 	return true
 }
+func (p *FeedRequest) Field3DeepEqual(src int64) bool {
 
-type DouyinFeedResponse struct {
+	if p.UserId != src {
+		return false
+	}
+	return true
+}
+
+type FeedResponse struct {
 	StatusCode int32    `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
 	StatusMsg  string   `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
 	VideoList  []*Video `thrift:"video_list,3" frugal:"3,default,list<Video>" json:"video_list"`
 	NextTime   int64    `thrift:"next_time,4" frugal:"4,default,i64" json:"next_time"`
 }
 
-func NewDouyinFeedResponse() *DouyinFeedResponse {
-	return &DouyinFeedResponse{}
+func NewFeedResponse() *FeedResponse {
+	return &FeedResponse{}
 }
 
-func (p *DouyinFeedResponse) InitDefault() {
-	*p = DouyinFeedResponse{}
+func (p *FeedResponse) InitDefault() {
+	*p = FeedResponse{}
 }
 
-func (p *DouyinFeedResponse) GetStatusCode() (v int32) {
+func (p *FeedResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinFeedResponse) GetStatusMsg() (v string) {
+func (p *FeedResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinFeedResponse) GetVideoList() (v []*Video) {
+func (p *FeedResponse) GetVideoList() (v []*Video) {
 	return p.VideoList
 }
 
-func (p *DouyinFeedResponse) GetNextTime() (v int64) {
+func (p *FeedResponse) GetNextTime() (v int64) {
 	return p.NextTime
 }
-func (p *DouyinFeedResponse) SetStatusCode(val int32) {
+func (p *FeedResponse) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
-func (p *DouyinFeedResponse) SetStatusMsg(val string) {
+func (p *FeedResponse) SetStatusMsg(val string) {
 	p.StatusMsg = val
 }
-func (p *DouyinFeedResponse) SetVideoList(val []*Video) {
+func (p *FeedResponse) SetVideoList(val []*Video) {
 	p.VideoList = val
 }
-func (p *DouyinFeedResponse) SetNextTime(val int64) {
+func (p *FeedResponse) SetNextTime(val int64) {
 	p.NextTime = val
 }
 
-var fieldIDToName_DouyinFeedResponse = map[int16]string{
+var fieldIDToName_FeedResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "video_list",
 	4: "next_time",
 }
 
-func (p *DouyinFeedResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *FeedResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5327,7 +5327,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_FeedResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5337,7 +5337,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *FeedResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -5346,7 +5346,7 @@ func (p *DouyinFeedResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *FeedResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5355,7 +5355,7 @@ func (p *DouyinFeedResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *FeedResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -5375,7 +5375,7 @@ func (p *DouyinFeedResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField4(iprot thrift.TProtocol) error {
+func (p *FeedResponse) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -5384,9 +5384,9 @@ func (p *DouyinFeedResponse) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *FeedResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_feed_response"); err != nil {
+	if err = oprot.WriteStructBegin("FeedResponse"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5425,7 +5425,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *FeedResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5442,7 +5442,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *FeedResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5459,7 +5459,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *FeedResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5484,7 +5484,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *FeedResponse) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("next_time", thrift.I64, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5501,14 +5501,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) String() string {
+func (p *FeedResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFeedResponse(%+v)", *p)
+	return fmt.Sprintf("FeedResponse(%+v)", *p)
 }
 
-func (p *DouyinFeedResponse) DeepEqual(ano *DouyinFeedResponse) bool {
+func (p *FeedResponse) DeepEqual(ano *FeedResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -5529,21 +5529,21 @@ func (p *DouyinFeedResponse) DeepEqual(ano *DouyinFeedResponse) bool {
 	return true
 }
 
-func (p *DouyinFeedResponse) Field1DeepEqual(src int32) bool {
+func (p *FeedResponse) Field1DeepEqual(src int32) bool {
 
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinFeedResponse) Field2DeepEqual(src string) bool {
+func (p *FeedResponse) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.StatusMsg, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *DouyinFeedResponse) Field3DeepEqual(src []*Video) bool {
+func (p *FeedResponse) Field3DeepEqual(src []*Video) bool {
 
 	if len(p.VideoList) != len(src) {
 		return false
@@ -5556,7 +5556,7 @@ func (p *DouyinFeedResponse) Field3DeepEqual(src []*Video) bool {
 	}
 	return true
 }
-func (p *DouyinFeedResponse) Field4DeepEqual(src int64) bool {
+func (p *FeedResponse) Field4DeepEqual(src int64) bool {
 
 	if p.NextTime != src {
 		return false
@@ -5685,7 +5685,7 @@ func (p *VideoIdRequest) ReadField2(iprot thrift.TProtocol) error {
 
 func (p *VideoIdRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("video_id_request"); err != nil {
+	if err = oprot.WriteStructBegin("VideoIdRequest"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5800,7 +5800,7 @@ type UserService interface {
 
 	PublishList(ctx context.Context, req *PublishListRequest) (r *PublishListResponse, err error)
 
-	GetUserFeed(ctx context.Context, req *DouyinFeedRequest) (r *DouyinFeedResponse, err error)
+	GetUserFeed(ctx context.Context, req *FeedRequest) (r *FeedResponse, err error)
 }
 
 type UserServiceClient struct {
@@ -5883,7 +5883,7 @@ func (p *UserServiceClient) PublishList(ctx context.Context, req *PublishListReq
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *UserServiceClient) GetUserFeed(ctx context.Context, req *DouyinFeedRequest) (r *DouyinFeedResponse, err error) {
+func (p *UserServiceClient) GetUserFeed(ctx context.Context, req *FeedRequest) (r *FeedResponse, err error) {
 	var _args UserServiceGetUserFeedArgs
 	_args.Req = req
 	var _result UserServiceGetUserFeedResult
@@ -6247,7 +6247,7 @@ func (p *userServiceProcessorGetUserFeed) Process(ctx context.Context, seqId int
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := UserServiceGetUserFeedResult{}
-	var retval *DouyinFeedResponse
+	var retval *FeedResponse
 	if retval, err2 = p.handler.GetUserFeed(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetUserFeed: "+err2.Error())
 		oprot.WriteMessageBegin("GetUserFeed", thrift.EXCEPTION, seqId)
@@ -8353,7 +8353,7 @@ func (p *UserServicePublishListResult) Field0DeepEqual(src *PublishListResponse)
 }
 
 type UserServiceGetUserFeedArgs struct {
-	Req *DouyinFeedRequest `thrift:"req,1" frugal:"1,default,DouyinFeedRequest" json:"req"`
+	Req *FeedRequest `thrift:"req,1" frugal:"1,default,FeedRequest" json:"req"`
 }
 
 func NewUserServiceGetUserFeedArgs() *UserServiceGetUserFeedArgs {
@@ -8364,15 +8364,15 @@ func (p *UserServiceGetUserFeedArgs) InitDefault() {
 	*p = UserServiceGetUserFeedArgs{}
 }
 
-var UserServiceGetUserFeedArgs_Req_DEFAULT *DouyinFeedRequest
+var UserServiceGetUserFeedArgs_Req_DEFAULT *FeedRequest
 
-func (p *UserServiceGetUserFeedArgs) GetReq() (v *DouyinFeedRequest) {
+func (p *UserServiceGetUserFeedArgs) GetReq() (v *FeedRequest) {
 	if !p.IsSetReq() {
 		return UserServiceGetUserFeedArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *UserServiceGetUserFeedArgs) SetReq(val *DouyinFeedRequest) {
+func (p *UserServiceGetUserFeedArgs) SetReq(val *FeedRequest) {
 	p.Req = val
 }
 
@@ -8444,7 +8444,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceGetUserFeedArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinFeedRequest()
+	p.Req = NewFeedRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -8516,7 +8516,7 @@ func (p *UserServiceGetUserFeedArgs) DeepEqual(ano *UserServiceGetUserFeedArgs) 
 	return true
 }
 
-func (p *UserServiceGetUserFeedArgs) Field1DeepEqual(src *DouyinFeedRequest) bool {
+func (p *UserServiceGetUserFeedArgs) Field1DeepEqual(src *FeedRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -8525,7 +8525,7 @@ func (p *UserServiceGetUserFeedArgs) Field1DeepEqual(src *DouyinFeedRequest) boo
 }
 
 type UserServiceGetUserFeedResult struct {
-	Success *DouyinFeedResponse `thrift:"success,0,optional" frugal:"0,optional,DouyinFeedResponse" json:"success,omitempty"`
+	Success *FeedResponse `thrift:"success,0,optional" frugal:"0,optional,FeedResponse" json:"success,omitempty"`
 }
 
 func NewUserServiceGetUserFeedResult() *UserServiceGetUserFeedResult {
@@ -8536,16 +8536,16 @@ func (p *UserServiceGetUserFeedResult) InitDefault() {
 	*p = UserServiceGetUserFeedResult{}
 }
 
-var UserServiceGetUserFeedResult_Success_DEFAULT *DouyinFeedResponse
+var UserServiceGetUserFeedResult_Success_DEFAULT *FeedResponse
 
-func (p *UserServiceGetUserFeedResult) GetSuccess() (v *DouyinFeedResponse) {
+func (p *UserServiceGetUserFeedResult) GetSuccess() (v *FeedResponse) {
 	if !p.IsSetSuccess() {
 		return UserServiceGetUserFeedResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *UserServiceGetUserFeedResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DouyinFeedResponse)
+	p.Success = x.(*FeedResponse)
 }
 
 var fieldIDToName_UserServiceGetUserFeedResult = map[int16]string{
@@ -8616,7 +8616,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceGetUserFeedResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinFeedResponse()
+	p.Success = NewFeedResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -8690,7 +8690,7 @@ func (p *UserServiceGetUserFeedResult) DeepEqual(ano *UserServiceGetUserFeedResu
 	return true
 }
 
-func (p *UserServiceGetUserFeedResult) Field0DeepEqual(src *DouyinFeedResponse) bool {
+func (p *UserServiceGetUserFeedResult) Field0DeepEqual(src *FeedResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

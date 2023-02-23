@@ -3896,7 +3896,7 @@ func (p *PublishListResponse) field3Length() int {
 	return l
 }
 
-func (p *DouyinFeedRequest) FastRead(buf []byte) (int, error) {
+func (p *FeedRequest) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3933,7 +3933,7 @@ func (p *DouyinFeedRequest) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField2(buf[offset:])
 				offset += l
 				if err != nil {
@@ -3947,7 +3947,7 @@ func (p *DouyinFeedRequest) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				l, err = p.FastReadField3(buf[offset:])
 				offset += l
 				if err != nil {
@@ -3986,7 +3986,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedRequest[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_FeedRequest[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -3995,7 +3995,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) FastReadField1(buf []byte) (int, error) {
+func (p *FeedRequest) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
@@ -4009,21 +4009,7 @@ func (p *DouyinFeedRequest) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *DouyinFeedRequest) FastReadField2(buf []byte) (int, error) {
-	offset := 0
-
-	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
-		return offset, err
-	} else {
-		offset += l
-
-		p.UserId = v
-
-	}
-	return offset, nil
-}
-
-func (p *DouyinFeedRequest) FastReadField3(buf []byte) (int, error) {
+func (p *FeedRequest) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
@@ -4037,27 +4023,41 @@ func (p *DouyinFeedRequest) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *FeedRequest) FastReadField3(buf []byte) (int, error) {
+	offset := 0
+
+	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+
+		p.UserId = v
+
+	}
+	return offset, nil
+}
+
 // for compatibility
-func (p *DouyinFeedRequest) FastWrite(buf []byte) int {
+func (p *FeedRequest) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *DouyinFeedRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "douyin_feed_request")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "FeedRequest")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
-		offset += p.fastWriteField2(buf[offset:], binaryWriter)
 		offset += p.fastWriteField3(buf[offset:], binaryWriter)
+		offset += p.fastWriteField2(buf[offset:], binaryWriter)
 	}
 	offset += bthrift.Binary.WriteFieldStop(buf[offset:])
 	offset += bthrift.Binary.WriteStructEnd(buf[offset:])
 	return offset
 }
 
-func (p *DouyinFeedRequest) BLength() int {
+func (p *FeedRequest) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("douyin_feed_request")
+	l += bthrift.Binary.StructBeginLength("FeedRequest")
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
@@ -4068,7 +4068,7 @@ func (p *DouyinFeedRequest) BLength() int {
 	return l
 }
 
-func (p *DouyinFeedRequest) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedRequest) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "latest_time", thrift.I64, 1)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.LatestTime)
@@ -4077,25 +4077,25 @@ func (p *DouyinFeedRequest) fastWriteField1(buf []byte, binaryWriter bthrift.Bin
 	return offset
 }
 
-func (p *DouyinFeedRequest) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedRequest) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 2)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.UserId)
-
-	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
-	return offset
-}
-
-func (p *DouyinFeedRequest) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
-	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "token", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "token", thrift.STRING, 2)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Token)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
 }
 
-func (p *DouyinFeedRequest) field1Length() int {
+func (p *FeedRequest) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+	offset := 0
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 3)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.UserId)
+
+	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	return offset
+}
+
+func (p *FeedRequest) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("latest_time", thrift.I64, 1)
 	l += bthrift.Binary.I64Length(p.LatestTime)
@@ -4104,25 +4104,25 @@ func (p *DouyinFeedRequest) field1Length() int {
 	return l
 }
 
-func (p *DouyinFeedRequest) field2Length() int {
+func (p *FeedRequest) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 2)
-	l += bthrift.Binary.I64Length(p.UserId)
-
-	l += bthrift.Binary.FieldEndLength()
-	return l
-}
-
-func (p *DouyinFeedRequest) field3Length() int {
-	l := 0
-	l += bthrift.Binary.FieldBeginLength("token", thrift.STRING, 3)
+	l += bthrift.Binary.FieldBeginLength("token", thrift.STRING, 2)
 	l += bthrift.Binary.StringLengthNocopy(p.Token)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
 }
 
-func (p *DouyinFeedResponse) FastRead(buf []byte) (int, error) {
+func (p *FeedRequest) field3Length() int {
+	l := 0
+	l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 3)
+	l += bthrift.Binary.I64Length(p.UserId)
+
+	l += bthrift.Binary.FieldEndLength()
+	return l
+}
+
+func (p *FeedResponse) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -4226,7 +4226,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedResponse[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_FeedResponse[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -4235,7 +4235,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) FastReadField1(buf []byte) (int, error) {
+func (p *FeedResponse) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -4249,7 +4249,7 @@ func (p *DouyinFeedResponse) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *DouyinFeedResponse) FastReadField2(buf []byte) (int, error) {
+func (p *FeedResponse) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
@@ -4263,7 +4263,7 @@ func (p *DouyinFeedResponse) FastReadField2(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *DouyinFeedResponse) FastReadField3(buf []byte) (int, error) {
+func (p *FeedResponse) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
 	_, size, l, err := bthrift.Binary.ReadListBegin(buf[offset:])
@@ -4290,7 +4290,7 @@ func (p *DouyinFeedResponse) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *DouyinFeedResponse) FastReadField4(buf []byte) (int, error) {
+func (p *FeedResponse) FastReadField4(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
@@ -4305,13 +4305,13 @@ func (p *DouyinFeedResponse) FastReadField4(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *DouyinFeedResponse) FastWrite(buf []byte) int {
+func (p *FeedResponse) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *DouyinFeedResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "douyin_feed_response")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "FeedResponse")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 		offset += p.fastWriteField4(buf[offset:], binaryWriter)
@@ -4323,9 +4323,9 @@ func (p *DouyinFeedResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinFeedResponse) BLength() int {
+func (p *FeedResponse) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("douyin_feed_response")
+	l += bthrift.Binary.StructBeginLength("FeedResponse")
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
@@ -4337,7 +4337,7 @@ func (p *DouyinFeedResponse) BLength() int {
 	return l
 }
 
-func (p *DouyinFeedResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_code", thrift.I32, 1)
 	offset += bthrift.Binary.WriteI32(buf[offset:], p.StatusCode)
@@ -4346,7 +4346,7 @@ func (p *DouyinFeedResponse) fastWriteField1(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinFeedResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_msg", thrift.STRING, 2)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatusMsg)
@@ -4355,7 +4355,7 @@ func (p *DouyinFeedResponse) fastWriteField2(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinFeedResponse) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedResponse) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "video_list", thrift.LIST, 3)
 	listBeginOffset := offset
@@ -4371,7 +4371,7 @@ func (p *DouyinFeedResponse) fastWriteField3(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinFeedResponse) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *FeedResponse) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "next_time", thrift.I64, 4)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.NextTime)
@@ -4380,7 +4380,7 @@ func (p *DouyinFeedResponse) fastWriteField4(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinFeedResponse) field1Length() int {
+func (p *FeedResponse) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("status_code", thrift.I32, 1)
 	l += bthrift.Binary.I32Length(p.StatusCode)
@@ -4389,7 +4389,7 @@ func (p *DouyinFeedResponse) field1Length() int {
 	return l
 }
 
-func (p *DouyinFeedResponse) field2Length() int {
+func (p *FeedResponse) field2Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("status_msg", thrift.STRING, 2)
 	l += bthrift.Binary.StringLengthNocopy(p.StatusMsg)
@@ -4398,7 +4398,7 @@ func (p *DouyinFeedResponse) field2Length() int {
 	return l
 }
 
-func (p *DouyinFeedResponse) field3Length() int {
+func (p *FeedResponse) field3Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("video_list", thrift.LIST, 3)
 	l += bthrift.Binary.ListBeginLength(thrift.STRUCT, len(p.VideoList))
@@ -4410,7 +4410,7 @@ func (p *DouyinFeedResponse) field3Length() int {
 	return l
 }
 
-func (p *DouyinFeedResponse) field4Length() int {
+func (p *FeedResponse) field4Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("next_time", thrift.I64, 4)
 	l += bthrift.Binary.I64Length(p.NextTime)
@@ -4539,7 +4539,7 @@ func (p *VideoIdRequest) FastWrite(buf []byte) int {
 
 func (p *VideoIdRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "video_id_request")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "VideoIdRequest")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 		offset += p.fastWriteField2(buf[offset:], binaryWriter)
@@ -4551,7 +4551,7 @@ func (p *VideoIdRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.Binary
 
 func (p *VideoIdRequest) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("video_id_request")
+	l += bthrift.Binary.StructBeginLength("VideoIdRequest")
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
@@ -6219,7 +6219,7 @@ ReadStructEndError:
 func (p *UserServiceGetUserFeedArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewDouyinFeedRequest()
+	tmp := NewFeedRequest()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -6346,7 +6346,7 @@ ReadStructEndError:
 func (p *UserServiceGetUserFeedResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewDouyinFeedResponse()
+	tmp := NewFeedResponse()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

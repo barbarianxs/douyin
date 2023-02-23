@@ -105,7 +105,7 @@ func PublishList(ctx context.Context, req *user.PublishListRequest) ([]*user.Vid
 	return resp.VideoList, nil
 }
 // GetUserFeed query list of note info
-func GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (resp *user.DouyinFeedResponse, err error) {
+func GetUserFeed(ctx context.Context, req *user.FeedRequest) (resp *user.FeedResponse, err error) {
 	resp, err = userClient.GetUserFeed(ctx, req)
 	if err != nil {
 		return nil, err

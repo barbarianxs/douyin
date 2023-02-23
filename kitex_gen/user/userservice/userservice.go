@@ -237,7 +237,7 @@ func (p *kClient) PublishList(ctx context.Context, req *user.PublishListRequest)
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetUserFeed(ctx context.Context, req *user.DouyinFeedRequest) (r *user.DouyinFeedResponse, err error) {
+func (p *kClient) GetUserFeed(ctx context.Context, req *user.FeedRequest) (r *user.FeedResponse, err error) {
 	var _args user.UserServiceGetUserFeedArgs
 	_args.Req = req
 	var _result user.UserServiceGetUserFeedResult
