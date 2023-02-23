@@ -265,8 +265,9 @@ struct CommentActionResponse {
 }
 
 struct CommentListRequest {
-    1: string token  // 用户鉴权token
-    2: i64 video_id  // 视频id
+    1: i64 user_id
+    2: string token  // 用户鉴权token
+    3: i64 video_id  // 视频id
 }
 
 struct CommentListResponse {
