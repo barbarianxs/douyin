@@ -55,7 +55,7 @@ func Video(v *db.Video, author *db.User) *interact.Video {
 		}
 }
 
-// Users pack list of interact info
+// Users pack list of interact info 一个作者下的所有视频发布
 func Videos(vs []*db.Video, author *db.User) []*interact.Video {
 	videos := make([]*interact.Video, 0)
 	for _, v := range vs {
@@ -65,3 +65,4 @@ func Videos(vs []*db.Video, author *db.User) []*interact.Video {
 	}
 	return videos
 }
+

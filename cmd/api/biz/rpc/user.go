@@ -82,7 +82,7 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (*user.User, error
 
 // PublishAction check user info
 func PublishAction(ctx context.Context, req *user.PublishActionRequest) error {
-	log.Println("")
+	log.Println("-------------------PublishAction----------------------------------------")
 	resp, err := userClient.PublishAction(ctx, req)
 	if err != nil {
 		return err

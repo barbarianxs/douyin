@@ -53,7 +53,7 @@ func (s *FavoriteListService) FavoriteList(req *interact.FavoriteListRequest) ([
 	for _, video := range videoData {
 		userIds = append(userIds, video.AuthorID)
 	}
-	log.Println("4===============================",userIds,"==================================")
+
 	//获取点赞视频的用户信息
 	users, err := db.QueryUserByIds(s.ctx, userIds)
 	if err != nil {
@@ -101,7 +101,7 @@ func (s *FavoriteListService) FavoriteList(req *interact.FavoriteListRequest) ([
 		}
 
 	}
-	log.Println("4===============================",userIds,"==================================")
+	// log.Println("4===============================",userIds,"==================================")
 	videoList := pack.VideoList(req.UserId, videoData, userMap, interactMap, relationMap)
 	return videoList, nil
 
