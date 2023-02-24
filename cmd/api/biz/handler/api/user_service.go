@@ -192,6 +192,8 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	var token string
 	var latest_time int64
 	user_id = 0
+	log.Println("-------token: ",req.Token,"-----")
+	log.Println("---------------u: ",u,"--------------------------")
 	if req.Token !=""{
 		user_id = u.(*api.User).ID
 		token = req.Token
@@ -203,13 +205,13 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 		latest_time = req.LatestTime
 		
 	}
-	log.Println("-------req.UserID-----")
+	log.Println("-------req.UserID: -----")
 	log.Println(user_id, "--------------------------", token, "--------------------------", latest_time)
 	
 	feed, err := rpc.GetUserFeed(ctx,&user.FeedRequest{
 		UserId: user_id,
 		LatestTime: latest_time,
-		// Token:  token,
+		Token:  req.Token,
 	})
 	log.Println(feed, "---+++++++++++++++++++++++++++++++++++++++----feed--+++++++++++++++++++++++++---")
 	//SendResponse2(c, feedresponse)
