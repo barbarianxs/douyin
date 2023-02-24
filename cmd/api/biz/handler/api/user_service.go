@@ -125,7 +125,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		Title: req.Title,
 		
 		FileUrl: video_path,
-		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(CoverPath, snapshotName)),
+		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
