@@ -98,10 +98,11 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	log.Println("/////////////////////////////////////////////")
+	// log.Println("/////////////////////////////////////////////")
 	filename := filepath.Base(video_data.Filename)
 	finalName := fmt.Sprintf("%s", filename)
-	video_path := filepath.Join(consts.VideoSavePath, finalName)
+	video_path := fmt.Sprintf("%s.mp4", filepath.Join(consts.VideoSavePath, finalName))
+	// video_path := filepath.Join(consts.VideoSavePath, finalName)
 
 	err = c.SaveUploadedFile(video_data, video_path)
 
@@ -111,9 +112,9 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	
-	coverPath := "https://douyin-test-main.oss-cn-hangzhou.aliyuncs.com/img/"
+	
 	// 获取视频截图
-	snapshotName, err := GetSnapshot(video_path, coverPath, 1)
+	snapshotName, err := GetSnapshot(video_path, consts.CoverPath, 1)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
@@ -124,7 +125,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		Title: req.Title,
 		
 		FileUrl: video_path,
-		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),
+		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(CoverPath, snapshotName)),
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
