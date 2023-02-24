@@ -3172,9 +3172,9 @@ func (p *UserInfoResponse) String() string {
 
 type PublishActionRequest struct {
 	UserID int64  `thrift:"user_id,1" form:"user_id" json:"user_id" query:"user_id"`
-	Token  string `thrift:"token,2" json:"token" query:"token"`
-	Data   []byte `thrift:"data,3" json:"data" query:"data"`
-	Title  string `thrift:"title,4" json:"title" query:"data"`
+	Token  string `thrift:"token,2" form:"token" json:"token"`
+	Data   []byte `thrift:"data,3" form:"data" json:"data"`
+	Title  string `thrift:"title,4" form:"title" json:"title"`
 }
 
 func NewPublishActionRequest() *PublishActionRequest {
