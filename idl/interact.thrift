@@ -66,13 +66,13 @@ struct CommentActionResponse {
 }
 
 struct CommentListRequest {
-    1: string token  // 用户鉴权token
-    2: i64 video_id  // 视频id
+    1: i64 user_id
+    2: string token  // 用户鉴权token
+    3: i64 video_id  // 视频id
 }
-
 struct CommentListResponse {
     1: i32 status_code  // 状态码，0-成功，其他值-失败
-    2:  string status_msg  // 返回状态描述
+    2: string status_msg  // 返回状态描述
     3: list<Comment> comment_list  // 评论列表
 }
 

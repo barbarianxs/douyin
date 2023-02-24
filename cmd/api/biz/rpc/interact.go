@@ -19,7 +19,7 @@ import (
 var interactClient interactservice.Client
 
 
-func initinteract() {
+func initInteract() {
 	r, err := etcd.NewEtcdResolver([]string{consts.ETCDAddress})
 	if err != nil {
 		panic(err)
@@ -70,7 +70,7 @@ func FavoriteList(ctx context.Context, req *interact.FavoriteListRequest) ([]*in
 	return resp.VideoList, nil
 }
 
-// Register create user info
+// CommentAction create CommentAction info
 func CommentAction(ctx context.Context, req *interact.CommentActionRequest) (*interact.Comment, error) {
 	resp, err := interactClient.CommentAction(ctx, req)
 	if err != nil {
@@ -82,8 +82,9 @@ func CommentAction(ctx context.Context, req *interact.CommentActionRequest) (*in
 	return resp.Comment, nil
 }
 
-// Login check user info
+// CommentList check CommentList info
 func CommentList(ctx context.Context, req *interact.CommentListRequest) ([]*interact.Comment, error) {
+	
 	resp, err := interactClient.CommentList(ctx, req)
 	if err != nil {
 		return nil, err

@@ -9,7 +9,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/model/api"
 	// "github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/rpc"
-	// "log"
+	"log"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/interact"
 	// "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/message"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
@@ -30,10 +30,10 @@ func FavoriteAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	if req.ActionType != 1{
-		SendResponse(c, errno.Success, nil)
-		return
-	}
+	// if req.ActionType != 1{
+	// 	SendResponse(c, errno.Success, nil)
+	// 	return
+	// }
 	err = rpc.FavoriteAction(context.Background(), &interact.FavoriteActionRequest{
 		UserId:  v.(*api.User).ID,
 		Token: req.Token,
@@ -123,6 +123,7 @@ func CommentAction(ctx context.Context, c *app.RequestContext) {
 // CommentList .
 // @router /douyin/comment/list/ [GET]
 func CommentList(ctx context.Context, c *app.RequestContext) {
+	
 	var err error
 	var req api.CommentListRequest
 	err = c.BindAndValidate(&req)
@@ -136,9 +137,12 @@ func CommentList(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.Token2UserIdErr, nil)
 		return
 	}
+	log.Println("-------------------------hertz--CommentList-------------------------------------")
+	log.Println("------------------------userid:  " ,u,"-------------------------------------")
 	resp, err := rpc.CommentList(ctx, &interact.CommentListRequest{
 		Token:   req.Token,
 		VideoId: req.VideoID,
+		UserId: u.(*api.User).ID,
 	})
 	Err := errno.ConvertErr(errno.Success)
 	c.JSON(consts.StatusOK, utils.H{

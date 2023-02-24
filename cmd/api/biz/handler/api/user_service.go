@@ -9,7 +9,6 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/mw"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/cmd/api/biz/rpc"
 	"log"
-	"time"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 	// "github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/message"
 	"github.com/YANGJUNYAN0715/douyin/tree/main/pkg/consts"
@@ -17,6 +16,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"path/filepath"
+	"time"
 )
 
 // LoginUser .

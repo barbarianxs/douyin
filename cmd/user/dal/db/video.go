@@ -11,6 +11,7 @@ import (
 
 type Video struct {
 	gorm.Model
+	ID       int64   `gorm:"column:id;primary_key;AUTO_INCREMENT"`   
 	AuthorID      int64     `gorm:"column:author_id;NOT NULL"`
 	// PublishTime   time.Time `gorm:"column:publish_time;default:CURRENT_TIMESTAMP;NOT NULL"`
 	PlayUrl      string    `gorm:"column:play_url;NOT NULL"`

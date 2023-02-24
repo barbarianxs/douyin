@@ -30,13 +30,13 @@ func User(u *db.User) *interact.User {
 
 // Users pack list of interact info
 func Users(us []*db.User) []*interact.User {
-	interacts := make([]*interact.User, 0)
+	users := make([]*interact.User, 0)
 	for _, u := range us {
 		if temp := User(u); temp != nil {
-			interacts = append(interacts, temp)
+			users = append(users, temp)
 		}
 	}
-	return interacts
+	return users
 }
 
 // User pack interact info
@@ -55,7 +55,7 @@ func Video(v *db.Video, author *db.User) *interact.Video {
 		}
 }
 
-// Users pack list of interact info
+// Users pack list of interact info 一个作者下的所有视频发布
 func Videos(vs []*db.Video, author *db.User) []*interact.Video {
 	videos := make([]*interact.Video, 0)
 	for _, v := range vs {
@@ -65,3 +65,32 @@ func Videos(vs []*db.Video, author *db.User) []*interact.Video {
 	}
 	return videos
 }
+
+
+// Comment pack interact info
+func Comment(c *db.Comment, u *db.User) *interact.Comment {
+	if u == nil {
+		return nil
+	}
+
+	return &interact.Comment{
+		Id: int64(c.ID), 
+		User: User(u),
+		// VideoId: int64(c.VideoId),
+		Content: string(c.Content),
+		CreateDate: string(c.CreateDate),
+		
+		}
+}
+
+
+// Users pack list of interact info
+// func Comments(cs []*db.Comment) []*interact.Comment {
+// 	comment_list := make([]*interact.Comment, 0)
+// 	for _, c := range cs {
+// 		if temp := Comment(c); temp != nil {
+// 			comment_list = append(comment_list, temp)
+// 		}
+// 	}
+// 	return comment_list
+// }

@@ -6,6 +6,7 @@ import (
 	"github.com/YANGJUNYAN0715/douyin/tree/main/kitex_gen/user"
 	
 )
+
 // User pack user info
 func User(u *db.User) *user.User {
 	if u == nil {
