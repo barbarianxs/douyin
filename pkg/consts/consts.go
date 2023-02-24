@@ -6,6 +6,7 @@ const (
 	RelationTableName   = "relation"
 	CommentTableName = "comment"
 	UserTableName   = "user"
+	FavoriteTableName = "favorite"
 	VideoTableName   = "video"
 	SecretKey       = "secret key"
 	IdentityKey     = "id"
