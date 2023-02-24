@@ -131,7 +131,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(coverPath, snapshotName)),video_path, req.Title,req.Token)
+	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),video_path, req.Title,req.Token)
 	SendResponse(c, errno.Success, nil)
 }
 
