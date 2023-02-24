@@ -85,15 +85,20 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 func PublishAction(ctx context.Context, c *app.RequestContext) {
 	log.Println("***------------------------------------PublishAction-service---------------------------------------***")
 	var err error
-	var req api.PublishActionRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
+	// var req api.PublishActionRequest
+	// err = c.BindAndValidate(&req)
+	// if err != nil {
+	// 	SendResponse(c, errno.ConvertErr(err), nil)
+	// 	return
+	// }
+	
+	title := c.PostForm("title")
+	if title == "" {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	v, _ := c.Get(consts.IdentityKey)
+	u, _ := c.Get(consts.IdentityKey)
 	video_data, err := c.FormFile("data")
-	
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
@@ -120,9 +125,9 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	}
 
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
-		UserId:  v.(*api.User).ID,
-		Token: req.Token,
-		Title: req.Title,
+		UserId:  u.(*api.User).ID,
+		// Token: req.Token,
+		Title: title,
 		
 		FileUrl: video_path,
 		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),
@@ -131,7 +136,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),video_path, req.Title,req.Token)
+	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),video_path)
 	SendResponse(c, errno.Success, nil)
 }
 
