@@ -17,6 +17,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"path/filepath"
 	"time"
+	"mime/multipart"
 )
 
 // LoginUser .
@@ -85,24 +86,25 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 func PublishAction(ctx context.Context, c *app.RequestContext) {
 	log.Println("***------------------------------------PublishAction-service---------------------------------------***")
 	var err error
+	var req multipart.FileHeader
 	// var req api.PublishActionRequest
-	// err = c.BindAndValidate(&req)
-	// if err != nil {
-	// 	SendResponse(c, errno.ConvertErr(err), nil)
-	// 	return
-	// }
-	
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	video_data, err := c.FormFile("data")
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
 	title := c.PostForm("title")
 	if title == "" {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 	u, _ := c.Get(consts.IdentityKey)
-	video_data, err := c.FormFile("data")
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
+	
 	// log.Println("/////////////////////////////////////////////")
 	filename := filepath.Base(video_data.Filename)
 	finalName := fmt.Sprintf("%s", filename)

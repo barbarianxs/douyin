@@ -8,6 +8,7 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
+	"log"
 )
 
 type ErrCode int64
@@ -3315,6 +3316,7 @@ func (p *PublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadBinary(); err != nil {
 		return err
 	} else {
+		log.Println("=====================",v,"=============================/////////////////////")
 		p.Data = []byte(v)
 	}
 	return nil
