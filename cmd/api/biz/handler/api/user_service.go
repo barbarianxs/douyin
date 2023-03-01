@@ -114,6 +114,13 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	finalName := fmt.Sprintf("%s", filename)
 	video_path := fmt.Sprintf("%s", filepath.Join(consts.VideoSavePath, finalName))
 	// video_path := filepath.Join(consts.VideoSavePath, finalName)
+	err = c.SaveUploadedFile(video_data, video_path)
+	log.Println("2///////////////////",err,"//////////////////////////")
+	if err != nil {
+		
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
 	log.Println("1///////////////////",video_path,"//////////////////////////")
 	
 	// yourEndpoint填写Bucket对应的Endpoint，以华东1（杭州）为例，填写为https://oss-cn-hangzhou.aliyuncs.com。其它Region请按实际情况填写。
@@ -124,19 +131,29 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	// yourBucketName填写存储空间名称。
 	bucketName := "douyin-test-guo"
 	// yourObjectName填写Object完整路径，完整路径不包含Bucket名称。
-	VideoName := "video/"
-	ImgName := "img/"
+	VideoName := finalName
+	ImgName := "img"
 	// yourLocalFileName填写本地文件的完整路径。
 	localFileName_video := video_path
+	// 创建OSSClient实例。
+	client, err := oss.New(endpoint, accessKeyId, accessKeySecret)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+	}
+	// 获取存储空间。
+	bucket, err := client.Bucket(bucketName)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+	}
+	// 上传文件。
 	
+	err = bucket.PutObjectFromFile("video/" + VideoName, localFileName_video)
+	if err != nil {
+		log.Println("上传失败",err)
+		SendResponse(c, errno.ConvertErr(err), nil)
+	}
 
-	// err = c.SaveUploadedFile(video_data, video_path)
-	// log.Println("2///////////////////",err,"//////////////////////////")
-	// if err != nil {
-		
-	// 	SendResponse(c, errno.ConvertErr(err), nil)
-	// 	return
-	// }
+	
 	log.Println("3/////////////////////////////////////////////")
 	
 	// 获取视频截图
@@ -144,26 +161,13 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
-	cover_path = fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName))
+	cover_path := fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName))
 	
-	// 创建OSSClient实例。
-	client, err := oss.New(endpoint, accessKeyId, accessKeySecret)
-	if err != nil {
-		handleError(err)
-	}
-	// 获取存储空间。
-	bucket, err := client.Bucket(bucketName)
-	if err != nil {
-		handleError(err)
-	}
+	
 	// 上传文件。
 	err = bucket.PutObjectFromFile(ImgName, cover_path)
 	if err != nil {
-		handleError(err)
-	}
-	err = bucket.PutObjectFromFile(VideoName, localFileName_video)
-	if err != nil {
-		handleError(err)
+		SendResponse(c, errno.ConvertErr(err), nil)
 	}
 
 	

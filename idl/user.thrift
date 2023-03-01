@@ -91,10 +91,9 @@ struct UserInfoResponse {
 
 struct PublishActionRequest {
     1: i64 user_id;
-    2: string token;
-    3: string file_url;
-    4: string cover_url;
-    5: string title;
+    2: string token(api.form="token")
+    3: binary data(api.form="data")
+    4: string title(api.form="title")
 }
 
 struct PublishActionResponse {
