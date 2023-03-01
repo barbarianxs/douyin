@@ -17,7 +17,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"path/filepath"
 	"time"
-	"mime/multipart"
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
+	// "mime/multipart"
 )
 
 // LoginUser .
@@ -86,13 +87,16 @@ func UserInfo(ctx context.Context, c *app.RequestContext) {
 func PublishAction(ctx context.Context, c *app.RequestContext) {
 	log.Println("***------------------------------------PublishAction-service---------------------------------------***")
 	var err error
-	var req multipart.FileHeader
+	// var req multipart.FileHeader
+
+	// _ = c.ParseMultipartForm(1024)
 	// var req api.PublishActionRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
+	// err = c.BindAndValidate(&req)
+	// if err != nil {
+	// 	SendResponse(c, errno.ConvertErr(err), nil)
+	// 	return
+	// }
+	
 	video_data, err := c.FormFile("data")
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
@@ -105,34 +109,73 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	}
 	u, _ := c.Get(consts.IdentityKey)
 	
-	// log.Println("/////////////////////////////////////////////")
+	
 	filename := filepath.Base(video_data.Filename)
 	finalName := fmt.Sprintf("%s", filename)
-	video_path := fmt.Sprintf("%s.mp4", filepath.Join(consts.VideoSavePath, finalName))
+	video_path := fmt.Sprintf("%s", filepath.Join(consts.VideoSavePath, finalName))
 	// video_path := filepath.Join(consts.VideoSavePath, finalName)
-
-	err = c.SaveUploadedFile(video_data, video_path)
-
-	if err != nil {
-		
-		SendResponse(c, errno.ConvertErr(err), nil)
-		return
-	}
+	log.Println("1///////////////////",video_path,"//////////////////////////")
 	
+	// yourEndpoint填写Bucket对应的Endpoint，以华东1（杭州）为例，填写为https://oss-cn-hangzhou.aliyuncs.com。其它Region请按实际情况填写。
+	endpoint := "https://oss-cn-hangzhou.aliyuncs.com"
+	// 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
+	accessKeyId := "LTAI5tRapYeKEkQYL2QD1xnc"
+	accessKeySecret := "t1EiOyPLbi67pCANcRbIy3r8zyCzMP"
+	// yourBucketName填写存储空间名称。
+	bucketName := "douyin-test-guo"
+	// yourObjectName填写Object完整路径，完整路径不包含Bucket名称。
+	VideoName := "video/"
+	ImgName := "img/"
+	// yourLocalFileName填写本地文件的完整路径。
+	localFileName_video := video_path
+	
+
+	// err = c.SaveUploadedFile(video_data, video_path)
+	// log.Println("2///////////////////",err,"//////////////////////////")
+	// if err != nil {
+		
+	// 	SendResponse(c, errno.ConvertErr(err), nil)
+	// 	return
+	// }
+	log.Println("3/////////////////////////////////////////////")
 	
 	// 获取视频截图
 	snapshotName, err := GetSnapshot(video_path, consts.CoverPath, 1)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
+	cover_path = fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName))
+	
+	// 创建OSSClient实例。
+	client, err := oss.New(endpoint, accessKeyId, accessKeySecret)
+	if err != nil {
+		handleError(err)
+	}
+	// 获取存储空间。
+	bucket, err := client.Bucket(bucketName)
+	if err != nil {
+		handleError(err)
+	}
+	// 上传文件。
+	err = bucket.PutObjectFromFile(ImgName, cover_path)
+	if err != nil {
+		handleError(err)
+	}
+	err = bucket.PutObjectFromFile(VideoName, localFileName_video)
+	if err != nil {
+		handleError(err)
+	}
 
+	
+	log.Println("4///////////////////",snapshotName,"//////////////////////////")
+	
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  u.(*api.User).ID,
-		// Token: req.Token,
+		Token: c.PostForm("token"),
 		Title: title,
 		
 		FileUrl: video_path,
-		CoverUrl: fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),
+		CoverUrl: cover_path,
 	})
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)

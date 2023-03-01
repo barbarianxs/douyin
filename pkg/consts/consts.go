@@ -26,8 +26,8 @@ const (
 	ExportEndpoint  = ":4317"
 	ETCDAddress     = "127.0.0.1:2379"
 	DefaultLimit    = 10
-	VideoSavePath   = "https://douyin-test-guo.oss-cn-hangzhou.aliyuncs.com/video/"
-	CoverPath = "https://douyin-test-main.oss-cn-hangzhou.aliyuncs.com/img/"
+	VideoSavePath   = "./video/"
+	CoverPath = "./img/"
 	StatusOK = 200
 
 	//favorite actiontype,1是点赞，2是取消点赞

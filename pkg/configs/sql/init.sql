@@ -1,3 +1,4 @@
+-- 用户信息表
 CREATE TABLE `user` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `username`   varchar(128) NOT NULL DEFAULT '' COMMENT 'Username',
@@ -19,7 +20,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY          `idx_username` (`username`) COMMENT 'Username index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='User account table';
-
+-- 视频表
 CREATE TABLE `video` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `author_id` bigint NOT NULL,
@@ -35,7 +36,7 @@ CREATE TABLE `video` (
   PRIMARY KEY (`id`),
   KEY          `idx_video_of_user_id` (`author_id`) COMMENT 'VideoOfUserId index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Video table';
-
+-- 用户聊天表
 CREATE TABLE `message`
 (
     `id`         bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
@@ -50,7 +51,7 @@ CREATE TABLE `message`
     KEY          `idx_user_id` (`from_user_id`) COMMENT 'UserId index'
     
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Message table';
-
+-- 用户关系表
 CREATE TABLE `relation` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `from_user_id` bigint NOT NULL,
@@ -63,6 +64,7 @@ CREATE TABLE `relation` (
   KEY          `idx_from_user_id` (`from_user_id`) COMMENT 'Relation index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Relation table';
 
+-- 点赞表
 CREATE TABLE `favorite` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `user_id` bigint NOT NULL,
@@ -74,7 +76,7 @@ CREATE TABLE `favorite` (
   KEY          `idx_from_user_id` (`user_id`) COMMENT 'Favorite index'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Favorite table';
 
-
+-- 评论表
 
 CREATE TABLE `comment` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'PK',

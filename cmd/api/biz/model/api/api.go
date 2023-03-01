@@ -3179,6 +3179,7 @@ type PublishActionRequest struct {
 }
 
 func NewPublishActionRequest() *PublishActionRequest {
+	log.Println("==================================================/////////////////////")
 	return &PublishActionRequest{}
 }
 
@@ -3316,7 +3317,7 @@ func (p *PublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadBinary(); err != nil {
 		return err
 	} else {
-		log.Println("=====================",v,"=============================/////////////////////")
+		
 		p.Data = []byte(v)
 	}
 	return nil
@@ -9869,6 +9870,7 @@ func (p *UserServiceClient) UserInfo(ctx context.Context, req *UserInfoRequest) 
 	return _result.GetSuccess(), nil
 }
 func (p *UserServiceClient) PublishAction(ctx context.Context, req *PublishActionRequest) (r *PublishActionResponse, err error) {
+	log.Println("-------------------------------PublishAction-----------------------------------------------------")
 	var _args UserServicePublishActionArgs
 	_args.Req = req
 	var _result UserServicePublishActionResult
@@ -10259,6 +10261,7 @@ type userServiceProcessorPublishAction struct {
 }
 
 func (p *userServiceProcessorPublishAction) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	log.Println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	args := UserServicePublishActionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
@@ -11279,6 +11282,7 @@ type UserServicePublishActionArgs struct {
 }
 
 func NewUserServicePublishActionArgs() *UserServicePublishActionArgs {
+	log.Println("***************NewUserServicePublishActionArgs***************")
 	return &UserServicePublishActionArgs{}
 }
 

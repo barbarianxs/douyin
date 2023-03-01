@@ -141,10 +141,7 @@ func _messagechatMw() []app.HandlerFunc {
 func _publishMw() []app.HandlerFunc {
 	// your coreturn []app.HandlerFunc{
 		// use jwt mw
-		return []app.HandlerFunc{
-			// use jwt mw
-			mw.JwtMiddleware.MiddlewareFunc(),
-		}
+	return nil
 }
 
 func _action2Mw() []app.HandlerFunc {
@@ -154,6 +151,7 @@ func _action2Mw() []app.HandlerFunc {
 
 func _publish_ctionMw() []app.HandlerFunc {
 	// your code...
+	// use jwt mw
 	return nil
 }
 
@@ -164,7 +162,10 @@ func _list1Mw() []app.HandlerFunc {
 
 func _publishlistMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _relationMw() []app.HandlerFunc {
