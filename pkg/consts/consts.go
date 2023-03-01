@@ -26,8 +26,8 @@ const (
 	ExportEndpoint  = ":4317"
 	ETCDAddress     = "127.0.0.1:2379"
 	DefaultLimit    = 10
-	VideoSavePath   = "../video"
-	CoverPath = "../img"
+	VideoSavePath   = "/home/guo/go/impl/douyin/pkg/video"
+	CoverPath = "/home/guo/go/impl/douyin/pkg/img"
 	StatusOK = 200
 
 	//favorite actiontype,1是点赞，2是取消点赞

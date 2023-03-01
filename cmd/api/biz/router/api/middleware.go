@@ -152,7 +152,10 @@ func _action2Mw() []app.HandlerFunc {
 func _publish_ctionMw() []app.HandlerFunc {
 	// your code...
 	// use jwt mw
-	return nil
+	return []app.HandlerFunc{
+		// use jwt mw
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
 }
 
 func _list1Mw() []app.HandlerFunc {

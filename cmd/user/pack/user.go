@@ -52,7 +52,7 @@ func Video(v *db.Video, author *db.User) *user.Video {
 		CoverUrl: string(v.CoverUrl),
 		FavoriteCount: int64(v.FavoriteCount),
 		CommentCount: int64(v.CommentCount),
-		IsFavorite: bool(v.IsFavorite),
+		// IsFavorite: bool(v.IsFavorite),
 		Title: string(v.Title),
 		}
 }

@@ -19,6 +19,7 @@ import (
 	"time"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	// "mime/multipart"
+	"os"
 )
 
 // LoginUser .
@@ -111,11 +112,20 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	u, _ := c.Get(consts.IdentityKey)
-	
+	if u == nil {
+		log.Println("1///////////////////",u.(*api.User).ID,"//////////////////////////")
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
 	
 	filename := filepath.Base(video_data.Filename)
 	finalName := fmt.Sprintf("%s", filename)
 	video_path := fmt.Sprintf("%s", filepath.Join(consts.VideoSavePath, finalName))
+	_, err = os.Stat(video_path)
+	if os.IsNotExist(err){
+		fmt.Println("路径不存在")
+	}
+	fmt.Println("路径存在")
 	// video_path := filepath.Join(consts.VideoSavePath, finalName)
 	err = c.SaveUploadedFile(video_data, video_path)
 	log.Println("2///////////////////",err,"//////////////////////////")
@@ -124,7 +134,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	log.Println("1///////////////////",video_path,"//////////////////////////")
+	log.Println("1///////////////////",video_path,"//",filename,"////////////////////////")
 	
 	// yourEndpoint填写Bucket对应的Endpoint，以华东1（杭州）为例，填写为https://oss-cn-hangzhou.aliyuncs.com。其它Region请按实际情况填写。
 	endpoint := "https://oss-cn-hangzhou.aliyuncs.com"
@@ -148,24 +158,24 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
-	// 上传文件。
+	// 上传文件。https://douyin-test-guo.oss-cn-hangzhou.aliyuncs.com/video/2.mp4
 	
-	err = bucket.PutObjectFromFile("video/" + VideoName, localFileName_video)
+	err = bucket.PutObjectFromFile("video/"+ VideoName, localFileName_video)
 	if err != nil {
 		log.Println("上传失败",err)
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
 
 	
-	log.Println("3/////////////////////////////////////////////")
+	
 	
 	// 获取视频截图
 	snapshotName, err := GetSnapshot(video_path, consts.CoverPath, 1)
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
 	}
-	cover_path := fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName))
-	
+	cover_path := fmt.Sprintf("%s", filepath.Join(consts.CoverPath, snapshotName))
+	log.Println("3///////////////////",cover_path,"//////////////////////////")
 	
 	// 上传文件。
 	err = bucket.PutObjectFromFile(ImgName, cover_path)
@@ -188,7 +198,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	log.Println(fmt.Sprintf("%s.jpg", filepath.Join(consts.CoverPath, snapshotName)),video_path)
+	log.Println(fmt.Sprintf("%s", filepath.Join(consts.CoverPath, snapshotName)),video_path)
 	SendResponse(c, errno.Success, nil)
 }
 
@@ -234,10 +244,10 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 	//从token中获取id
 	u, _ := c.Get(consts.IdentityKey)
 	
-	// if u == nil {
-	// 	SendResponse(c, errno.Token2UserIdErr, nil)
-	// 	return
-	// }
+	if u == nil {
+		SendResponse(c, errno.Token2UserIdErr, nil)
+		return
+	}
 	//越权错误
 	// if req.UserID != 0 && req.UserID != u.(*api.User).ID {
 	// 	SendResponse(c, errno.BrokenAccessControlErr, nil)

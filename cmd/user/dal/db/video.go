@@ -19,7 +19,7 @@ type Video struct {
 	FavoriteCount int64     `gorm:"column:favorite_count;default:0"`
 	CommentCount  int64     `gorm:"column:comment_count;default:0"`
 	Title         string    `gorm:"column:title;NOT NULL"`
-	IsFavorite bool  `gorm:"column:is_favorite;default:0"`
+	// IsFavorite bool  `gorm:"column:is_favorite;default:0"`
 	UpdatedAt   time.Time   `gorm:"column:updated_at;default:null " json:"updated_at"`
 }
 
