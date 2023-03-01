@@ -3,7 +3,6 @@
 package user
 
 import (
-	"bytes"
 	"context"
 	"database/sql"
 	"database/sql/driver"
@@ -3765,10 +3764,10 @@ func (p *UserInfoResponse) Field3DeepEqual(src *User) bool {
 }
 
 type PublishActionRequest struct {
-	UserId int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
-	Token  string `thrift:"token,2" frugal:"2,default,string" json:"token"`
-	Data   []byte `thrift:"data,3" frugal:"3,default,binary" json:"data"`
-	Title  string `thrift:"title,4" frugal:"4,default,string" json:"title"`
+	UserId   int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
+	FileUrl  string `thrift:"file_url,2" frugal:"2,default,string" json:"file_url"`
+	CoverUrl string `thrift:"cover_url,3" frugal:"3,default,string" json:"cover_url"`
+	Title    string `thrift:"title,4" frugal:"4,default,string" json:"title"`
 }
 
 func NewPublishActionRequest() *PublishActionRequest {
@@ -3783,12 +3782,12 @@ func (p *PublishActionRequest) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *PublishActionRequest) GetToken() (v string) {
-	return p.Token
+func (p *PublishActionRequest) GetFileUrl() (v string) {
+	return p.FileUrl
 }
 
-func (p *PublishActionRequest) GetData() (v []byte) {
-	return p.Data
+func (p *PublishActionRequest) GetCoverUrl() (v string) {
+	return p.CoverUrl
 }
 
 func (p *PublishActionRequest) GetTitle() (v string) {
@@ -3797,11 +3796,11 @@ func (p *PublishActionRequest) GetTitle() (v string) {
 func (p *PublishActionRequest) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *PublishActionRequest) SetToken(val string) {
-	p.Token = val
+func (p *PublishActionRequest) SetFileUrl(val string) {
+	p.FileUrl = val
 }
-func (p *PublishActionRequest) SetData(val []byte) {
-	p.Data = val
+func (p *PublishActionRequest) SetCoverUrl(val string) {
+	p.CoverUrl = val
 }
 func (p *PublishActionRequest) SetTitle(val string) {
 	p.Title = val
@@ -3809,8 +3808,8 @@ func (p *PublishActionRequest) SetTitle(val string) {
 
 var fieldIDToName_PublishActionRequest = map[int16]string{
 	1: "user_id",
-	2: "token",
-	3: "data",
+	2: "file_url",
+	3: "cover_url",
 	4: "title",
 }
 
@@ -3916,16 +3915,16 @@ func (p *PublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.Token = v
+		p.FileUrl = v
 	}
 	return nil
 }
 
 func (p *PublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadBinary(); err != nil {
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.Data = []byte(v)
+		p.CoverUrl = v
 	}
 	return nil
 }
@@ -3998,10 +3997,10 @@ WriteFieldEndError:
 }
 
 func (p *PublishActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("file_url", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Token); err != nil {
+	if err := oprot.WriteString(p.FileUrl); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4015,10 +4014,10 @@ WriteFieldEndError:
 }
 
 func (p *PublishActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("data", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("cover_url", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBinary([]byte(p.Data)); err != nil {
+	if err := oprot.WriteString(p.CoverUrl); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4064,10 +4063,10 @@ func (p *PublishActionRequest) DeepEqual(ano *PublishActionRequest) bool {
 	if !p.Field1DeepEqual(ano.UserId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Token) {
+	if !p.Field2DeepEqual(ano.FileUrl) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Data) {
+	if !p.Field3DeepEqual(ano.CoverUrl) {
 		return false
 	}
 	if !p.Field4DeepEqual(ano.Title) {
@@ -4085,14 +4084,14 @@ func (p *PublishActionRequest) Field1DeepEqual(src int64) bool {
 }
 func (p *PublishActionRequest) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.Token, src) != 0 {
+	if strings.Compare(p.FileUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *PublishActionRequest) Field3DeepEqual(src []byte) bool {
+func (p *PublishActionRequest) Field3DeepEqual(src string) bool {
 
-	if bytes.Compare(p.Data, src) != 0 {
+	if strings.Compare(p.CoverUrl, src) != 0 {
 		return false
 	}
 	return true

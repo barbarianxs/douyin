@@ -26,8 +26,8 @@ const (
 	ExportEndpoint  = ":4317"
 	ETCDAddress     = "127.0.0.1:2379"
 	DefaultLimit    = 10
-	VideoSavePath   = "../../../../pkg/video"
-	CoverPath = "../../../../pkg/img"
+	VideoSavePath   = "../video"
+	CoverPath = "../img"
 	StatusOK = 200
 
 	//favorite actiontype,1是点赞，2是取消点赞

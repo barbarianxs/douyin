@@ -96,7 +96,10 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	// 	SendResponse(c, errno.ConvertErr(err), nil)
 	// 	return
 	// }
-	
+	if(c.PostForm("token")==""){
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return 
+	}
 	video_data, err := c.FormFile("data")
 	if err != nil {
 		SendResponse(c, errno.ConvertErr(err), nil)
@@ -175,7 +178,7 @@ func PublishAction(ctx context.Context, c *app.RequestContext) {
 	
 	err = rpc.PublishAction(context.Background(), &user.PublishActionRequest{
 		UserId:  u.(*api.User).ID,
-		Token: c.PostForm("token"),
+		// Token: c.PostForm("token"),
 		Title: title,
 		
 		FileUrl: video_path,
